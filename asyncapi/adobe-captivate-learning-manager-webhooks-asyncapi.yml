@@ -1,0 +1,717 @@
+asyncapi: 2.6.0
+info:
+  title: Adobe Learning Manager Webhooks API
+  description: >-
+    The Adobe Learning Manager Webhooks API enables real-time event
+    notifications for learning management activities. When configured,
+    Adobe Learning Manager sends HTTP POST requests to registered webhook
+    URLs whenever significant events occur, such as learner enrollments,
+    course completions, certification achievements, badge awards, and
+    administrative changes. Webhooks support real-time integration with
+    external systems, enabling automated workflows for learner management,
+    reporting, and compliance tracking. Events are delivered as JSON
+    payloads with retry logic for failed deliveries.
+  version: '1.0'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+externalDocs:
+  description: Adobe Learning Manager Webhooks Documentation
+  url: https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
+servers:
+  webhookReceiver:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      Your webhook receiver endpoint. Adobe Learning Manager sends HTTP
+      POST requests to this URL when events occur. The URL must be HTTPS
+      and publicly accessible.
+    variables:
+      webhookUrl:
+        description: >-
+          The HTTPS URL of your webhook endpoint registered in Adobe
+          Learning Manager
+    security:
+      - hmacSignature: []
+channels:
+  /learner-enrollment:
+    description: >-
+      Events triggered when a learner enrolls in a course, learning program,
+      certification, or job aid. Includes both self-enrollment and
+      manager/admin-initiated enrollments.
+    subscribe:
+      operationId: onLearnerEnrollment
+      summary: Learner enrollment event
+      description: >-
+        Fired when a learner is enrolled in a learning object. The event
+        payload contains the learner details, the learning object they
+        enrolled in, and the enrollment metadata including enrollment type
+        and date.
+      message:
+        $ref: '#/components/messages/LearnerEnrollmentEvent'
+  /learner-completion:
+    description: >-
+      Events triggered when a learner completes a course, learning program,
+      or certification module. Includes completion status, score, and
+      timestamp information.
+    subscribe:
+      operationId: onLearnerCompletion
+      summary: Learner completion event
+      description: >-
+        Fired when a learner completes a learning object. The event payload
+        contains completion details including score, pass/fail status,
+        and completion timestamp.
+      message:
+        $ref: '#/components/messages/LearnerCompletionEvent'
+  /learner-progress:
+    description: >-
+      Events triggered when a learner's progress in a course or module
+      is updated. Tracks incremental progress changes.
+    subscribe:
+      operationId: onLearnerProgress
+      summary: Learner progress update event
+      description: >-
+        Fired when a learner's progress in a learning object changes.
+        The payload includes the old and new progress percentage.
+      message:
+        $ref: '#/components/messages/LearnerProgressEvent'
+  /learner-unenrollment:
+    description: >-
+      Events triggered when a learner is unenrolled from a course,
+      learning program, or certification.
+    subscribe:
+      operationId: onLearnerUnenrollment
+      summary: Learner unenrollment event
+      description: >-
+        Fired when a learner is removed from a learning object enrollment.
+        Includes the reason for unenrollment and who initiated it.
+      message:
+        $ref: '#/components/messages/LearnerUnenrollmentEvent'
+  /course-created:
+    description: >-
+      Events triggered when a new course or learning object is created
+      in the Learning Manager account.
+    subscribe:
+      operationId: onCourseCreated
+      summary: Course creation event
+      description: >-
+        Fired when a new learning object (course, learning program,
+        certification, or job aid) is created by an author or admin.
+      message:
+        $ref: '#/components/messages/CourseCreatedEvent'
+  /course-updated:
+    description: >-
+      Events triggered when an existing course or learning object is
+      modified, including content updates, metadata changes, and state
+      transitions.
+    subscribe:
+      operationId: onCourseUpdated
+      summary: Course update event
+      description: >-
+        Fired when a learning object's content, metadata, or state is
+        updated. Includes details about what changed.
+      message:
+        $ref: '#/components/messages/CourseUpdatedEvent'
+  /badge-awarded:
+    description: >-
+      Events triggered when a badge is awarded to a learner upon
+      achieving a specific milestone or completing a learning objective.
+    subscribe:
+      operationId: onBadgeAwarded
+      summary: Badge awarded event
+      description: >-
+        Fired when a learner earns a badge. The payload contains the
+        badge details and the achievement that triggered the award.
+      message:
+        $ref: '#/components/messages/BadgeAwardedEvent'
+  /certification-completed:
+    description: >-
+      Events triggered when a learner completes a certification, including
+      initial certification and recertification cycles.
+    subscribe:
+      operationId: onCertificationCompleted
+      summary: Certification completion event
+      description: >-
+        Fired when a learner completes a certification program. Includes
+        certification validity dates and recertification deadlines.
+      message:
+        $ref: '#/components/messages/CertificationCompletedEvent'
+  /skill-achieved:
+    description: >-
+      Events triggered when a learner achieves a new skill level through
+      course completions or skill credit assignments.
+    subscribe:
+      operationId: onSkillAchieved
+      summary: Skill achievement event
+      description: >-
+        Fired when a learner achieves a new level for a skill. Includes
+        the skill name, level achieved, and credits earned.
+      message:
+        $ref: '#/components/messages/SkillAchievedEvent'
+  /user-created:
+    description: >-
+      Events triggered when a new user is created in the Learning Manager
+      account, either through self-registration, admin creation, or bulk
+      import.
+    subscribe:
+      operationId: onUserCreated
+      summary: User creation event
+      description: >-
+        Fired when a new user account is created. Includes user profile
+        details and the creation method.
+      message:
+        $ref: '#/components/messages/UserCreatedEvent'
+  /user-updated:
+    description: >-
+      Events triggered when a user's profile or state is updated,
+      including role changes, group assignments, and status changes.
+    subscribe:
+      operationId: onUserUpdated
+      summary: User update event
+      description: >-
+        Fired when a user's profile information, role, or state is
+        changed. Includes the updated fields.
+      message:
+        $ref: '#/components/messages/UserUpdatedEvent'
+  /user-deleted:
+    description: >-
+      Events triggered when a user is deleted or purged from the Learning
+      Manager account.
+    subscribe:
+      operationId: onUserDeleted
+      summary: User deletion event
+      description: >-
+        Fired when a user account is deleted. Includes the user ID and
+        deletion timestamp.
+      message:
+        $ref: '#/components/messages/UserDeletedEvent'
+  /job-completed:
+    description: >-
+      Events triggered when a bulk import or export job completes,
+      including status and result details.
+    subscribe:
+      operationId: onJobCompleted
+      summary: Job completion event
+      description: >-
+        Fired when a bulk job (user import, transcript export, etc.)
+        finishes processing. Includes job status and download URL for
+        export jobs.
+      message:
+        $ref: '#/components/messages/JobCompletedEvent'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      name: X-ALM-Webhook-Signature
+      in: header
+      description: >-
+        HMAC-SHA256 signature of the webhook payload, computed using the
+        shared secret configured during webhook registration. Receivers
+        should validate this signature to verify the authenticity of
+        incoming events.
+  schemas:
+    WebhookEventBase:
+      type: object
+      description: Base schema for all webhook event payloads
+      required:
+        - eventType
+        - eventId
+        - accountId
+        - timestamp
+      properties:
+        eventType:
+          type: string
+          description: The type of event that triggered this webhook
+        eventId:
+          type: string
+          format: uuid
+          description: Unique identifier for this event instance
+        accountId:
+          type: string
+          description: The Learning Manager account ID
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event occurred
+        source:
+          type: string
+          description: The system component that generated the event
+          enum:
+            - learner
+            - admin
+            - manager
+            - system
+            - api
+    LearnerReference:
+      type: object
+      description: Reference to a learner involved in an event
+      properties:
+        userId:
+          type: string
+          description: Unique user identifier
+        name:
+          type: string
+          description: Learner's full name
+        email:
+          type: string
+          format: email
+          description: Learner's email address
+    LearningObjectReference:
+      type: object
+      description: Reference to a learning object involved in an event
+      properties:
+        loId:
+          type: string
+          description: Learning object identifier
+        loType:
+          type: string
+          description: Type of learning object
+          enum:
+            - course
+            - learningProgram
+            - certification
+            - jobAid
+        name:
+          type: string
+          description: Learning object name
+        instanceId:
+          type: string
+          description: Learning object instance identifier
+    LearnerEnrollmentPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: LEARNER_ENROLLMENT
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            learningObject:
+              $ref: '#/components/schemas/LearningObjectReference'
+            enrollmentId:
+              type: string
+              description: Unique enrollment identifier
+            enrollmentType:
+              type: string
+              description: How the enrollment was initiated
+              enum:
+                - selfEnrolled
+                - managerNominated
+                - adminEnrolled
+                - autoEnrolled
+            dateEnrolled:
+              type: string
+              format: date-time
+              description: Enrollment timestamp
+    LearnerCompletionPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: LEARNER_COMPLETION
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            learningObject:
+              $ref: '#/components/schemas/LearningObjectReference'
+            enrollmentId:
+              type: string
+              description: Enrollment identifier
+            completedOn:
+              type: string
+              format: date-time
+              description: Completion timestamp
+            hasPassed:
+              type: boolean
+              description: Whether the learner passed
+            score:
+              type: number
+              description: Score achieved
+            progressPercent:
+              type: integer
+              description: Final progress percentage
+              const: 100
+    LearnerProgressPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: LEARNER_PROGRESS
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            learningObject:
+              $ref: '#/components/schemas/LearningObjectReference'
+            enrollmentId:
+              type: string
+              description: Enrollment identifier
+            progressPercent:
+              type: integer
+              description: Current progress percentage
+              minimum: 0
+              maximum: 100
+    LearnerUnenrollmentPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: LEARNER_UNENROLLMENT
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            learningObject:
+              $ref: '#/components/schemas/LearningObjectReference'
+            enrollmentId:
+              type: string
+              description: Enrollment identifier
+            unenrolledBy:
+              type: string
+              description: Who initiated the unenrollment
+              enum:
+                - learner
+                - manager
+                - admin
+                - system
+            dateUnenrolled:
+              type: string
+              format: date-time
+              description: Unenrollment timestamp
+    CourseCreatedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: COURSE_CREATED
+            learningObject:
+              $ref: '#/components/schemas/LearningObjectReference'
+            createdBy:
+              type: string
+              description: User ID of the creator
+            dateCreated:
+              type: string
+              format: date-time
+              description: Creation timestamp
+    CourseUpdatedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: COURSE_UPDATED
+            learningObject:
+              $ref: '#/components/schemas/LearningObjectReference'
+            updatedBy:
+              type: string
+              description: User ID of who made the update
+            updatedFields:
+              type: array
+              description: List of fields that were modified
+              items:
+                type: string
+            dateUpdated:
+              type: string
+              format: date-time
+              description: Update timestamp
+    BadgeAwardedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: BADGE_AWARDED
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            badge:
+              type: object
+              properties:
+                badgeId:
+                  type: string
+                  description: Badge identifier
+                name:
+                  type: string
+                  description: Badge name
+                imageUrl:
+                  type: string
+                  format: uri
+                  description: Badge image URL
+            dateAwarded:
+              type: string
+              format: date-time
+              description: Award timestamp
+    CertificationCompletedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: CERTIFICATION_COMPLETED
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            certification:
+              type: object
+              properties:
+                certificationId:
+                  type: string
+                  description: Certification identifier
+                name:
+                  type: string
+                  description: Certification name
+                instanceId:
+                  type: string
+                  description: Certification instance identifier
+            completedOn:
+              type: string
+              format: date-time
+              description: Completion timestamp
+            validUntil:
+              type: string
+              format: date-time
+              description: Certification validity expiration date
+            recertificationDeadline:
+              type: string
+              format: date-time
+              description: Deadline for recertification
+    SkillAchievedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: SKILL_ACHIEVED
+            learner:
+              $ref: '#/components/schemas/LearnerReference'
+            skill:
+              type: object
+              properties:
+                skillId:
+                  type: string
+                  description: Skill identifier
+                name:
+                  type: string
+                  description: Skill name
+                levelName:
+                  type: string
+                  description: Skill level name achieved
+                credits:
+                  type: number
+                  description: Skill credits earned
+            dateAchieved:
+              type: string
+              format: date-time
+              description: Achievement timestamp
+    UserCreatedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: USER_CREATED
+            user:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: User identifier
+                name:
+                  type: string
+                  description: User's full name
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                roles:
+                  type: array
+                  items:
+                    type: string
+                userType:
+                  type: string
+                  enum:
+                    - Internal
+                    - External
+            creationMethod:
+              type: string
+              description: How the user was created
+              enum:
+                - selfRegistration
+                - adminCreated
+                - csvImport
+                - apiCreated
+                - ssoProvisioned
+    UserUpdatedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: USER_UPDATED
+            user:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: User identifier
+                name:
+                  type: string
+                  description: User's full name
+                email:
+                  type: string
+                  format: email
+            updatedFields:
+              type: array
+              description: Fields that were modified
+              items:
+                type: string
+    UserDeletedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: USER_DELETED
+            user:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: Deleted user identifier
+                email:
+                  type: string
+                  format: email
+            dateDeleted:
+              type: string
+              format: date-time
+              description: Deletion timestamp
+    JobCompletedPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventBase'
+        - type: object
+          properties:
+            eventType:
+              const: JOB_COMPLETED
+            job:
+              type: object
+              properties:
+                jobId:
+                  type: string
+                  description: Job identifier
+                jobType:
+                  type: string
+                  description: Type of bulk operation
+                  enum:
+                    - userImport
+                    - learnerTranscriptExport
+                    - trainingReportExport
+                status:
+                  type: string
+                  description: Final job status
+                  enum:
+                    - Completed
+                    - Failed
+                downloadUrl:
+                  type: string
+                  format: uri
+                  description: URL to download results (for export jobs)
+                recordsProcessed:
+                  type: integer
+                  description: Number of records processed
+                recordsFailed:
+                  type: integer
+                  description: Number of records that failed
+            dateCompleted:
+              type: string
+              format: date-time
+              description: Job completion timestamp
+  messages:
+    LearnerEnrollmentEvent:
+      name: LearnerEnrollmentEvent
+      title: Learner Enrollment Event
+      summary: Notification when a learner enrolls in a learning object
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LearnerEnrollmentPayload'
+    LearnerCompletionEvent:
+      name: LearnerCompletionEvent
+      title: Learner Completion Event
+      summary: Notification when a learner completes a learning object
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LearnerCompletionPayload'
+    LearnerProgressEvent:
+      name: LearnerProgressEvent
+      title: Learner Progress Event
+      summary: Notification when learner progress is updated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LearnerProgressPayload'
+    LearnerUnenrollmentEvent:
+      name: LearnerUnenrollmentEvent
+      title: Learner Unenrollment Event
+      summary: Notification when a learner is unenrolled
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LearnerUnenrollmentPayload'
+    CourseCreatedEvent:
+      name: CourseCreatedEvent
+      title: Course Created Event
+      summary: Notification when a new course is created
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CourseCreatedPayload'
+    CourseUpdatedEvent:
+      name: CourseUpdatedEvent
+      title: Course Updated Event
+      summary: Notification when a course is updated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CourseUpdatedPayload'
+    BadgeAwardedEvent:
+      name: BadgeAwardedEvent
+      title: Badge Awarded Event
+      summary: Notification when a badge is awarded to a learner
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BadgeAwardedPayload'
+    CertificationCompletedEvent:
+      name: CertificationCompletedEvent
+      title: Certification Completed Event
+      summary: Notification when a learner completes a certification
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CertificationCompletedPayload'
+    SkillAchievedEvent:
+      name: SkillAchievedEvent
+      title: Skill Achieved Event
+      summary: Notification when a learner achieves a new skill level
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SkillAchievedPayload'
+    UserCreatedEvent:
+      name: UserCreatedEvent
+      title: User Created Event
+      summary: Notification when a new user is created
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UserCreatedPayload'
+    UserUpdatedEvent:
+      name: UserUpdatedEvent
+      title: User Updated Event
+      summary: Notification when a user is updated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UserUpdatedPayload'
+    UserDeletedEvent:
+      name: UserDeletedEvent
+      title: User Deleted Event
+      summary: Notification when a user is deleted
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UserDeletedPayload'
+    JobCompletedEvent:
+      name: JobCompletedEvent
+      title: Job Completed Event
+      summary: Notification when a bulk job completes
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/JobCompletedPayload'

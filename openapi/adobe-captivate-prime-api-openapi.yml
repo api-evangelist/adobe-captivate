@@ -1,0 +1,2040 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager)
+  description: >-
+    The Adobe Learning Manager (formerly Captivate Prime) API v2 provides
+    programmatic access to the Learning Management System for managing learning
+    objects, courses, users, enrollments, certifications, skills, badges,
+    gamification, catalogs, and user groups. The API follows the JSON:API
+    specification and uses OAuth 2.0 for authentication. It enables integration
+    with third-party systems for automating learner management, content
+    delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/
+servers:
+  - url: https://learningmanager.adobe.com/primeapi/v2
+    description: Adobe Learning Manager Production API
+tags:
+  - name: Learning Objects
+    description: >-
+      Manage learning objects including courses, learning programs,
+      certifications, and job aids
+  - name: Users
+    description: Manage learner, manager, author, and admin user accounts
+  - name: Enrollments
+    description: Manage learner enrollments in courses and learning programs
+  - name: Catalogs
+    description: Manage content catalogs that organize learning objects
+  - name: Skills
+    description: Manage skills and skill levels associated with learning content
+  - name: Badges
+    description: Manage badges awarded to learners for achievements
+  - name: User Groups
+    description: Manage groups of users for targeted content delivery
+  - name: Certifications
+    description: Manage certification programs and compliance tracking
+  - name: Gamification
+    description: Manage gamification points and leaderboard features
+  - name: Jobs
+    description: Manage bulk import/export jobs for data operations
+  - name: Notifications
+    description: Manage user notifications and announcements
+  - name: Account
+    description: Retrieve and manage account-level settings
+security:
+  - oauth2: []
+paths:
+  /learningObjects:
+    get:
+      operationId: getLearningObjects
+      summary: List learning objects
+      description: >-
+        Retrieves a paginated list of learning objects available to the
+        authenticated user. Learning objects include courses, learning programs,
+        certifications, and job aids. Supports filtering by type, catalog,
+        skill, tag, and status.
+      tags:
+        - Learning Objects
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - $ref: '#/components/parameters/sort'
+        - name: filter.loTypes
+          in: query
+          description: >-
+            Comma-separated list of learning object types to filter by
+          schema:
+            type: string
+            enum:
+              - course
+              - learningProgram
+              - certification
+              - jobAid
+        - name: filter.catalogIds
+          in: query
+          description: Comma-separated list of catalog IDs to filter by
+          schema:
+            type: string
+        - name: filter.skillName
+          in: query
+          description: Filter by skill name
+          schema:
+            type: string
+        - name: filter.tagName
+          in: query
+          description: Filter by tag name
+          schema:
+            type: string
+        - name: filter.loState
+          in: query
+          description: Filter by learning object state
+          schema:
+            type: string
+            enum:
+              - Active
+              - Retired
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources to include. Valid values:
+            instances, enrollment, skills, subLOs, prerequisiteLOs,
+            supplementaryResources, authors, catalogLabels
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of learning objects
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectListResponse'
+        '400':
+          description: Invalid filter parameters
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - missing or invalid access token
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /learningObjects/{learningObjectId}:
+    get:
+      operationId: getLearningObject
+      summary: Get a learning object
+      description: >-
+        Retrieves a single learning object by its ID, including its metadata,
+        instances, and relationships. The response follows JSON:API format with
+        optional included resources.
+      tags:
+        - Learning Objects
+      parameters:
+        - $ref: '#/components/parameters/learningObjectId'
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources to include in the response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Learning object details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectResponse'
+        '404':
+          description: Learning object not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /learningObjects/{learningObjectId}/instances:
+    get:
+      operationId: getLearningObjectInstances
+      summary: List instances of a learning object
+      description: >-
+        Retrieves all instances associated with a learning object. Each
+        instance represents a specific offering of the course with its own
+        enrollment deadline, completion deadline, and seat limit.
+      tags:
+        - Learning Objects
+      parameters:
+        - $ref: '#/components/parameters/learningObjectId'
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: List of learning object instances
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectInstanceListResponse'
+        '404':
+          description: Learning object not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /users:
+    get:
+      operationId: getUsers
+      summary: List users
+      description: >-
+        Retrieves a paginated list of users in the account. Supports filtering
+        by role, active status, and user group. Only accessible by admin and
+        integration admin roles.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - $ref: '#/components/parameters/sort'
+        - name: filter.role
+          in: query
+          description: Filter users by role
+          schema:
+            type: string
+            enum:
+              - learner
+              - manager
+              - author
+              - admin
+              - integrationAdmin
+        - name: filter.isActive
+          in: query
+          description: Filter by active status
+          schema:
+            type: boolean
+        - name: filter.userGroupId
+          in: query
+          description: Filter by user group ID
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources to include. Valid values:
+            manager, userGroups, account
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - insufficient role permissions
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /users/{userId}:
+    get:
+      operationId: getUser
+      summary: Get a user
+      description: >-
+        Retrieves a single user by their ID, including profile information
+        and related resources.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - name: include
+          in: query
+          description: Comma-separated list of related resources to include
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      operationId: updateUser
+      summary: Update a user
+      description: >-
+        Updates user profile fields such as name, email, manager assignment,
+        and user state. Follows JSON:API PATCH semantics.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid update data
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /enrollments:
+    get:
+      operationId: getEnrollments
+      summary: List enrollments
+      description: >-
+        Retrieves a paginated list of enrollments. Can be scoped to the
+        authenticated user or to all users (admin only). Supports filtering
+        by learning object ID, state, and date range.
+      tags:
+        - Enrollments
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - $ref: '#/components/parameters/sort'
+        - name: filter.loId
+          in: query
+          description: Filter by learning object ID
+          schema:
+            type: string
+        - name: filter.loInstanceId
+          in: query
+          description: Filter by learning object instance ID
+          schema:
+            type: string
+        - name: filter.userId
+          in: query
+          description: Filter by user ID (admin only)
+          schema:
+            type: string
+        - name: filter.states
+          in: query
+          description: Comma-separated list of enrollment states to filter by
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources to include. Valid values:
+            learningObject, loInstance, loResourceGrades
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of enrollments
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createEnrollment
+      summary: Enroll a user
+      description: >-
+        Enrolls a user in a learning object instance. The request must
+        specify the learning object instance and the user to enroll.
+      tags:
+        - Enrollments
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EnrollmentCreateRequest'
+      responses:
+        '201':
+          description: Enrollment created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentResponse'
+        '400':
+          description: Invalid enrollment request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: User is already enrolled
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /enrollments/{enrollmentId}:
+    get:
+      operationId: getEnrollment
+      summary: Get an enrollment
+      description: Retrieves a single enrollment by its ID.
+      tags:
+        - Enrollments
+      parameters:
+        - $ref: '#/components/parameters/enrollmentId'
+        - name: include
+          in: query
+          description: Comma-separated list of related resources to include
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Enrollment details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentResponse'
+        '404':
+          description: Enrollment not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: unenrollUser
+      summary: Unenroll a user
+      description: >-
+        Removes a user's enrollment from a learning object instance.
+        Only applicable if the enrollment is in a state that allows unenrollment.
+      tags:
+        - Enrollments
+      parameters:
+        - $ref: '#/components/parameters/enrollmentId'
+      responses:
+        '204':
+          description: Enrollment deleted successfully
+        '400':
+          description: Enrollment cannot be deleted in its current state
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Enrollment not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /catalogs:
+    get:
+      operationId: getCatalogs
+      summary: List catalogs
+      description: >-
+        Retrieves a paginated list of catalogs available to the authenticated
+        user. Catalogs organize learning objects and control visibility.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources to include. Valid values:
+            learningObjects
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of catalogs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CatalogListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /catalogs/{catalogId}:
+    get:
+      operationId: getCatalog
+      summary: Get a catalog
+      description: Retrieves a single catalog by its ID.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/catalogId'
+        - name: include
+          in: query
+          description: Comma-separated list of related resources to include
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Catalog details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Catalog not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /skills:
+    get:
+      operationId: getSkills
+      summary: List skills
+      description: >-
+        Retrieves a paginated list of skills defined in the account. Skills
+        represent competencies that learners develop by completing learning
+        objects.
+      tags:
+        - Skills
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - name: filter.name
+          in: query
+          description: Filter skills by name (partial match supported)
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources to include. Valid values:
+            skillLevels, learningObjects
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of skills
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/SkillListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /skills/{skillId}:
+    get:
+      operationId: getSkill
+      summary: Get a skill
+      description: Retrieves a single skill by its ID with its levels and associations.
+      tags:
+        - Skills
+      parameters:
+        - $ref: '#/components/parameters/skillId'
+        - name: include
+          in: query
+          description: Comma-separated list of related resources to include
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Skill details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/SkillResponse'
+        '404':
+          description: Skill not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /badges:
+    get:
+      operationId: getBadges
+      summary: List badges
+      description: >-
+        Retrieves a paginated list of badges. Badges are awarded to learners
+        upon achieving specific milestones or completing learning objects.
+      tags:
+        - Badges
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: List of badges
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadgeListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /badges/{badgeId}:
+    get:
+      operationId: getBadge
+      summary: Get a badge
+      description: Retrieves a single badge by its ID.
+      tags:
+        - Badges
+      parameters:
+        - $ref: '#/components/parameters/badgeId'
+      responses:
+        '200':
+          description: Badge details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadgeResponse'
+        '404':
+          description: Badge not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /userGroups:
+    get:
+      operationId: getUserGroups
+      summary: List user groups
+      description: >-
+        Retrieves a paginated list of user groups. User groups are used to
+        organize learners and assign content, learning plans, or catalogs
+        to specific sets of users.
+      tags:
+        - User Groups
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - name: filter.name
+          in: query
+          description: Filter by user group name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of user groups
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserGroupListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /userGroups/{userGroupId}:
+    get:
+      operationId: getUserGroup
+      summary: Get a user group
+      description: Retrieves a single user group by its ID.
+      tags:
+        - User Groups
+      parameters:
+        - $ref: '#/components/parameters/userGroupId'
+      responses:
+        '200':
+          description: User group details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserGroupResponse'
+        '404':
+          description: User group not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /certifications:
+    get:
+      operationId: getCertifications
+      summary: List certifications
+      description: >-
+        Retrieves a paginated list of certifications. Certifications are
+        recurring learning objects that verify a learner's knowledge or
+        compliance on a regular basis.
+      tags:
+        - Certifications
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - name: filter.state
+          in: query
+          description: Filter by certification state
+          schema:
+            type: string
+            enum:
+              - Active
+              - Retired
+        - name: include
+          in: query
+          description: Comma-separated list of related resources to include
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of certifications
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CertificationListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /users/{userId}/gamificationPoints:
+    get:
+      operationId: getUserGamificationPoints
+      summary: Get user gamification points
+      description: >-
+        Retrieves gamification points for a specific user, broken down by
+        point category (learning, manager, leader, and overall).
+      tags:
+        - Gamification
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User gamification points
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/GamificationPointsResponse'
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /users/{userId}/userNotifications:
+    get:
+      operationId: getUserNotifications
+      summary: List user notifications
+      description: >-
+        Retrieves notifications for a specific user, including enrollment
+        reminders, completion notifications, manager approvals, and
+        announcements.
+      tags:
+        - Notifications
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: List of notifications
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotificationListResponse'
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /jobs:
+    get:
+      operationId: getJobs
+      summary: List jobs
+      description: >-
+        Retrieves a paginated list of bulk import/export jobs. Jobs support
+        operations such as user import via CSV, learner transcript export,
+        and training report export.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - name: filter.status
+          in: query
+          description: Filter by job status
+          schema:
+            type: string
+            enum:
+              - Submitted
+              - InProgress
+              - Completed
+              - Failed
+      responses:
+        '200':
+          description: List of jobs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/JobListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createJob
+      summary: Create a job
+      description: >-
+        Creates a new bulk import or export job. Supports user import via
+        CSV, learner transcript export, and training data export.
+      tags:
+        - Jobs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/JobCreateRequest'
+      responses:
+        '201':
+          description: Job created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          description: Invalid job request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /jobs/{jobId}:
+    get:
+      operationId: getJob
+      summary: Get a job
+      description: Retrieves the status and details of a specific job.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/jobId'
+      responses:
+        '200':
+          description: Job details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '404':
+          description: Job not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /account:
+    get:
+      operationId: getAccount
+      summary: Get account details
+      description: >-
+        Retrieves the account configuration and details for the authenticated
+        user's Learning Manager account, including timezone, locale, and
+        enabled features.
+      tags:
+        - Account
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /search:
+    get:
+      operationId: searchLearningObjects
+      summary: Search learning objects
+      description: >-
+        Performs a text-based search across learning objects. Returns matching
+        courses, learning programs, certifications, and job aids based on the
+        search query. Supports pagination and filtering by learning object
+        type and catalog.
+      tags:
+        - Learning Objects
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: The search query string
+          schema:
+            type: string
+        - name: filter.loTypes
+          in: query
+          description: Comma-separated list of learning object types to search
+          schema:
+            type: string
+        - name: filter.catalogIds
+          in: query
+          description: Comma-separated list of catalog IDs to search within
+          schema:
+            type: string
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectListResponse'
+        '400':
+          description: Missing or invalid query parameter
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /users/{userId}/userSkills:
+    get:
+      operationId: getUserSkills
+      summary: List user skills
+      description: >-
+        Retrieves skills acquired by a specific user, including the skill
+        level achieved and points earned toward each skill.
+      tags:
+        - Skills
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+        - name: include
+          in: query
+          description: >-
+            Comma-separated list of related resources. Valid values:
+            skill, skillLevel
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of user skills
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserSkillListResponse'
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /users/{userId}/userBadges:
+    get:
+      operationId: getUserBadges
+      summary: List user badges
+      description: >-
+        Retrieves badges earned by a specific user, including the date
+        earned and associated learning object.
+      tags:
+        - Badges
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/pageOffset'
+        - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: List of user badges
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserBadgeListResponse'
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0 authentication via Adobe IMS. Supports authorization code
+        flow for user-context access and client credentials flow for
+        application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+  parameters:
+    learningObjectId:
+      name: learningObjectId
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the learning object (format: course:XXXXXX,
+        learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    enrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: The unique identifier of the enrollment
+      schema:
+        type: string
+    catalogId:
+      name: catalogId
+      in: path
+      required: true
+      description: The unique identifier of the catalog
+      schema:
+        type: string
+    skillId:
+      name: skillId
+      in: path
+      required: true
+      description: The unique identifier of the skill
+      schema:
+        type: string
+    badgeId:
+      name: badgeId
+      in: path
+      required: true
+      description: The unique identifier of the badge
+      schema:
+        type: string
+    userGroupId:
+      name: userGroupId
+      in: path
+      required: true
+      description: The unique identifier of the user group
+      schema:
+        type: string
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the job
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    sort:
+      name: sort
+      in: query
+      description: >-
+        Sort field and direction. Prefix with - for descending order.
+        Example: -dateCreated, name, -dateUpdated
+      schema:
+        type: string
+  schemas:
+    LearningObject:
+      type: object
+      description: >-
+        A learning object representing a course, learning program,
+        certification, or job aid in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the learning object
+        type:
+          type: string
+          description: JSON:API resource type
+          const: learningObject
+        attributes:
+          type: object
+          properties:
+            authorNames:
+              type: array
+              description: Names of the content authors
+              items:
+                type: string
+            dateCreated:
+              type: string
+              format: date-time
+              description: Timestamp when the learning object was created
+            datePublished:
+              type: string
+              format: date-time
+              description: Timestamp when the learning object was published
+            dateUpdated:
+              type: string
+              format: date-time
+              description: Timestamp of the last update
+            duration:
+              type: integer
+              description: Estimated duration to complete in seconds
+            effectiveModifiedDate:
+              type: string
+              format: date-time
+              description: Effective modification date
+            enrollmentType:
+              type: string
+              description: How users can enroll in this learning object
+              enum:
+                - Self Enrolled
+                - Manager Nominated
+                - Admin Enrolled
+            imageUrl:
+              type: string
+              format: uri
+              description: URL of the learning object thumbnail image
+            loFormat:
+              type: string
+              description: Content delivery format
+              enum:
+                - Self Paced
+                - Blended
+                - Classroom
+                - Virtual Classroom
+                - Activity
+            loType:
+              type: string
+              description: Type of learning object
+              enum:
+                - course
+                - learningProgram
+                - certification
+                - jobAid
+            localizedMetadata:
+              type: array
+              description: Metadata in different locales
+              items:
+                $ref: '#/components/schemas/LocalizedMetadata'
+            state:
+              type: string
+              description: Current state of the learning object
+              enum:
+                - Active
+                - Retired
+                - Published
+                - Draft
+            tags:
+              type: array
+              description: Tags associated with the learning object
+              items:
+                type: string
+            unenrollmentAllowed:
+              type: boolean
+              description: Whether learners can self-unenroll
+        relationships:
+          type: object
+          properties:
+            instances:
+              $ref: '#/components/schemas/Relationship'
+            skills:
+              $ref: '#/components/schemas/Relationship'
+            prerequisiteLOs:
+              $ref: '#/components/schemas/Relationship'
+            subLOs:
+              $ref: '#/components/schemas/Relationship'
+            authors:
+              $ref: '#/components/schemas/Relationship'
+            catalog:
+              $ref: '#/components/schemas/Relationship'
+    LocalizedMetadata:
+      type: object
+      description: Metadata for a learning object in a specific locale
+      properties:
+        description:
+          type: string
+          description: Description in the specified locale
+        locale:
+          type: string
+          description: The locale code (e.g. en-US, fr-FR)
+        name:
+          type: string
+          description: Name in the specified locale
+        overview:
+          type: string
+          description: Overview or summary text
+        richTextOverview:
+          type: string
+          description: Rich text (HTML) overview content
+    LearningObjectInstance:
+      type: object
+      description: >-
+        An instance of a learning object representing a specific offering
+        with its own timeline and enrollment settings
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the instance
+        type:
+          type: string
+          const: learningObjectInstance
+        attributes:
+          type: object
+          properties:
+            completionDeadline:
+              type: string
+              format: date-time
+              description: Deadline by which the learner must complete the course
+            enrollmentDeadline:
+              type: string
+              format: date-time
+              description: Deadline for enrolling in this instance
+            isDefault:
+              type: boolean
+              description: Whether this is the default instance
+            seatLimit:
+              type: integer
+              description: Maximum number of learners who can enroll
+            state:
+              type: string
+              description: Current state of the instance
+              enum:
+                - Active
+                - Retired
+    User:
+      type: object
+      description: A user in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+        type:
+          type: string
+          const: user
+        attributes:
+          type: object
+          properties:
+            avatarUrl:
+              type: string
+              format: uri
+              description: URL of the user's avatar image
+            email:
+              type: string
+              format: email
+              description: User's email address
+            name:
+              type: string
+              description: User's full name
+            pointsEarned:
+              type: integer
+              description: Total gamification points earned
+            profile:
+              type: string
+              description: Profile bio text
+            roles:
+              type: array
+              description: List of roles assigned to the user
+              items:
+                type: string
+                enum:
+                  - learner
+                  - manager
+                  - author
+                  - admin
+                  - integrationAdmin
+            state:
+              type: string
+              description: User account state
+              enum:
+                - ACTIVE
+                - DELETED
+                - SUSPENDED
+            userType:
+              type: string
+              description: User type classification
+              enum:
+                - Internal
+                - External
+        relationships:
+          type: object
+          properties:
+            manager:
+              $ref: '#/components/schemas/Relationship'
+            userGroups:
+              $ref: '#/components/schemas/Relationship'
+            account:
+              $ref: '#/components/schemas/Relationship'
+    Enrollment:
+      type: object
+      description: A learner's enrollment in a learning object instance
+      properties:
+        id:
+          type: string
+          description: Unique enrollment identifier
+        type:
+          type: string
+          const: enrollment
+        attributes:
+          type: object
+          properties:
+            completedOn:
+              type: string
+              format: date-time
+              description: Timestamp when the enrollment was completed
+            dateEnrolled:
+              type: string
+              format: date-time
+              description: Timestamp when the learner was enrolled
+            dateStarted:
+              type: string
+              format: date-time
+              description: Timestamp when the learner started
+            hasPassed:
+              type: boolean
+              description: Whether the learner passed the learning object
+            progressPercent:
+              type: integer
+              description: Completion progress as a percentage (0-100)
+              minimum: 0
+              maximum: 100
+            score:
+              type: number
+              description: Score achieved by the learner
+            state:
+              type: string
+              description: Current enrollment state
+              enum:
+                - ENROLLED
+                - STARTED
+                - COMPLETED
+                - PENDING_APPROVAL
+                - REJECTED
+                - EXPIRED
+        relationships:
+          type: object
+          properties:
+            learner:
+              $ref: '#/components/schemas/Relationship'
+            learningObject:
+              $ref: '#/components/schemas/Relationship'
+            loInstance:
+              $ref: '#/components/schemas/Relationship'
+    Catalog:
+      type: object
+      description: A catalog that organizes and controls access to learning objects
+      properties:
+        id:
+          type: string
+          description: Unique catalog identifier
+        type:
+          type: string
+          const: catalog
+        attributes:
+          type: object
+          properties:
+            dateCreated:
+              type: string
+              format: date-time
+              description: Timestamp when the catalog was created
+            dateUpdated:
+              type: string
+              format: date-time
+              description: Timestamp of the last update
+            description:
+              type: string
+              description: Catalog description
+            isDefault:
+              type: boolean
+              description: Whether this is the default catalog
+            isInternallySearchable:
+              type: boolean
+              description: Whether learning objects in this catalog appear in search
+            name:
+              type: string
+              description: Catalog name
+            state:
+              type: string
+              description: Catalog state
+              enum:
+                - Enabled
+                - Disabled
+        relationships:
+          type: object
+          properties:
+            learningObjects:
+              $ref: '#/components/schemas/Relationship'
+    Skill:
+      type: object
+      description: A skill competency defined in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique skill identifier
+        type:
+          type: string
+          const: skill
+        attributes:
+          type: object
+          properties:
+            description:
+              type: string
+              description: Skill description
+            name:
+              type: string
+              description: Skill name
+            state:
+              type: string
+              description: Skill state
+              enum:
+                - Active
+                - Retired
+        relationships:
+          type: object
+          properties:
+            skillLevels:
+              $ref: '#/components/schemas/Relationship'
+            learningObjects:
+              $ref: '#/components/schemas/Relationship'
+    Badge:
+      type: object
+      description: A badge awarded to learners for achievements
+      properties:
+        id:
+          type: string
+          description: Unique badge identifier
+        type:
+          type: string
+          const: badge
+        attributes:
+          type: object
+          properties:
+            imageUrl:
+              type: string
+              format: uri
+              description: URL of the badge image
+            name:
+              type: string
+              description: Badge name
+            state:
+              type: string
+              description: Badge state
+              enum:
+                - Active
+                - Retired
+    UserGroup:
+      type: object
+      description: A group of users for organizing and targeting content
+      properties:
+        id:
+          type: string
+          description: Unique user group identifier
+        type:
+          type: string
+          const: userGroup
+        attributes:
+          type: object
+          properties:
+            dateCreated:
+              type: string
+              format: date-time
+              description: Timestamp when the group was created
+            description:
+              type: string
+              description: Group description
+            name:
+              type: string
+              description: Group name
+            state:
+              type: string
+              description: Group state
+              enum:
+                - Active
+                - Deleted
+            userCount:
+              type: integer
+              description: Number of users in the group
+    Job:
+      type: object
+      description: A bulk import/export job
+      properties:
+        id:
+          type: string
+          description: Unique job identifier
+        type:
+          type: string
+          const: job
+        attributes:
+          type: object
+          properties:
+            dateCreated:
+              type: string
+              format: date-time
+              description: Timestamp when the job was created
+            dateCompleted:
+              type: string
+              format: date-time
+              description: Timestamp when the job completed
+            description:
+              type: string
+              description: Job description
+            downloadUrl:
+              type: string
+              format: uri
+              description: URL to download the job result file (for export jobs)
+            jobType:
+              type: string
+              description: The type of bulk operation
+              enum:
+                - userImport
+                - learnerTranscriptExport
+                - trainingReportExport
+            status:
+              type: string
+              description: Current job status
+              enum:
+                - Submitted
+                - InProgress
+                - Completed
+                - Failed
+    Account:
+      type: object
+      description: A Learning Manager account
+      properties:
+        id:
+          type: string
+          description: Unique account identifier
+        type:
+          type: string
+          const: account
+        attributes:
+          type: object
+          properties:
+            dateCreated:
+              type: string
+              format: date-time
+              description: Account creation timestamp
+            gamificationEnabled:
+              type: boolean
+              description: Whether gamification features are enabled
+            locale:
+              type: string
+              description: Default locale for the account
+            name:
+              type: string
+              description: Account name
+            subdomain:
+              type: string
+              description: The Learning Manager subdomain
+            timezone:
+              type: string
+              description: Default timezone for the account
+    Notification:
+      type: object
+      description: A user notification
+      properties:
+        id:
+          type: string
+          description: Unique notification identifier
+        type:
+          type: string
+          const: userNotification
+        attributes:
+          type: object
+          properties:
+            actionTaken:
+              type: boolean
+              description: Whether the user has acted on this notification
+            channel:
+              type: string
+              description: Notification delivery channel
+            dateCreated:
+              type: string
+              format: date-time
+              description: Notification creation timestamp
+            message:
+              type: object
+              description: Notification message content
+            modelType:
+              type: string
+              description: The type of model this notification relates to
+            read:
+              type: boolean
+              description: Whether the notification has been read
+    GamificationPoints:
+      type: object
+      description: Gamification points for a user
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        type:
+          type: string
+          const: gamification
+        attributes:
+          type: object
+          properties:
+            learnerPoints:
+              type: integer
+              description: Points earned through learning activities
+            managerPoints:
+              type: integer
+              description: Points earned as a manager
+            overallPoints:
+              type: integer
+              description: Total points across all categories
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+            - $ref: '#/components/schemas/ResourceIdentifier'
+            - type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    LearningObjectListResponse:
+      type: object
+      description: Paginated list of learning objects
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObject'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        included:
+          type: array
+          description: Related resources included via the include parameter
+          items:
+            type: object
+    LearningObjectResponse:
+      type: object
+      description: Single learning object response
+      properties:
+        data:
+          $ref: '#/components/schemas/LearningObject'
+        included:
+          type: array
+          items:
+            type: object
+    LearningObjectInstanceListResponse:
+      type: object
+      description: Paginated list of learning object instances
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObjectInstance'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    UserListResponse:
+      type: object
+      description: Paginated list of users
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    UserResponse:
+      type: object
+      description: Single user response
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    UserUpdateRequest:
+      type: object
+      description: Request body for updating a user
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID
+            type:
+              type: string
+              const: user
+            attributes:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated user name
+                email:
+                  type: string
+                  format: email
+                  description: Updated email address
+                profile:
+                  type: string
+                  description: Updated profile bio
+                state:
+                  type: string
+                  enum:
+                    - ACTIVE
+                    - DELETED
+                    - SUSPENDED
+    EnrollmentListResponse:
+      type: object
+      description: Paginated list of enrollments
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    EnrollmentResponse:
+      type: object
+      description: Single enrollment response
+      properties:
+        data:
+          $ref: '#/components/schemas/Enrollment'
+    EnrollmentCreateRequest:
+      type: object
+      description: Request body for creating an enrollment
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+            - attributes
+          properties:
+            type:
+              type: string
+              const: enrollment
+            attributes:
+              type: object
+              properties:
+                loInstanceId:
+                  type: string
+                  description: ID of the learning object instance to enroll in
+            relationships:
+              type: object
+              properties:
+                loInstance:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
+                learner:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
+    CatalogListResponse:
+      type: object
+      description: Paginated list of catalogs
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Catalog'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    CatalogResponse:
+      type: object
+      description: Single catalog response
+      properties:
+        data:
+          $ref: '#/components/schemas/Catalog'
+    SkillListResponse:
+      type: object
+      description: Paginated list of skills
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SkillResponse:
+      type: object
+      description: Single skill response
+      properties:
+        data:
+          $ref: '#/components/schemas/Skill'
+    BadgeListResponse:
+      type: object
+      description: Paginated list of badges
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Badge'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    BadgeResponse:
+      type: object
+      description: Single badge response
+      properties:
+        data:
+          $ref: '#/components/schemas/Badge'
+    UserGroupListResponse:
+      type: object
+      description: Paginated list of user groups
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    UserGroupResponse:
+      type: object
+      description: Single user group response
+      properties:
+        data:
+          $ref: '#/components/schemas/UserGroup'
+    CertificationListResponse:
+      type: object
+      description: Paginated list of certifications
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObject'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    GamificationPointsResponse:
+      type: object
+      description: User gamification points response
+      properties:
+        data:
+          $ref: '#/components/schemas/GamificationPoints'
+    NotificationListResponse:
+      type: object
+      description: Paginated list of notifications
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    JobListResponse:
+      type: object
+      description: Paginated list of jobs
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    JobResponse:
+      type: object
+      description: Single job response
+      properties:
+        data:
+          $ref: '#/components/schemas/Job'
+    JobCreateRequest:
+      type: object
+      description: Request body for creating a bulk job
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+            - attributes
+          properties:
+            type:
+              type: string
+              const: job
+            attributes:
+              type: object
+              required:
+                - jobType
+              properties:
+                jobType:
+                  type: string
+                  description: The type of bulk operation
+                  enum:
+                    - userImport
+                    - learnerTranscriptExport
+                    - trainingReportExport
+                description:
+                  type: string
+                  description: Description for this job
+    AccountResponse:
+      type: object
+      description: Account details response
+      properties:
+        data:
+          $ref: '#/components/schemas/Account'
+    UserSkillListResponse:
+      type: object
+      description: Paginated list of user skills
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                const: userSkill
+              attributes:
+                type: object
+                properties:
+                  dateAchieved:
+                    type: string
+                    format: date-time
+                    description: When the skill was achieved
+                  pointsEarned:
+                    type: number
+                    description: Points earned toward this skill
+              relationships:
+                type: object
+                properties:
+                  skill:
+                    $ref: '#/components/schemas/Relationship'
+                  skillLevel:
+                    $ref: '#/components/schemas/Relationship'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    UserBadgeListResponse:
+      type: object
+      description: Paginated list of user badges
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                const: userBadge
+              attributes:
+                type: object
+                properties:
+                  assertionUrl:
+                    type: string
+                    format: uri
+                    description: Open Badge assertion URL
+                  dateAchieved:
+                    type: string
+                    format: date-time
+                    description: When the badge was earned
+              relationships:
+                type: object
+                properties:
+                  badge:
+                    $ref: '#/components/schemas/Relationship'
+                  learningObject:
+                    $ref: '#/components/schemas/Relationship'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code

@@ -3,7 +3,7 @@ description: Adobe Captivate is an eLearning authoring tool used to create respo
 image: https://www.adobe.com/content/dam/cc/icons/captivate.svg
 url: https://www.adobe.com/products/captivate.html
 created: 2024-01-20 00:00:00+00:00
-modified: 2024-01-20 00:00:00+00:00
+modified: '2026-03-04'
 specificationVersion: '0.18'
 tags:
 - eLearning
@@ -29,6 +29,8 @@ apis:
     url: https://captivateprime.adobe.com/docs/primeapi/v2/
   - type: OpenAPI
     url: https://learningmanager.adobe.com/primeapi/v2/swagger.json
+  - type: OpenAPI
+    url: openapi/adobe-captivate-prime-api-openapi.yml
   - type: Authentication
     url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
   - type: Postman Collection
@@ -67,10 +69,26 @@ apis:
   properties:
   - type: Documentation
     url: https://helpx.adobe.com/captivate/using/shared-review.html
+- name: Adobe Learning Manager Webhooks API
+  description: >-
+    Webhooks API for Adobe Learning Manager that enables real-time event
+    notifications for learner activities, course completions, enrollments,
+    and other learning management events.
+  humanURL: https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  - Learning Management
+  properties:
+  - type: Documentation
+    url: https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
+  - type: AsyncAPI
+    url: asyncapi/adobe-captivate-learning-manager-webhooks-asyncapi.yml
 maintainers:
-- name: Adobe Systems
-  email: support@adobe.com
-  url: https://www.adobe.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com
 common:
 - type: Support
   url: https://helpx.adobe.com/support/captivate.html
@@ -86,3 +104,25 @@ common:
   url: https://www.adobe.com/privacy.html
 - type: Contact
   url: https://www.adobe.com/products/captivate/contact.html
+- type: Portal
+  url: https://experienceleague.adobe.com/docs/learning-manager/using/introduction.html
+- type: Getting Started
+  url: https://experienceleague.adobe.com/docs/learning-manager/using/getting-started/getting-started.html
+- type: Documentation
+  url: https://experienceleague.adobe.com/docs/learning-manager/using/home.html
+- type: Console
+  url: https://developer.adobe.com/console/
+- type: Change Log
+  url: https://experienceleague.adobe.com/docs/learning-manager/using/whats-new.html
+- type: Website
+  url: https://business.adobe.com/products/learning-manager/adobe-learning-manager.html
+- type: Login
+  url: https://learningmanager.adobe.com/
+- type: YouTube
+  url: https://www.youtube.com/user/AdobeELearning
+- type: GitHub Organization
+  url: https://github.com/adobe
+- type: JSONSchema
+  url: json-schema/adobe-captivate-learning-object-schema.json
+- type: JSON-LD
+  url: json-ld/adobe-captivate-context.jsonld

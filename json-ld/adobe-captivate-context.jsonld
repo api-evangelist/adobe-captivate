@@ -1,0 +1,326 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "alm": "https://learningmanager.adobe.com/primeapi/v2/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xapi": "https://w3id.org/xapi/ontology#",
+
+    "LearningObject": {
+      "@id": "alm:LearningObject",
+      "@context": {
+        "id": "@id",
+        "loType": "alm:learningObjectType",
+        "state": "alm:state",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "datePublished": {
+          "@id": "dcterms:issued",
+          "@type": "xsd:dateTime"
+        },
+        "dateUpdated": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "duration": {
+          "@id": "schema:timeRequired",
+          "@type": "xsd:integer"
+        },
+        "enrollmentType": "alm:enrollmentType",
+        "imageUrl": {
+          "@id": "schema:thumbnailUrl",
+          "@type": "@id"
+        },
+        "loFormat": "alm:learningFormat",
+        "localizedMetadata": {
+          "@id": "alm:localizedMetadata",
+          "@container": "@set"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "authorNames": {
+          "@id": "schema:author",
+          "@container": "@list"
+        },
+        "unenrollmentAllowed": "alm:unenrollmentAllowed",
+        "rating": "schema:aggregateRating"
+      }
+    },
+
+    "LearningObjectInstance": {
+      "@id": "alm:LearningObjectInstance",
+      "@context": {
+        "id": "@id",
+        "completionDeadline": {
+          "@id": "alm:completionDeadline",
+          "@type": "xsd:dateTime"
+        },
+        "enrollmentDeadline": {
+          "@id": "alm:enrollmentDeadline",
+          "@type": "xsd:dateTime"
+        },
+        "isDefault": "alm:isDefault",
+        "seatLimit": "alm:seatLimit",
+        "state": "alm:state"
+      }
+    },
+
+    "User": {
+      "@id": "alm:User",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "email": "schema:email",
+        "avatarUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "profile": "schema:description",
+        "roles": {
+          "@id": "alm:roles",
+          "@container": "@set"
+        },
+        "state": "alm:accountState",
+        "userType": "alm:userType",
+        "pointsEarned": "alm:gamificationPoints"
+      }
+    },
+
+    "Enrollment": {
+      "@id": "alm:Enrollment",
+      "@context": {
+        "id": "@id",
+        "dateEnrolled": {
+          "@id": "alm:dateEnrolled",
+          "@type": "xsd:dateTime"
+        },
+        "dateStarted": {
+          "@id": "alm:dateStarted",
+          "@type": "xsd:dateTime"
+        },
+        "completedOn": {
+          "@id": "alm:completedOn",
+          "@type": "xsd:dateTime"
+        },
+        "progressPercent": "alm:progressPercent",
+        "score": "alm:score",
+        "hasPassed": "alm:hasPassed",
+        "state": "alm:enrollmentState",
+        "learner": {
+          "@id": "alm:learner",
+          "@type": "@id"
+        },
+        "learningObject": {
+          "@id": "alm:learningObject",
+          "@type": "@id"
+        },
+        "loInstance": {
+          "@id": "alm:loInstance",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Catalog": {
+      "@id": "alm:Catalog",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "dcterms:description",
+        "isDefault": "alm:isDefault",
+        "isInternallySearchable": "alm:isInternallySearchable",
+        "state": "alm:state",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "dateUpdated": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "learningObjects": {
+          "@id": "alm:learningObjects",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Skill": {
+      "@id": "alm:Skill",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "dcterms:description",
+        "state": "alm:state",
+        "skillLevels": {
+          "@id": "alm:skillLevels",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "SkillLevel": {
+      "@id": "alm:SkillLevel",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "maxCredits": "alm:maxCredits",
+        "level": "alm:level"
+      }
+    },
+
+    "Badge": {
+      "@id": "alm:Badge",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "imageUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "state": "alm:state"
+      }
+    },
+
+    "UserBadge": {
+      "@id": "alm:UserBadge",
+      "@context": {
+        "id": "@id",
+        "dateAchieved": {
+          "@id": "alm:dateAchieved",
+          "@type": "xsd:dateTime"
+        },
+        "assertionUrl": {
+          "@id": "alm:assertionUrl",
+          "@type": "@id"
+        },
+        "badge": {
+          "@id": "alm:badge",
+          "@type": "@id"
+        },
+        "learner": {
+          "@id": "alm:learner",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "UserGroup": {
+      "@id": "alm:UserGroup",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "dcterms:description",
+        "state": "alm:state",
+        "userCount": "alm:userCount",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Certification": {
+      "@id": "alm:Certification",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "validityDuration": "alm:validityDuration",
+        "recertificationDeadline": {
+          "@id": "alm:recertificationDeadline",
+          "@type": "xsd:dateTime"
+        },
+        "validUntil": {
+          "@id": "alm:validUntil",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Gamification": {
+      "@id": "alm:Gamification",
+      "@context": {
+        "id": "@id",
+        "learnerPoints": "alm:learnerPoints",
+        "managerPoints": "alm:managerPoints",
+        "overallPoints": "alm:overallPoints"
+      }
+    },
+
+    "Job": {
+      "@id": "alm:Job",
+      "@context": {
+        "id": "@id",
+        "jobType": "alm:jobType",
+        "status": "alm:jobStatus",
+        "description": "dcterms:description",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "dateCompleted": {
+          "@id": "alm:dateCompleted",
+          "@type": "xsd:dateTime"
+        },
+        "downloadUrl": {
+          "@id": "alm:downloadUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Account": {
+      "@id": "alm:Account",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "subdomain": "alm:subdomain",
+        "locale": "schema:inLanguage",
+        "timezone": "alm:timezone",
+        "gamificationEnabled": "alm:gamificationEnabled",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Notification": {
+      "@id": "alm:Notification",
+      "@context": {
+        "id": "@id",
+        "message": "alm:message",
+        "channel": "alm:channel",
+        "read": "alm:read",
+        "actionTaken": "alm:actionTaken",
+        "modelType": "alm:modelType",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "WebhookEvent": {
+      "@id": "alm:WebhookEvent",
+      "@context": {
+        "eventType": "alm:eventType",
+        "eventId": {
+          "@id": "alm:eventId",
+          "@type": "xsd:string"
+        },
+        "accountId": "alm:accountId",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        },
+        "source": "alm:eventSource"
+      }
+    }
+  }
+}
