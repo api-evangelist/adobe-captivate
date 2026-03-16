@@ -1,10 +1,13 @@
+aid: adobe-captivate
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/apis.yml
 name: Adobe Captivate
 description: Adobe Captivate is an eLearning authoring tool used to create responsive eLearning content, software demonstrations, and interactive training modules.
-image: https://www.adobe.com/content/dam/cc/icons/captivate.svg
-url: https://www.adobe.com/products/captivate.html
-created: 2024-01-20 00:00:00+00:00
-modified: '2026-03-04'
-specificationVersion: '0.18'
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+type: Index
+created: '2024-01-20'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 tags:
 - eLearning
 - Authoring
