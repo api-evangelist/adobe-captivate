@@ -24,32 +24,32 @@ servers:
   - url: https://learningmanager.adobe.com/primeapi/v2
     description: Adobe Learning Manager Production API
 tags:
-  - name: Learning Objects
-    description: >-
-      Manage learning objects including courses, learning programs,
-      certifications, and job aids
-  - name: Users
-    description: Manage learner, manager, author, and admin user accounts
-  - name: Enrollments
-    description: Manage learner enrollments in courses and learning programs
-  - name: Catalogs
-    description: Manage content catalogs that organize learning objects
-  - name: Skills
-    description: Manage skills and skill levels associated with learning content
+  - name: Account
+    description: Retrieve and manage account-level settings
   - name: Badges
     description: Manage badges awarded to learners for achievements
-  - name: User Groups
-    description: Manage groups of users for targeted content delivery
+  - name: Catalogs
+    description: Manage content catalogs that organize learning objects
   - name: Certifications
     description: Manage certification programs and compliance tracking
+  - name: Enrollments
+    description: Manage learner enrollments in courses and learning programs
   - name: Gamification
     description: Manage gamification points and leaderboard features
   - name: Jobs
     description: Manage bulk import/export jobs for data operations
+  - name: Learning Objects
+    description: >-
+      Manage learning objects including courses, learning programs,
+      certifications, and job aids
   - name: Notifications
     description: Manage user notifications and announcements
-  - name: Account
-    description: Retrieve and manage account-level settings
+  - name: Skills
+    description: Manage skills and skill levels associated with learning content
+  - name: User Groups
+    description: Manage groups of users for targeted content delivery
+  - name: Users
+    description: Manage learner, manager, author, and admin user accounts
 security:
   - oauth2: []
 paths:
