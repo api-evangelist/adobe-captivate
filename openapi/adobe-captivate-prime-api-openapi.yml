@@ -56,7 +56,7 @@ paths:
   /learningObjects:
     get:
       operationId: getLearningObjects
-      summary: List learning objects
+      summary: Adobe Captivate List learning objects
       description: >-
         Retrieves a paginated list of learning objects available to the
         authenticated user. Learning objects include courses, learning programs,
@@ -132,7 +132,7 @@ paths:
   /learningObjects/{learningObjectId}:
     get:
       operationId: getLearningObject
-      summary: Get a learning object
+      summary: Adobe Captivate Get a learning object
       description: >-
         Retrieves a single learning object by its ID, including its metadata,
         instances, and relationships. The response follows JSON:API format with
@@ -163,7 +163,7 @@ paths:
   /learningObjects/{learningObjectId}/instances:
     get:
       operationId: getLearningObjectInstances
-      summary: List instances of a learning object
+      summary: Adobe Captivate List instances of a learning object
       description: >-
         Retrieves all instances associated with a learning object. Each
         instance represents a specific offering of the course with its own
@@ -190,7 +190,7 @@ paths:
   /users:
     get:
       operationId: getUsers
-      summary: List users
+      summary: Adobe Captivate List users
       description: >-
         Retrieves a paginated list of users in the account. Supports filtering
         by role, active status, and user group. Only accessible by admin and
@@ -251,7 +251,7 @@ paths:
   /users/{userId}:
     get:
       operationId: getUser
-      summary: Get a user
+      summary: Adobe Captivate Get a user
       description: >-
         Retrieves a single user by their ID, including profile information
         and related resources.
@@ -279,7 +279,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     patch:
       operationId: updateUser
-      summary: Update a user
+      summary: Adobe Captivate Update a user
       description: >-
         Updates user profile fields such as name, email, manager assignment,
         and user state. Follows JSON:API PATCH semantics.
@@ -315,7 +315,7 @@ paths:
   /enrollments:
     get:
       operationId: getEnrollments
-      summary: List enrollments
+      summary: Adobe Captivate List enrollments
       description: >-
         Retrieves a paginated list of enrollments. Can be scoped to the
         authenticated user or to all users (admin only). Supports filtering
@@ -368,7 +368,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createEnrollment
-      summary: Enroll a user
+      summary: Adobe Captivate Enroll a user
       description: >-
         Enrolls a user in a learning object instance. The request must
         specify the learning object instance and the user to enroll.
@@ -402,7 +402,7 @@ paths:
   /enrollments/{enrollmentId}:
     get:
       operationId: getEnrollment
-      summary: Get an enrollment
+      summary: Adobe Captivate Get an enrollment
       description: Retrieves a single enrollment by its ID.
       tags:
         - Enrollments
@@ -428,7 +428,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: unenrollUser
-      summary: Unenroll a user
+      summary: Adobe Captivate Unenroll a user
       description: >-
         Removes a user's enrollment from a learning object instance.
         Only applicable if the enrollment is in a state that allows unenrollment.
@@ -454,7 +454,7 @@ paths:
   /catalogs:
     get:
       operationId: getCatalogs
-      summary: List catalogs
+      summary: Adobe Captivate List catalogs
       description: >-
         Retrieves a paginated list of catalogs available to the authenticated
         user. Catalogs organize learning objects and control visibility.
@@ -486,7 +486,7 @@ paths:
   /catalogs/{catalogId}:
     get:
       operationId: getCatalog
-      summary: Get a catalog
+      summary: Adobe Captivate Get a catalog
       description: Retrieves a single catalog by its ID.
       tags:
         - Catalogs
@@ -513,7 +513,7 @@ paths:
   /skills:
     get:
       operationId: getSkills
-      summary: List skills
+      summary: Adobe Captivate List skills
       description: >-
         Retrieves a paginated list of skills defined in the account. Skills
         represent competencies that learners develop by completing learning
@@ -551,7 +551,7 @@ paths:
   /skills/{skillId}:
     get:
       operationId: getSkill
-      summary: Get a skill
+      summary: Adobe Captivate Get a skill
       description: Retrieves a single skill by its ID with its levels and associations.
       tags:
         - Skills
@@ -578,7 +578,7 @@ paths:
   /badges:
     get:
       operationId: getBadges
-      summary: List badges
+      summary: Adobe Captivate List badges
       description: >-
         Retrieves a paginated list of badges. Badges are awarded to learners
         upon achieving specific milestones or completing learning objects.
@@ -603,7 +603,7 @@ paths:
   /badges/{badgeId}:
     get:
       operationId: getBadge
-      summary: Get a badge
+      summary: Adobe Captivate Get a badge
       description: Retrieves a single badge by its ID.
       tags:
         - Badges
@@ -625,7 +625,7 @@ paths:
   /userGroups:
     get:
       operationId: getUserGroups
-      summary: List user groups
+      summary: Adobe Captivate List user groups
       description: >-
         Retrieves a paginated list of user groups. User groups are used to
         organize learners and assign content, learning plans, or catalogs
@@ -656,7 +656,7 @@ paths:
   /userGroups/{userGroupId}:
     get:
       operationId: getUserGroup
-      summary: Get a user group
+      summary: Adobe Captivate Get a user group
       description: Retrieves a single user group by its ID.
       tags:
         - User Groups
@@ -678,7 +678,7 @@ paths:
   /certifications:
     get:
       operationId: getCertifications
-      summary: List certifications
+      summary: Adobe Captivate List certifications
       description: >-
         Retrieves a paginated list of certifications. Certifications are
         recurring learning objects that verify a learner's knowledge or
@@ -717,7 +717,7 @@ paths:
   /users/{userId}/gamificationPoints:
     get:
       operationId: getUserGamificationPoints
-      summary: Get user gamification points
+      summary: Adobe Captivate Get user gamification points
       description: >-
         Retrieves gamification points for a specific user, broken down by
         point category (learning, manager, leader, and overall).
@@ -741,7 +741,7 @@ paths:
   /users/{userId}/userNotifications:
     get:
       operationId: getUserNotifications
-      summary: List user notifications
+      summary: Adobe Captivate List user notifications
       description: >-
         Retrieves notifications for a specific user, including enrollment
         reminders, completion notifications, manager approvals, and
@@ -768,7 +768,7 @@ paths:
   /jobs:
     get:
       operationId: getJobs
-      summary: List jobs
+      summary: Adobe Captivate List jobs
       description: >-
         Retrieves a paginated list of bulk import/export jobs. Jobs support
         operations such as user import via CSV, learner transcript export,
@@ -803,7 +803,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createJob
-      summary: Create a job
+      summary: Adobe Captivate Create a job
       description: >-
         Creates a new bulk import or export job. Supports user import via
         CSV, learner transcript export, and training data export.
@@ -831,7 +831,7 @@ paths:
   /jobs/{jobId}:
     get:
       operationId: getJob
-      summary: Get a job
+      summary: Adobe Captivate Get a job
       description: Retrieves the status and details of a specific job.
       tags:
         - Jobs
@@ -853,7 +853,7 @@ paths:
   /account:
     get:
       operationId: getAccount
-      summary: Get account details
+      summary: Adobe Captivate Get account details
       description: >-
         Retrieves the account configuration and details for the authenticated
         user's Learning Manager account, including timezone, locale, and
@@ -876,7 +876,7 @@ paths:
   /search:
     get:
       operationId: searchLearningObjects
-      summary: Search learning objects
+      summary: Adobe Captivate Search learning objects
       description: >-
         Performs a text-based search across learning objects. Returns matching
         courses, learning programs, certifications, and job aids based on the
@@ -919,7 +919,7 @@ paths:
   /users/{userId}/userSkills:
     get:
       operationId: getUserSkills
-      summary: List user skills
+      summary: Adobe Captivate List user skills
       description: >-
         Retrieves skills acquired by a specific user, including the skill
         level achieved and points earned toward each skill.
@@ -952,7 +952,7 @@ paths:
   /users/{userId}/userBadges:
     get:
       operationId: getUserBadges
-      summary: List user badges
+      summary: Adobe Captivate List user badges
       description: >-
         Retrieves badges earned by a specific user, including the date
         earned and associated learning object.
