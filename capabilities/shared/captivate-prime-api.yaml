@@ -1,0 +1,417 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Adobe Captivate Prime API"
+  description: "Adobe Learning Manager REST API v2 for managing learning objects, users, enrollments, skills, badges, certifications, and gamification."
+  tags:
+    - Adobe Captivate
+    - Learning Management
+    - LMS
+    - Education
+    - Training
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ADOBE_CAPTIVATE_ACCESS_TOKEN: ADOBE_CAPTIVATE_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: captivate-prime
+      baseUri: https://learningmanager.adobe.com/primeapi/v2
+      description: "Adobe Learning Manager REST API v2 for programmatic LMS management."
+      authentication:
+        type: bearer
+        token: "{{ADOBE_CAPTIVATE_ACCESS_TOKEN}}"
+      resources:
+        - name: learning-objects
+          path: /learningObjects
+          description: "Manage courses, learning programs, certifications, and job aids."
+          operations:
+            - name: list-learning-objects
+              method: GET
+              description: "List learning objects with filtering by type, catalog, skill, and state."
+              inputParameters:
+                - name: filter.loTypes
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated learning object types to filter by."
+                - name: page.offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset."
+                - name: page.limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of records per page."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-learning-object
+              method: GET
+              description: "Retrieve a single learning object by ID."
+              inputParameters:
+                - name: learningObjectId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Unique identifier of the learning object."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: users
+          path: /users
+          description: "Manage learner, manager, author, and admin user accounts."
+          operations:
+            - name: list-users
+              method: GET
+              description: "List users with filtering by role, active status, and user group."
+              inputParameters:
+                - name: filter.role
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter users by role (learner, manager, author, admin)."
+                - name: filter.isActive
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Filter by active status."
+                - name: page.offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset."
+                - name: page.limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of records per page."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-user
+              method: GET
+              description: "Retrieve a single user by ID."
+              inputParameters:
+                - name: userId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Unique identifier of the user."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-user
+              method: POST
+              description: "Create a new user account."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  data:
+                    type: "user"
+                    attributes:
+                      name: "{{tools.name}}"
+                      email: "{{tools.email}}"
+
+        - name: enrollments
+          path: /enrollments
+          description: "Manage learner enrollments in learning objects."
+          operations:
+            - name: list-enrollments
+              method: GET
+              description: "List enrollments with optional filters."
+              inputParameters:
+                - name: page.offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset."
+                - name: page.limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of records per page."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-enrollment
+              method: POST
+              description: "Enroll a learner in a learning object."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  data:
+                    type: "enrollment"
+                    relationships:
+                      learningObject:
+                        data:
+                          id: "{{tools.learningObjectId}}"
+                          type: "learningObject"
+
+        - name: skills
+          path: /skills
+          description: "Manage skills and skill levels associated with learning content."
+          operations:
+            - name: list-skills
+              method: GET
+              description: "List all skills defined in the account."
+              inputParameters:
+                - name: page.offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: badges
+          path: /badges
+          description: "Manage badges awarded to learners for achievements."
+          operations:
+            - name: list-badges
+              method: GET
+              description: "List all badges defined in the account."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: certifications
+          path: /certifications
+          description: "Manage certification programs and compliance tracking."
+          operations:
+            - name: list-certifications
+              method: GET
+              description: "List all certification programs."
+              inputParameters:
+                - name: page.offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: catalogs
+          path: /catalogs
+          description: "Manage content catalogs that organize learning objects."
+          operations:
+            - name: list-catalogs
+              method: GET
+              description: "List all catalogs in the account."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: jobs
+          path: /jobs
+          description: "Manage bulk import/export jobs for data operations."
+          operations:
+            - name: create-job
+              method: POST
+              description: "Create a bulk import or export job."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  data:
+                    type: "job"
+                    attributes:
+                      jobType: "{{tools.jobType}}"
+
+        - name: account
+          path: /account
+          description: "Retrieve account-level settings and configuration."
+          operations:
+            - name: get-account
+              method: GET
+              description: "Retrieve account details and configuration."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: captivate-prime-api
+      resources:
+        - path: /v1/learning-objects
+          name: learning-objects
+          description: "Learning object management endpoints."
+          operations:
+            - method: GET
+              name: list-learning-objects
+              description: "List learning objects."
+              call: "captivate-prime.list-learning-objects"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/users
+          name: users
+          description: "User management endpoints."
+          operations:
+            - method: GET
+              name: list-users
+              description: "List users."
+              call: "captivate-prime.list-users"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/enrollments
+          name: enrollments
+          description: "Enrollment management endpoints."
+          operations:
+            - method: GET
+              name: list-enrollments
+              description: "List enrollments."
+              call: "captivate-prime.list-enrollments"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: captivate-prime-mcp
+      transport: http
+      tools:
+        - name: list-learning-objects
+          description: "List courses, learning programs, certifications, and job aids."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-learning-objects"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-learning-object
+          description: "Get details of a specific learning object by ID."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "captivate-prime.get-learning-object"
+          with:
+            learningObjectId: "tools.learningObjectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-users
+          description: "List learner, manager, author, and admin users."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-users"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-enrollments
+          description: "List learner enrollments in learning objects."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-enrollments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enroll-learner
+          description: "Enroll a learner in a learning object."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "captivate-prime.create-enrollment"
+          with:
+            learningObjectId: "tools.learningObjectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-skills
+          description: "List all skills defined in the account."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-skills"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-badges
+          description: "List all badges defined in the account."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-badges"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-certifications
+          description: "List certification programs and compliance tracking."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-certifications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-catalogs
+          description: "List content catalogs organizing learning objects."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-catalogs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-bulk-job
+          description: "Create a bulk import or export job (userImport, learnerTranscriptExport, trainingReportExport)."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "captivate-prime.create-job"
+          with:
+            jobType: "tools.jobType"
+          outputParameters:
+            - type: object
+              mapping: "$."

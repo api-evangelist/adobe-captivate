@@ -1,0 +1,36 @@
+{
+  "id": "lo:12345678",
+  "type": "course",
+  "attributes": {
+    "avatarUrl": "https://learningmanager.adobe.com/example",
+    "email": "learner@example.com",
+    "name": "Introduction to Adobe Learning Manager",
+    "pointsEarned": 71,
+    "profile": "example-profile",
+    "roles": [
+      "learner"
+    ],
+    "state": "ACTIVE",
+    "userType": "Internal"
+  },
+  "relationships": {
+    "manager": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "userGroups": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "account": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    }
+  }
+}

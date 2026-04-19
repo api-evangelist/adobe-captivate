@@ -1,0 +1,280 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Adobe Captivate Learning Management"
+  description: "Unified workflow capability for managing learning objects, enrollments, completions, and compliance tracking using Adobe Learning Manager APIs. Designed for L&D administrators and HR integration developers."
+  tags:
+    - Adobe Captivate
+    - Learning Management
+    - LMS
+    - Compliance
+    - Training
+    - Education
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ADOBE_CAPTIVATE_ACCESS_TOKEN: ADOBE_CAPTIVATE_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - import: captivate-prime
+      location: ./shared/captivate-prime-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: learning-management-api
+      description: "Unified REST API for Adobe Learning Manager — learning objects, users, enrollments, skills, badges, and compliance."
+      resources:
+        - path: /v1/learning-objects
+          name: learning-objects
+          description: "Courses, learning programs, certifications, and job aids."
+          operations:
+            - method: GET
+              name: list-learning-objects
+              description: "List all available learning objects."
+              call: "captivate-prime.list-learning-objects"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/learning-objects/{learningObjectId}
+          name: learning-object
+          description: "Single learning object details."
+          operations:
+            - method: GET
+              name: get-learning-object
+              description: "Get details of a specific learning object."
+              call: "captivate-prime.get-learning-object"
+              with:
+                learningObjectId: "rest.learningObjectId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/users
+          name: users
+          description: "Learner and admin user management."
+          operations:
+            - method: GET
+              name: list-users
+              description: "List all users in the account."
+              call: "captivate-prime.list-users"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-user
+              description: "Create a new user account."
+              call: "captivate-prime.create-user"
+              with:
+                name: "rest.name"
+                email: "rest.email"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/enrollments
+          name: enrollments
+          description: "Learner enrollment management."
+          operations:
+            - method: GET
+              name: list-enrollments
+              description: "List all enrollments."
+              call: "captivate-prime.list-enrollments"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: enroll-learner
+              description: "Enroll a learner in a learning object."
+              call: "captivate-prime.create-enrollment"
+              with:
+                learningObjectId: "rest.learningObjectId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/skills
+          name: skills
+          description: "Skill tracking and management."
+          operations:
+            - method: GET
+              name: list-skills
+              description: "List all skills."
+              call: "captivate-prime.list-skills"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/badges
+          name: badges
+          description: "Badge and achievement management."
+          operations:
+            - method: GET
+              name: list-badges
+              description: "List all badges."
+              call: "captivate-prime.list-badges"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/certifications
+          name: certifications
+          description: "Certification program management."
+          operations:
+            - method: GET
+              name: list-certifications
+              description: "List all certifications."
+              call: "captivate-prime.list-certifications"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/catalogs
+          name: catalogs
+          description: "Learning content catalog management."
+          operations:
+            - method: GET
+              name: list-catalogs
+              description: "List all catalogs."
+              call: "captivate-prime.list-catalogs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/jobs
+          name: jobs
+          description: "Bulk import/export job management."
+          operations:
+            - method: POST
+              name: create-bulk-job
+              description: "Create a bulk data import or export job."
+              call: "captivate-prime.create-job"
+              with:
+                jobType: "rest.jobType"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: learning-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted learning management — discover courses, manage enrollments, track compliance, and analyze learner progress."
+      tools:
+        - name: list-learning-objects
+          description: "List all available courses, learning programs, certifications, and job aids in Adobe Learning Manager."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-learning-objects"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-learning-object
+          description: "Get detailed information about a specific learning object including instances, skills, and prerequisites."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "captivate-prime.get-learning-object"
+          with:
+            learningObjectId: "tools.learningObjectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-users
+          description: "List learners, managers, authors, and admin users in Adobe Learning Manager."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-users"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-user
+          description: "Create a new user account in Adobe Learning Manager for a new learner or employee."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "captivate-prime.create-user"
+          with:
+            name: "tools.name"
+            email: "tools.email"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-enrollments
+          description: "List learner enrollments across all learning objects."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-enrollments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: enroll-learner
+          description: "Enroll a learner in a course, certification, or learning program."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "captivate-prime.create-enrollment"
+          with:
+            learningObjectId: "tools.learningObjectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-skills
+          description: "List all skills defined in the account for skill gap analysis."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-skills"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-badges
+          description: "List badges and achievements available to learners."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-badges"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-certifications
+          description: "List certification programs for compliance and credential tracking."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-certifications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-catalogs
+          description: "List content catalogs organizing learning objects for targeted delivery."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "captivate-prime.list-catalogs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-bulk-export-job
+          description: "Create a bulk export job for learner transcripts or training reports."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "captivate-prime.create-job"
+          with:
+            jobType: "tools.jobType"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-account
+          description: "Retrieve account-level configuration and settings for Adobe Learning Manager."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "captivate-prime.get-account"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,7 @@
+{
+  "eventType": "course",
+  "eventId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "accountId": "lo:12345678",
+  "timestamp": "2025-03-15T14:30:00Z",
+  "source": "learner"
+}

@@ -1,0 +1,16 @@
+{
+  "data": {
+    "type": "course",
+    "attributes": {
+      "loInstanceId": "lo:12345678"
+    },
+    "relationships": {
+      "loInstance": {
+        "data": {}
+      },
+      "learner": {
+        "data": {}
+      }
+    }
+  }
+}

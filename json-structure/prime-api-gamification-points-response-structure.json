@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-gamification-points-response-structure.json",
+  "name": "GamificationPointsResponse",
+  "description": "User gamification points response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "Gamification points for a user",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "gamification"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "learnerPoints": {
+              "type": "int32",
+              "description": "Points earned through learning activities"
+            },
+            "managerPoints": {
+              "type": "int32",
+              "description": "Points earned as a manager"
+            },
+            "overallPoints": {
+              "type": "int32",
+              "description": "Total points across all categories"
+            }
+          }
+        }
+      }
+    }
+  }
+}

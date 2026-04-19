@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-badge-response-schema.json",
+  "title": "BadgeResponse",
+  "description": "Single badge response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "A badge awarded to learners for achievements",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique badge identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "badge"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "imageUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the badge image"
+            },
+            "name": {
+              "type": "string",
+              "description": "Badge name"
+            },
+            "state": {
+              "type": "string",
+              "description": "Badge state",
+              "enum": [
+                "Active",
+                "Retired"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

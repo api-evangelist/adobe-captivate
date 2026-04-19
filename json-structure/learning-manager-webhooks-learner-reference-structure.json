@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/learning-manager-webhooks-learner-reference-structure.json",
+  "name": "LearnerReference",
+  "description": "Reference to a learner involved in an event",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Learner's full name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Learner's email address"
+    }
+  }
+}

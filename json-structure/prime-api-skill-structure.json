@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-skill-structure.json",
+  "name": "Skill",
+  "description": "A skill competency defined in the Learning Manager system",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique skill identifier"
+    },
+    "type": {
+      "type": "string",
+      "const": "skill"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Skill description"
+        },
+        "name": {
+          "type": "string",
+          "description": "Skill name"
+        },
+        "state": {
+          "type": "string",
+          "description": "Skill state",
+          "enum": [
+            "Active",
+            "Retired"
+          ]
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "skillLevels": {
+          "type": "object",
+          "description": "A JSON:API relationship object",
+          "properties": {
+            "data": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "JSON:API resource identifier",
+                  "required": [
+                    "id",
+                    "type"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Resource identifier"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Resource type name"
+                    }
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "JSON:API resource identifier",
+                    "required": [
+                      "id",
+                      "type"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Resource identifier"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Resource type name"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "links": {
+              "type": "object",
+              "properties": {
+                "related": {
+                  "type": "uri",
+                  "description": "URL to fetch the related resource"
+                }
+              }
+            }
+          }
+        },
+        "learningObjects": {
+          "type": "object",
+          "description": "A JSON:API relationship object",
+          "properties": {
+            "data": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "JSON:API resource identifier",
+                  "required": [
+                    "id",
+                    "type"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Resource identifier"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Resource type name"
+                    }
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "JSON:API resource identifier",
+                    "required": [
+                      "id",
+                      "type"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Resource identifier"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Resource type name"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "links": {
+              "type": "object",
+              "properties": {
+                "related": {
+                  "type": "uri",
+                  "description": "URL to fetch the related resource"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

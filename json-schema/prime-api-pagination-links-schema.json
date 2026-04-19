@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-pagination-links-schema.json",
+  "title": "PaginationLinks",
+  "description": "Pagination links following JSON:API conventions",
+  "type": "object",
+  "properties": {
+    "self": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the current page"
+    },
+    "next": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the next page"
+    },
+    "prev": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the previous page"
+    }
+  }
+}

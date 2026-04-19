@@ -1,0 +1,453 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/adobe-captivate-learning-object-structure.json",
+  "name": "Adobe Learning Manager Learning Object",
+  "description": "Schema for a learning object in Adobe Learning Manager (formerly Captivate Prime). Learning objects include courses, learning programs, certifications, and job aids. The API follows JSON:API conventions, with resources represented by type, id, attributes, and relationships.",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/LearningObjectResource"
+    },
+    "included": {
+      "type": "array",
+      "description": "Related resources included via the include query parameter, such as instances, skills, and authors",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object"
+          },
+          "relationships": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LearningObjectResource": {
+      "type": "object",
+      "description": "A JSON:API resource representing a learning object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the learning object, prefixed by type (e.g. course:12345, learningProgram:67890)",
+          "pattern": "^(course|learningProgram|certification|jobAid):[0-9]+$"
+        },
+        "type": {
+          "type": "string",
+          "description": "JSON:API resource type",
+          "const": "learningObject"
+        },
+        "attributes": {
+          "$ref": "#/$defs/LearningObjectAttributes"
+        },
+        "relationships": {
+          "$ref": "#/$defs/LearningObjectRelationships"
+        }
+      },
+      "name": "LearningObjectResource"
+    },
+    "LearningObjectAttributes": {
+      "type": "object",
+      "description": "Attributes of a learning object resource",
+      "properties": {
+        "authorNames": {
+          "type": "array",
+          "description": "Display names of the content authors",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dateCreated": {
+          "type": "datetime",
+          "description": "ISO 8601 timestamp when the learning object was created"
+        },
+        "datePublished": {
+          "type": "datetime",
+          "description": "ISO 8601 timestamp when the learning object was published"
+        },
+        "dateUpdated": {
+          "type": "datetime",
+          "description": "ISO 8601 timestamp of the most recent update"
+        },
+        "duration": {
+          "type": "int32",
+          "description": "Estimated duration to complete in seconds",
+          "minimum": 0
+        },
+        "effectiveModifiedDate": {
+          "type": "datetime",
+          "description": "The effective modification date used for sorting and filtering"
+        },
+        "enrollmentType": {
+          "type": "string",
+          "description": "How learners can enroll in this learning object",
+          "enum": [
+            "Self Enrolled",
+            "Manager Nominated",
+            "Admin Enrolled"
+          ]
+        },
+        "externalRegistration": {
+          "type": "boolean",
+          "description": "Whether external registration is enabled"
+        },
+        "hasOptionalLoResources": {
+          "type": "boolean",
+          "description": "Whether the learning object has optional resources"
+        },
+        "imageUrl": {
+          "type": "uri",
+          "description": "URL of the learning object thumbnail image"
+        },
+        "isExternal": {
+          "type": "boolean",
+          "description": "Whether this is an external learning object"
+        },
+        "isSubLoOrderEnforced": {
+          "type": "boolean",
+          "description": "Whether the order of sub-learning-objects is enforced"
+        },
+        "loFormat": {
+          "type": "string",
+          "description": "Content delivery format of the learning object",
+          "enum": [
+            "Self Paced",
+            "Blended",
+            "Classroom",
+            "Virtual Classroom",
+            "Activity"
+          ]
+        },
+        "loType": {
+          "type": "string",
+          "description": "The type of learning object",
+          "enum": [
+            "course",
+            "learningProgram",
+            "certification",
+            "jobAid"
+          ]
+        },
+        "localizedMetadata": {
+          "type": "array",
+          "description": "Name, description, and overview in different locales",
+          "items": {
+            "$ref": "#/$defs/LocalizedMetadata"
+          },
+          "minItems": 1
+        },
+        "moduleResetEnabled": {
+          "type": "boolean",
+          "description": "Whether module reset is enabled for retry attempts"
+        },
+        "prerequisiteConstraints": {
+          "type": "string",
+          "description": "Constraint rules for prerequisite learning objects"
+        },
+        "rating": {
+          "type": "object",
+          "description": "Average rating and rating count",
+          "properties": {
+            "averageRating": {
+              "type": "double",
+              "description": "Average learner rating (0-5)",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "ratingsCount": {
+              "type": "int32",
+              "description": "Number of ratings submitted",
+              "minimum": 0
+            }
+          }
+        },
+        "state": {
+          "type": "string",
+          "description": "Current state of the learning object",
+          "enum": [
+            "Active",
+            "Retired",
+            "Published",
+            "Draft"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags for categorization and search",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unenrollmentAllowed": {
+          "type": "boolean",
+          "description": "Whether learners can self-unenroll from this learning object"
+        }
+      },
+      "name": "LearningObjectAttributes"
+    },
+    "LocalizedMetadata": {
+      "type": "object",
+      "description": "Localized name, description, and overview for a learning object",
+      "required": [
+        "locale",
+        "name"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Detailed description in the specified locale"
+        },
+        "locale": {
+          "type": "string",
+          "description": "BCP 47 locale code (e.g. en-US, fr-FR, de-DE)",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name in the specified locale",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "overview": {
+          "type": "string",
+          "description": "Plain text overview or summary"
+        },
+        "richTextOverview": {
+          "type": "string",
+          "description": "Rich text (HTML) overview content"
+        }
+      },
+      "name": "LocalizedMetadata"
+    },
+    "LearningObjectRelationships": {
+      "type": "object",
+      "description": "Relationships of a learning object to other resources",
+      "properties": {
+        "instances": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Instances (offerings) of this learning object"
+        },
+        "skills": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Skills associated with this learning object"
+        },
+        "prerequisiteLOs": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Prerequisite learning objects that must be completed first"
+        },
+        "subLOs": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Sub-learning-objects (for learning programs)"
+        },
+        "supplementaryResources": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Additional supplementary resources"
+        },
+        "authors": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Authors who created this content"
+        },
+        "catalog": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Catalog this learning object belongs to"
+        },
+        "enrollment": {
+          "$ref": "#/$defs/Relationship",
+          "description": "Current user's enrollment in this learning object"
+        }
+      },
+      "name": "LearningObjectRelationships"
+    },
+    "Relationship": {
+      "type": "object",
+      "description": "A JSON:API relationship describing links between resources",
+      "properties": {
+        "data": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ResourceIdentifier"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ResourceIdentifier"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "related": {
+              "type": "uri",
+              "description": "URL to fetch the related resource(s)"
+            }
+          }
+        }
+      },
+      "name": "Relationship"
+    },
+    "ResourceIdentifier": {
+      "type": "object",
+      "description": "JSON:API resource identifier object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the related resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type name of the related resource"
+        }
+      },
+      "name": "ResourceIdentifier"
+    },
+    "LearningObjectInstance": {
+      "type": "object",
+      "description": "An instance of a learning object with specific enrollment and completion settings",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique instance identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "learningObjectInstance"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "completionDeadline": {
+              "type": "datetime",
+              "description": "Deadline for learners to complete"
+            },
+            "enrollmentDeadline": {
+              "type": "datetime",
+              "description": "Deadline for enrollment"
+            },
+            "isDefault": {
+              "type": "boolean",
+              "description": "Whether this is the default instance"
+            },
+            "isFlexible": {
+              "type": "boolean",
+              "description": "Whether this instance has flexible deadlines"
+            },
+            "localizedMetadata": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/LocalizedMetadata"
+              }
+            },
+            "seatLimit": {
+              "type": "int32",
+              "description": "Maximum enrollment count, null for unlimited",
+              "minimum": 0
+            },
+            "state": {
+              "type": "string",
+              "description": "Current instance state",
+              "enum": [
+                "Active",
+                "Retired"
+              ]
+            }
+          }
+        }
+      },
+      "name": "LearningObjectInstance"
+    },
+    "Enrollment": {
+      "type": "object",
+      "description": "A learner's enrollment record for a learning object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique enrollment identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "enrollment"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "completedOn": {
+              "type": "datetime",
+              "description": "Completion timestamp"
+            },
+            "dateEnrolled": {
+              "type": "datetime",
+              "description": "Enrollment timestamp"
+            },
+            "dateStarted": {
+              "type": "datetime",
+              "description": "When the learner first accessed the content"
+            },
+            "hasPassed": {
+              "type": "boolean",
+              "description": "Whether the learner passed"
+            },
+            "progressPercent": {
+              "type": "int32",
+              "description": "Completion percentage",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "score": {
+              "type": "double",
+              "description": "Score achieved"
+            },
+            "state": {
+              "type": "string",
+              "description": "Current enrollment state",
+              "enum": [
+                "ENROLLED",
+                "STARTED",
+                "COMPLETED",
+                "PENDING_APPROVAL",
+                "REJECTED",
+                "EXPIRED"
+              ]
+            }
+          }
+        }
+      },
+      "name": "Enrollment"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/learning-manager-webhooks-job-completed-payload-structure.json",
+  "name": "JobCompletedPayload",
+  "description": "JobCompletedPayload schema from Adobe Learning Manager Webhooks",
+  "allOf": [
+    {
+      "type": "object",
+      "description": "Base schema for all webhook event payloads",
+      "required": [
+        "eventType",
+        "eventId",
+        "accountId",
+        "timestamp"
+      ],
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "description": "The type of event that triggered this webhook"
+        },
+        "eventId": {
+          "type": "uuid",
+          "description": "Unique identifier for this event instance"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "The Learning Manager account ID"
+        },
+        "timestamp": {
+          "type": "datetime",
+          "description": "ISO 8601 timestamp when the event occurred"
+        },
+        "source": {
+          "type": "string",
+          "description": "The system component that generated the event",
+          "enum": [
+            "learner",
+            "admin",
+            "manager",
+            "system",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "const": "JOB_COMPLETED"
+        },
+        "job": {
+          "type": "object",
+          "properties": {
+            "jobId": {
+              "type": "string",
+              "description": "Job identifier"
+            },
+            "jobType": {
+              "type": "string",
+              "description": "Type of bulk operation",
+              "enum": [
+                "userImport",
+                "learnerTranscriptExport",
+                "trainingReportExport"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "Final job status",
+              "enum": [
+                "Completed",
+                "Failed"
+              ]
+            },
+            "downloadUrl": {
+              "type": "uri",
+              "description": "URL to download results (for export jobs)"
+            },
+            "recordsProcessed": {
+              "type": "int32",
+              "description": "Number of records processed"
+            },
+            "recordsFailed": {
+              "type": "int32",
+              "description": "Number of records that failed"
+            }
+          }
+        },
+        "dateCompleted": {
+          "type": "datetime",
+          "description": "Job completion timestamp"
+        }
+      }
+    }
+  ]
+}

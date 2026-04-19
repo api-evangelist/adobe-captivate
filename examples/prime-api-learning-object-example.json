@@ -1,0 +1,54 @@
+{
+  "id": "lo:12345678",
+  "type": "course",
+  "attributes": {
+    "authorNames": [
+      "Introduction to Adobe Learning Manager"
+    ],
+    "dateCreated": "2025-03-15T14:30:00Z",
+    "datePublished": "2025-03-15T14:30:00Z",
+    "dateUpdated": "2025-03-15T14:30:00Z",
+    "duration": 90,
+    "effectiveModifiedDate": "2025-03-15T14:30:00Z",
+    "enrollmentType": "Self Enrolled",
+    "imageUrl": "https://learningmanager.adobe.com/example"
+  },
+  "relationships": {
+    "instances": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "skills": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "prerequisiteLOs": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "subLOs": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "authors": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "catalog": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    }
+  }
+}

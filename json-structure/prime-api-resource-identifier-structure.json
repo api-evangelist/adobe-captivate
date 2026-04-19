@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-resource-identifier-structure.json",
+  "name": "ResourceIdentifier",
+  "description": "JSON:API resource identifier",
+  "type": "object",
+  "required": [
+    "id",
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Resource identifier"
+    },
+    "type": {
+      "type": "string",
+      "description": "Resource type name"
+    }
+  }
+}

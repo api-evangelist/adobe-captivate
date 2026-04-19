@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-user-response-structure.json",
+  "name": "UserResponse",
+  "description": "Single user response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "A user in the Learning Manager system",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique user identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "user"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "avatarUrl": {
+              "type": "uri",
+              "description": "URL of the user's avatar image"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "User's email address"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's full name"
+            },
+            "pointsEarned": {
+              "type": "int32",
+              "description": "Total gamification points earned"
+            },
+            "profile": {
+              "type": "string",
+              "description": "Profile bio text"
+            },
+            "roles": {
+              "type": "array",
+              "description": "List of roles assigned to the user",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "learner",
+                  "manager",
+                  "author",
+                  "admin",
+                  "integrationAdmin"
+                ]
+              }
+            },
+            "state": {
+              "type": "string",
+              "description": "User account state",
+              "enum": [
+                "ACTIVE",
+                "DELETED",
+                "SUSPENDED"
+              ]
+            },
+            "userType": {
+              "type": "string",
+              "description": "User type classification",
+              "enum": [
+                "Internal",
+                "External"
+              ]
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "manager": {
+              "type": "object",
+              "description": "A JSON:API relationship object",
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "JSON:API resource identifier",
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Resource identifier"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Resource type name"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "JSON:API resource identifier",
+                        "required": [
+                          "id",
+                          "type"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Resource identifier"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Resource type name"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "uri",
+                      "description": "URL to fetch the related resource"
+                    }
+                  }
+                }
+              }
+            },
+            "userGroups": {
+              "type": "object",
+              "description": "A JSON:API relationship object",
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "JSON:API resource identifier",
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Resource identifier"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Resource type name"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "JSON:API resource identifier",
+                        "required": [
+                          "id",
+                          "type"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Resource identifier"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Resource type name"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "uri",
+                      "description": "URL to fetch the related resource"
+                    }
+                  }
+                }
+              }
+            },
+            "account": {
+              "type": "object",
+              "description": "A JSON:API relationship object",
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "JSON:API resource identifier",
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Resource identifier"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Resource type name"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "JSON:API resource identifier",
+                        "required": [
+                          "id",
+                          "type"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Resource identifier"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Resource type name"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "uri",
+                      "description": "URL to fetch the related resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

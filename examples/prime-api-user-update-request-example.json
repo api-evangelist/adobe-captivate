@@ -1,0 +1,12 @@
+{
+  "data": {
+    "id": "lo:12345678",
+    "type": "course",
+    "attributes": {
+      "name": "Introduction to Adobe Learning Manager",
+      "email": "learner@example.com",
+      "profile": "example-profile",
+      "state": "ACTIVE"
+    }
+  }
+}

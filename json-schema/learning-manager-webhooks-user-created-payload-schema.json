@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/learning-manager-webhooks-user-created-payload-schema.json",
+  "title": "UserCreatedPayload",
+  "description": "UserCreatedPayload schema from Adobe Learning Manager Webhooks",
+  "allOf": [
+    {
+      "type": "object",
+      "description": "Base schema for all webhook event payloads",
+      "required": [
+        "eventType",
+        "eventId",
+        "accountId",
+        "timestamp"
+      ],
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "description": "The type of event that triggered this webhook"
+        },
+        "eventId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this event instance"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "The Learning Manager account ID"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the event occurred"
+        },
+        "source": {
+          "type": "string",
+          "description": "The system component that generated the event",
+          "enum": [
+            "learner",
+            "admin",
+            "manager",
+            "system",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "const": "USER_CREATED"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": "User identifier"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's full name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "User's email address"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "userType": {
+              "type": "string",
+              "enum": [
+                "Internal",
+                "External"
+              ]
+            }
+          }
+        },
+        "creationMethod": {
+          "type": "string",
+          "description": "How the user was created",
+          "enum": [
+            "selfRegistration",
+            "adminCreated",
+            "csvImport",
+            "apiCreated",
+            "ssoProvisioned"
+          ]
+        }
+      }
+    }
+  ]
+}

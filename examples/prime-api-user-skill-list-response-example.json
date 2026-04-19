@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id": "lo:12345678",
+      "type": "course",
+      "attributes": {
+        "dateAchieved": {},
+        "pointsEarned": {}
+      },
+      "relationships": {
+        "skill": {},
+        "skillLevel": {}
+      }
+    }
+  ],
+  "links": {
+    "self": "https://learningmanager.adobe.com/example",
+    "next": "https://learningmanager.adobe.com/example",
+    "prev": "https://learningmanager.adobe.com/example"
+  }
+}

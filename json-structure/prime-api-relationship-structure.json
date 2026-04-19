@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-relationship-structure.json",
+  "name": "Relationship",
+  "description": "A JSON:API relationship object",
+  "type": "object",
+  "properties": {
+    "data": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "JSON:API resource identifier",
+          "required": [
+            "id",
+            "type"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Resource identifier"
+            },
+            "type": {
+              "type": "string",
+              "description": "Resource type name"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "JSON:API resource identifier",
+            "required": [
+              "id",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Resource identifier"
+              },
+              "type": {
+                "type": "string",
+                "description": "Resource type name"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "related": {
+          "type": "uri",
+          "description": "URL to fetch the related resource"
+        }
+      }
+    }
+  }
+}

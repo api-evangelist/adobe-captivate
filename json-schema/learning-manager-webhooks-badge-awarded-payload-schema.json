@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/learning-manager-webhooks-badge-awarded-payload-schema.json",
+  "title": "BadgeAwardedPayload",
+  "description": "BadgeAwardedPayload schema from Adobe Learning Manager Webhooks",
+  "allOf": [
+    {
+      "type": "object",
+      "description": "Base schema for all webhook event payloads",
+      "required": [
+        "eventType",
+        "eventId",
+        "accountId",
+        "timestamp"
+      ],
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "description": "The type of event that triggered this webhook"
+        },
+        "eventId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this event instance"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "The Learning Manager account ID"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the event occurred"
+        },
+        "source": {
+          "type": "string",
+          "description": "The system component that generated the event",
+          "enum": [
+            "learner",
+            "admin",
+            "manager",
+            "system",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "const": "BADGE_AWARDED"
+        },
+        "learner": {
+          "type": "object",
+          "description": "Reference to a learner involved in an event",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": "Unique user identifier"
+            },
+            "name": {
+              "type": "string",
+              "description": "Learner's full name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Learner's email address"
+            }
+          }
+        },
+        "badge": {
+          "type": "object",
+          "properties": {
+            "badgeId": {
+              "type": "string",
+              "description": "Badge identifier"
+            },
+            "name": {
+              "type": "string",
+              "description": "Badge name"
+            },
+            "imageUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "Badge image URL"
+            }
+          }
+        },
+        "dateAwarded": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Award timestamp"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "data": {
+    "id": "lo:12345678",
+    "type": "course",
+    "attributes": {
+      "imageUrl": "https://learningmanager.adobe.com/example",
+      "name": "Introduction to Adobe Learning Manager",
+      "state": "Active"
+    }
+  }
+}

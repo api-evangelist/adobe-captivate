@@ -1,0 +1,379 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "alm": "https://learningmanager.adobe.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ResourceIdentifier": "alm:ResourceIdentifier",
+    "SkillResponse": "alm:SkillResponse",
+    "LocalizedMetadata": "alm:LocalizedMetadata",
+    "Notification": "alm:Notification",
+    "LearningObjectResponse": "alm:LearningObjectResponse",
+    "GamificationPointsResponse": "alm:GamificationPointsResponse",
+    "UserGroupListResponse": "alm:UserGroupListResponse",
+    "Skill": "alm:Skill",
+    "UserBadgeListResponse": "alm:UserBadgeListResponse",
+    "Catalog": "alm:Catalog",
+    "UserResponse": "alm:UserResponse",
+    "EnrollmentListResponse": "alm:EnrollmentListResponse",
+    "NotificationListResponse": "alm:NotificationListResponse",
+    "UserSkillListResponse": "alm:UserSkillListResponse",
+    "UserGroup": "alm:UserGroup",
+    "EnrollmentCreateRequest": "alm:EnrollmentCreateRequest",
+    "UserGroupResponse": "alm:UserGroupResponse",
+    "CatalogListResponse": "alm:CatalogListResponse",
+    "LearningObjectInstance": "alm:LearningObjectInstance",
+    "User": "alm:User",
+    "CertificationListResponse": "alm:CertificationListResponse",
+    "CatalogResponse": "alm:CatalogResponse",
+    "AccountResponse": "alm:AccountResponse",
+    "JobCreateRequest": "alm:JobCreateRequest",
+    "BadgeResponse": "alm:BadgeResponse",
+    "EnrollmentResponse": "alm:EnrollmentResponse",
+    "Relationship": "alm:Relationship",
+    "Account": "alm:Account",
+    "Job": "alm:Job",
+    "BadgeListResponse": "alm:BadgeListResponse",
+    "Badge": "alm:Badge",
+    "GamificationPoints": "alm:GamificationPoints",
+    "LearningObjectListResponse": "alm:LearningObjectListResponse",
+    "SkillListResponse": "alm:SkillListResponse",
+    "PaginationLinks": "alm:PaginationLinks",
+    "JobResponse": "alm:JobResponse",
+    "Enrollment": "alm:Enrollment",
+    "LearningObject": "alm:LearningObject",
+    "LearningObjectInstanceListResponse": "alm:LearningObjectInstanceListResponse",
+    "JobListResponse": "alm:JobListResponse",
+    "UserUpdateRequest": "alm:UserUpdateRequest",
+    "UserListResponse": "alm:UserListResponse",
+    "id": {
+      "@id": "alm:id",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "alm:type",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "alm:data",
+      "@type": "@id"
+    },
+    "attributes": {
+      "@id": "alm:attributes",
+      "@type": "@id"
+    },
+    "description": "schema:description",
+    "name": "schema:name",
+    "state": {
+      "@id": "alm:state",
+      "@type": "xsd:string"
+    },
+    "relationships": {
+      "@id": "alm:relationships",
+      "@type": "@id"
+    },
+    "skillLevels": {
+      "@id": "alm:skillLevels",
+      "@type": "@id"
+    },
+    "links": {
+      "@id": "alm:links",
+      "@type": "@id"
+    },
+    "learningObjects": {
+      "@id": "alm:learningObjects",
+      "@type": "@id"
+    },
+    "locale": {
+      "@id": "alm:locale",
+      "@type": "xsd:string"
+    },
+    "overview": {
+      "@id": "alm:overview",
+      "@type": "xsd:string"
+    },
+    "richTextOverview": {
+      "@id": "alm:richTextOverview",
+      "@type": "xsd:string"
+    },
+    "actionTaken": {
+      "@id": "alm:actionTaken",
+      "@type": "xsd:boolean"
+    },
+    "channel": {
+      "@id": "alm:channel",
+      "@type": "xsd:string"
+    },
+    "dateCreated": {
+      "@id": "alm:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "message": {
+      "@id": "alm:message",
+      "@type": "@id"
+    },
+    "modelType": {
+      "@id": "alm:modelType",
+      "@type": "xsd:string"
+    },
+    "read": {
+      "@id": "alm:read",
+      "@type": "xsd:boolean"
+    },
+    "authorNames": {
+      "@id": "alm:authorNames",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "datePublished": {
+      "@id": "alm:datePublished",
+      "@type": "xsd:dateTime"
+    },
+    "dateUpdated": {
+      "@id": "alm:dateUpdated",
+      "@type": "xsd:dateTime"
+    },
+    "duration": {
+      "@id": "alm:duration",
+      "@type": "xsd:integer"
+    },
+    "effectiveModifiedDate": {
+      "@id": "alm:effectiveModifiedDate",
+      "@type": "xsd:dateTime"
+    },
+    "enrollmentType": {
+      "@id": "alm:enrollmentType",
+      "@type": "xsd:string"
+    },
+    "imageUrl": {
+      "@id": "alm:imageUrl",
+      "@type": "@id"
+    },
+    "loFormat": {
+      "@id": "alm:loFormat",
+      "@type": "xsd:string"
+    },
+    "loType": {
+      "@id": "alm:loType",
+      "@type": "xsd:string"
+    },
+    "localizedMetadata": {
+      "@id": "alm:localizedMetadata",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "alm:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "unenrollmentAllowed": {
+      "@id": "alm:unenrollmentAllowed",
+      "@type": "xsd:boolean"
+    },
+    "instances": {
+      "@id": "alm:instances",
+      "@type": "@id"
+    },
+    "skills": {
+      "@id": "alm:skills",
+      "@type": "@id"
+    },
+    "prerequisiteLOs": {
+      "@id": "alm:prerequisiteLOs",
+      "@type": "@id"
+    },
+    "subLOs": {
+      "@id": "alm:subLOs",
+      "@type": "@id"
+    },
+    "authors": {
+      "@id": "alm:authors",
+      "@type": "@id"
+    },
+    "catalog": {
+      "@id": "alm:catalog",
+      "@type": "@id"
+    },
+    "included": {
+      "@id": "alm:included",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "learnerPoints": {
+      "@id": "alm:learnerPoints",
+      "@type": "xsd:integer"
+    },
+    "managerPoints": {
+      "@id": "alm:managerPoints",
+      "@type": "xsd:integer"
+    },
+    "overallPoints": {
+      "@id": "alm:overallPoints",
+      "@type": "xsd:integer"
+    },
+    "userCount": {
+      "@id": "alm:userCount",
+      "@type": "xsd:integer"
+    },
+    "self": {
+      "@id": "alm:self",
+      "@type": "@id"
+    },
+    "next": {
+      "@id": "alm:next",
+      "@type": "@id"
+    },
+    "prev": {
+      "@id": "alm:prev",
+      "@type": "@id"
+    },
+    "related": {
+      "@id": "alm:related",
+      "@type": "@id"
+    },
+    "assertionUrl": {
+      "@id": "alm:assertionUrl",
+      "@type": "@id"
+    },
+    "dateAchieved": {
+      "@id": "alm:dateAchieved",
+      "@type": "xsd:dateTime"
+    },
+    "badge": {
+      "@id": "alm:badge",
+      "@type": "@id"
+    },
+    "learningObject": {
+      "@id": "alm:learningObject",
+      "@type": "@id"
+    },
+    "isDefault": {
+      "@id": "alm:isDefault",
+      "@type": "xsd:boolean"
+    },
+    "isInternallySearchable": {
+      "@id": "alm:isInternallySearchable",
+      "@type": "xsd:boolean"
+    },
+    "avatarUrl": {
+      "@id": "alm:avatarUrl",
+      "@type": "@id"
+    },
+    "email": "schema:email",
+    "pointsEarned": {
+      "@id": "alm:pointsEarned",
+      "@type": "xsd:integer"
+    },
+    "profile": {
+      "@id": "alm:profile",
+      "@type": "xsd:string"
+    },
+    "roles": {
+      "@id": "alm:roles",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "userType": {
+      "@id": "alm:userType",
+      "@type": "xsd:string"
+    },
+    "manager": {
+      "@id": "alm:manager",
+      "@type": "@id"
+    },
+    "userGroups": {
+      "@id": "alm:userGroups",
+      "@type": "@id"
+    },
+    "account": {
+      "@id": "alm:account",
+      "@type": "@id"
+    },
+    "completedOn": {
+      "@id": "alm:completedOn",
+      "@type": "xsd:dateTime"
+    },
+    "dateEnrolled": {
+      "@id": "alm:dateEnrolled",
+      "@type": "xsd:dateTime"
+    },
+    "dateStarted": {
+      "@id": "alm:dateStarted",
+      "@type": "xsd:dateTime"
+    },
+    "hasPassed": {
+      "@id": "alm:hasPassed",
+      "@type": "xsd:boolean"
+    },
+    "progressPercent": {
+      "@id": "alm:progressPercent",
+      "@type": "xsd:integer"
+    },
+    "score": {
+      "@id": "alm:score",
+      "@type": "xsd:decimal"
+    },
+    "learner": {
+      "@id": "alm:learner",
+      "@type": "@id"
+    },
+    "loInstance": {
+      "@id": "alm:loInstance",
+      "@type": "@id"
+    },
+    "skill": {
+      "@id": "alm:skill",
+      "@type": "@id"
+    },
+    "skillLevel": {
+      "@id": "alm:skillLevel",
+      "@type": "@id"
+    },
+    "loInstanceId": {
+      "@id": "alm:loInstanceId",
+      "@type": "xsd:string"
+    },
+    "completionDeadline": {
+      "@id": "alm:completionDeadline",
+      "@type": "xsd:dateTime"
+    },
+    "enrollmentDeadline": {
+      "@id": "alm:enrollmentDeadline",
+      "@type": "xsd:dateTime"
+    },
+    "seatLimit": {
+      "@id": "alm:seatLimit",
+      "@type": "xsd:integer"
+    },
+    "gamificationEnabled": {
+      "@id": "alm:gamificationEnabled",
+      "@type": "xsd:boolean"
+    },
+    "subdomain": {
+      "@id": "alm:subdomain",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "alm:timezone",
+      "@type": "xsd:string"
+    },
+    "jobType": {
+      "@id": "alm:jobType",
+      "@type": "xsd:string"
+    },
+    "dateCompleted": {
+      "@id": "alm:dateCompleted",
+      "@type": "xsd:dateTime"
+    },
+    "downloadUrl": {
+      "@id": "alm:downloadUrl",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "alm:status",
+      "@type": "xsd:string"
+    }
+  }
+}

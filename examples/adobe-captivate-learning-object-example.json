@@ -1,0 +1,11 @@
+{
+  "data": "example-data",
+  "included": [
+    {
+      "id": "lo:12345678",
+      "type": "course",
+      "attributes": {},
+      "relationships": {}
+    }
+  ]
+}

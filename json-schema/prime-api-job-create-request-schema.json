@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-job-create-request-schema.json",
+  "title": "JobCreateRequest",
+  "description": "Request body for creating a bulk job",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "job"
+        },
+        "attributes": {
+          "type": "object",
+          "required": [
+            "jobType"
+          ],
+          "properties": {
+            "jobType": {
+              "type": "string",
+              "description": "The type of bulk operation",
+              "enum": [
+                "userImport",
+                "learnerTranscriptExport",
+                "trainingReportExport"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "description": "Description for this job"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -21,95 +21,95 @@ externalDocs:
   description: Adobe Learning Manager API v2 Documentation
   url: https://captivateprime.adobe.com/docs/primeapi/v2/
 servers:
-  - url: https://learningmanager.adobe.com/primeapi/v2
-    description: Adobe Learning Manager Production API
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
 tags:
-  - name: Account
-    description: Retrieve and manage account-level settings
-  - name: Badges
-    description: Manage badges awarded to learners for achievements
-  - name: Catalogs
-    description: Manage content catalogs that organize learning objects
-  - name: Certifications
-    description: Manage certification programs and compliance tracking
-  - name: Enrollments
-    description: Manage learner enrollments in courses and learning programs
-  - name: Gamification
-    description: Manage gamification points and leaderboard features
-  - name: Jobs
-    description: Manage bulk import/export jobs for data operations
-  - name: Learning Objects
-    description: >-
-      Manage learning objects including courses, learning programs,
-      certifications, and job aids
-  - name: Notifications
-    description: Manage user notifications and announcements
-  - name: Skills
-    description: Manage skills and skill levels associated with learning content
-  - name: User Groups
-    description: Manage groups of users for targeted content delivery
-  - name: Users
-    description: Manage learner, manager, author, and admin user accounts
+- name: Account
+  description: Retrieve and manage account-level settings
+- name: Badges
+  description: Manage badges awarded to learners for achievements
+- name: Catalogs
+  description: Manage content catalogs that organize learning objects
+- name: Certifications
+  description: Manage certification programs and compliance tracking
+- name: Enrollments
+  description: Manage learner enrollments in courses and learning programs
+- name: Gamification
+  description: Manage gamification points and leaderboard features
+- name: Jobs
+  description: Manage bulk import/export jobs for data operations
+- name: Learning Objects
+  description: >-
+    Manage learning objects including courses, learning programs,
+    certifications, and job aids
+- name: Notifications
+  description: Manage user notifications and announcements
+- name: Skills
+  description: Manage skills and skill levels associated with learning content
+- name: User Groups
+  description: Manage groups of users for targeted content delivery
+- name: Users
+  description: Manage learner, manager, author, and admin user accounts
 security:
-  - oauth2: []
+- oauth2: []
 paths:
   /learningObjects:
     get:
       operationId: getLearningObjects
-      summary: Adobe Captivate List learning objects
+      summary: Adobe Captivate List Learning Objects
       description: >-
         Retrieves a paginated list of learning objects available to the
         authenticated user. Learning objects include courses, learning programs,
         certifications, and job aids. Supports filtering by type, catalog,
         skill, tag, and status.
       tags:
-        - Learning Objects
+      - Learning Objects
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - $ref: '#/components/parameters/sort'
-        - name: filter.loTypes
-          in: query
-          description: >-
-            Comma-separated list of learning object types to filter by
-          schema:
-            type: string
-            enum:
-              - course
-              - learningProgram
-              - certification
-              - jobAid
-        - name: filter.catalogIds
-          in: query
-          description: Comma-separated list of catalog IDs to filter by
-          schema:
-            type: string
-        - name: filter.skillName
-          in: query
-          description: Filter by skill name
-          schema:
-            type: string
-        - name: filter.tagName
-          in: query
-          description: Filter by tag name
-          schema:
-            type: string
-        - name: filter.loState
-          in: query
-          description: Filter by learning object state
-          schema:
-            type: string
-            enum:
-              - Active
-              - Retired
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources to include. Valid values:
-            instances, enrollment, skills, subLOs, prerequisiteLOs,
-            supplementaryResources, authors, catalogLabels
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/sort'
+      - name: filter.loTypes
+        in: query
+        description: >-
+          Comma-separated list of learning object types to filter by
+        schema:
+          type: string
+          enum:
+          - course
+          - learningProgram
+          - certification
+          - jobAid
+      - name: filter.catalogIds
+        in: query
+        description: Comma-separated list of catalog IDs to filter by
+        schema:
+          type: string
+      - name: filter.skillName
+        in: query
+        description: Filter by skill name
+        schema:
+          type: string
+      - name: filter.tagName
+        in: query
+        description: Filter by tag name
+        schema:
+          type: string
+      - name: filter.loState
+        in: query
+        description: Filter by learning object state
+        schema:
+          type: string
+          enum:
+          - Active
+          - Retired
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources to include. Valid values:
+          instances, enrollment, skills, subLOs, prerequisiteLOs,
+          supplementaryResources, authors, catalogLabels
+        schema:
+          type: string
       responses:
         '200':
           description: List of learning objects
@@ -117,36 +117,74 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/LearningObjectListResponse'
+              examples:
+                getLearningObjects200Example:
+                  summary: Default getLearningObjects 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+                    included:
+                    - {}
         '400':
           description: Invalid filter parameters
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObjects400Example:
+                  summary: Default getLearningObjects 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
         '401':
           description: Unauthorized - missing or invalid access token
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObjects401Example:
+                  summary: Default getLearningObjects 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /learningObjects/{learningObjectId}:
     get:
       operationId: getLearningObject
-      summary: Adobe Captivate Get a learning object
+      summary: Adobe Captivate Get a Learning Object
       description: >-
         Retrieves a single learning object by its ID, including its metadata,
         instances, and relationships. The response follows JSON:API format with
         optional included resources.
       tags:
-        - Learning Objects
+      - Learning Objects
       parameters:
-        - $ref: '#/components/parameters/learningObjectId'
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources to include in the response
-          schema:
-            type: string
+      - $ref: '#/components/parameters/learningObjectId'
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources to include in the response
+        schema:
+          type: string
       responses:
         '200':
           description: Learning object details
@@ -154,26 +192,63 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/LearningObjectResponse'
+              examples:
+                getLearningObject200Example:
+                  summary: Default getLearningObject 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        authorNames:
+                        - {}
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        datePublished: '2025-03-15T14:30:00Z'
+                        dateUpdated: '2025-03-15T14:30:00Z'
+                        duration: 1
+                      relationships:
+                        instances: example
+                        skills: example
+                        prerequisiteLOs: example
+                        subLOs: example
+                        authors: example
+                    included:
+                    - {}
         '404':
           description: Learning object not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObject404Example:
+                  summary: Default getLearningObject 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /learningObjects/{learningObjectId}/instances:
     get:
       operationId: getLearningObjectInstances
-      summary: Adobe Captivate List instances of a learning object
+      summary: Adobe Captivate List Instances of a Learning Object
       description: >-
         Retrieves all instances associated with a learning object. Each
         instance represents a specific offering of the course with its own
         enrollment deadline, completion deadline, and seat limit.
       tags:
-        - Learning Objects
+      - Learning Objects
       parameters:
-        - $ref: '#/components/parameters/learningObjectId'
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/learningObjectId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
       responses:
         '200':
           description: List of learning object instances
@@ -181,54 +256,79 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/LearningObjectInstanceListResponse'
+              examples:
+                getLearningObjectInstances200Example:
+                  summary: Default getLearningObjectInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '404':
           description: Learning object not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObjectInstances404Example:
+                  summary: Default getLearningObjectInstances 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users:
     get:
       operationId: getUsers
-      summary: Adobe Captivate List users
+      summary: Adobe Captivate List Users
       description: >-
         Retrieves a paginated list of users in the account. Supports filtering
         by role, active status, and user group. Only accessible by admin and
         integration admin roles.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - $ref: '#/components/parameters/sort'
-        - name: filter.role
-          in: query
-          description: Filter users by role
-          schema:
-            type: string
-            enum:
-              - learner
-              - manager
-              - author
-              - admin
-              - integrationAdmin
-        - name: filter.isActive
-          in: query
-          description: Filter by active status
-          schema:
-            type: boolean
-        - name: filter.userGroupId
-          in: query
-          description: Filter by user group ID
-          schema:
-            type: string
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources to include. Valid values:
-            manager, userGroups, account
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/sort'
+      - name: filter.role
+        in: query
+        description: Filter users by role
+        schema:
+          type: string
+          enum:
+          - learner
+          - manager
+          - author
+          - admin
+          - integrationAdmin
+      - name: filter.isActive
+        in: query
+        description: Filter by active status
+        schema:
+          type: boolean
+      - name: filter.userGroupId
+        in: query
+        description: Filter by user group ID
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources to include. Valid values:
+          manager, userGroups, account
+        schema:
+          type: string
       responses:
         '200':
           description: List of users
@@ -236,34 +336,70 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserListResponse'
+              examples:
+                getUsers200Example:
+                  summary: Default getUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUsers401Example:
+                  summary: Default getUsers 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
         '403':
           description: Forbidden - insufficient role permissions
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUsers403Example:
+                  summary: Default getUsers 403 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users/{userId}:
     get:
       operationId: getUser
-      summary: Adobe Captivate Get a user
+      summary: Adobe Captivate Get a User
       description: >-
         Retrieves a single user by their ID, including profile information
         and related resources.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userId'
-        - name: include
-          in: query
-          description: Comma-separated list of related resources to include
-          schema:
-            type: string
+      - $ref: '#/components/parameters/userId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
       responses:
         '200':
           description: User details
@@ -271,28 +407,73 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserResponse'
+              examples:
+                getUser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        avatarUrl: https://example.com/path/abc123
+                        email: user@example.com
+                        name: Example Name
+                        pointsEarned: 1
+                        profile: example
+                      relationships:
+                        manager: example
+                        userGroups: example
+                        account: example
         '404':
           description: User not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUser404Example:
+                  summary: Default getUser 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateUser
-      summary: Adobe Captivate Update a user
+      summary: Adobe Captivate Update a User
       description: >-
         Updates user profile fields such as name, email, manager assignment,
         and user state. Follows JSON:API PATCH semantics.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/userId'
       requestBody:
         required: true
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/UserUpdateRequest'
+            examples:
+              updateUserRequestExample:
+                summary: Default updateUser request
+                x-microcks-default: true
+                value:
+                  data:
+                    id: abc123
+                    type: standard
+                    attributes:
+                      name: Example Name
+                      email: user@example.com
+                      profile: example
+                      state: ACTIVE
       responses:
         '200':
           description: Updated user
@@ -300,59 +481,102 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserResponse'
+              examples:
+                updateUser200Example:
+                  summary: Default updateUser 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        avatarUrl: https://example.com/path/abc123
+                        email: user@example.com
+                        name: Example Name
+                        pointsEarned: 1
+                        profile: example
+                      relationships:
+                        manager: example
+                        userGroups: example
+                        account: example
         '400':
           description: Invalid update data
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                updateUser400Example:
+                  summary: Default updateUser 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
         '404':
           description: User not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                updateUser404Example:
+                  summary: Default updateUser 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /enrollments:
     get:
       operationId: getEnrollments
-      summary: Adobe Captivate List enrollments
+      summary: Adobe Captivate List Enrollments
       description: >-
         Retrieves a paginated list of enrollments. Can be scoped to the
         authenticated user or to all users (admin only). Supports filtering
         by learning object ID, state, and date range.
       tags:
-        - Enrollments
+      - Enrollments
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - $ref: '#/components/parameters/sort'
-        - name: filter.loId
-          in: query
-          description: Filter by learning object ID
-          schema:
-            type: string
-        - name: filter.loInstanceId
-          in: query
-          description: Filter by learning object instance ID
-          schema:
-            type: string
-        - name: filter.userId
-          in: query
-          description: Filter by user ID (admin only)
-          schema:
-            type: string
-        - name: filter.states
-          in: query
-          description: Comma-separated list of enrollment states to filter by
-          schema:
-            type: string
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources to include. Valid values:
-            learningObject, loInstance, loResourceGrades
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/sort'
+      - name: filter.loId
+        in: query
+        description: Filter by learning object ID
+        schema:
+          type: string
+      - name: filter.loInstanceId
+        in: query
+        description: Filter by learning object instance ID
+        schema:
+          type: string
+      - name: filter.userId
+        in: query
+        description: Filter by user ID (admin only)
+        schema:
+          type: string
+      - name: filter.states
+        in: query
+        description: Comma-separated list of enrollment states to filter by
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources to include. Valid values:
+          learningObject, loInstance, loResourceGrades
+        schema:
+          type: string
       responses:
         '200':
           description: List of enrollments
@@ -360,26 +584,65 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/EnrollmentListResponse'
+              examples:
+                getEnrollments200Example:
+                  summary: Default getEnrollments 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getEnrollments401Example:
+                  summary: Default getEnrollments 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createEnrollment
-      summary: Adobe Captivate Enroll a user
+      summary: Adobe Captivate Enroll a User
       description: >-
         Enrolls a user in a learning object instance. The request must
         specify the learning object instance and the user to enroll.
       tags:
-        - Enrollments
+      - Enrollments
       requestBody:
         required: true
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/EnrollmentCreateRequest'
+            examples:
+              createEnrollmentRequestExample:
+                summary: Default createEnrollment request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: standard
+                    attributes:
+                      loInstanceId: abc123
+                    relationships:
+                      loInstance:
+                        data: {}
+                      learner:
+                        data: {}
       responses:
         '201':
           description: Enrollment created
@@ -387,32 +650,75 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/EnrollmentResponse'
+              examples:
+                createEnrollment201Example:
+                  summary: Default createEnrollment 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        completedOn: '2025-03-15T14:30:00Z'
+                        dateEnrolled: '2025-03-15T14:30:00Z'
+                        dateStarted: '2025-03-15T14:30:00Z'
+                        hasPassed: true
+                        progressPercent: 1
+                      relationships:
+                        learner: example
+                        learningObject: example
+                        loInstance: example
         '400':
           description: Invalid enrollment request
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                createEnrollment400Example:
+                  summary: Default createEnrollment 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
         '409':
           description: User is already enrolled
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                createEnrollment409Example:
+                  summary: Default createEnrollment 409 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /enrollments/{enrollmentId}:
     get:
       operationId: getEnrollment
-      summary: Adobe Captivate Get an enrollment
+      summary: Adobe Captivate Get an Enrollment
       description: Retrieves a single enrollment by its ID.
       tags:
-        - Enrollments
+      - Enrollments
       parameters:
-        - $ref: '#/components/parameters/enrollmentId'
-        - name: include
-          in: query
-          description: Comma-separated list of related resources to include
-          schema:
-            type: string
+      - $ref: '#/components/parameters/enrollmentId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
       responses:
         '200':
           description: Enrollment details
@@ -420,22 +726,54 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/EnrollmentResponse'
+              examples:
+                getEnrollment200Example:
+                  summary: Default getEnrollment 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        completedOn: '2025-03-15T14:30:00Z'
+                        dateEnrolled: '2025-03-15T14:30:00Z'
+                        dateStarted: '2025-03-15T14:30:00Z'
+                        hasPassed: true
+                        progressPercent: 1
+                      relationships:
+                        learner: example
+                        learningObject: example
+                        loInstance: example
         '404':
           description: Enrollment not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getEnrollment404Example:
+                  summary: Default getEnrollment 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: unenrollUser
-      summary: Adobe Captivate Unenroll a user
+      summary: Adobe Captivate Unenroll a User
       description: >-
         Removes a user's enrollment from a learning object instance.
         Only applicable if the enrollment is in a state that allows unenrollment.
       tags:
-        - Enrollments
+      - Enrollments
       parameters:
-        - $ref: '#/components/parameters/enrollmentId'
+      - $ref: '#/components/parameters/enrollmentId'
       responses:
         '204':
           description: Enrollment deleted successfully
@@ -445,31 +783,56 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unenrollUser400Example:
+                  summary: Default unenrollUser 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
         '404':
           description: Enrollment not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unenrollUser404Example:
+                  summary: Default unenrollUser 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /catalogs:
     get:
       operationId: getCatalogs
-      summary: Adobe Captivate List catalogs
+      summary: Adobe Captivate List Catalogs
       description: >-
         Retrieves a paginated list of catalogs available to the authenticated
         user. Catalogs organize learning objects and control visibility.
       tags:
-        - Catalogs
+      - Catalogs
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources to include. Valid values:
-            learningObjects
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources to include. Valid values:
+          learningObjects
+        schema:
+          type: string
       responses:
         '200':
           description: List of catalogs
@@ -477,26 +840,51 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/CatalogListResponse'
+              examples:
+                getCatalogs200Example:
+                  summary: Default getCatalogs 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getCatalogs401Example:
+                  summary: Default getCatalogs 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /catalogs/{catalogId}:
     get:
       operationId: getCatalog
-      summary: Adobe Captivate Get a catalog
+      summary: Adobe Captivate Get a Catalog
       description: Retrieves a single catalog by its ID.
       tags:
-        - Catalogs
+      - Catalogs
       parameters:
-        - $ref: '#/components/parameters/catalogId'
-        - name: include
-          in: query
-          description: Comma-separated list of related resources to include
-          schema:
-            type: string
+      - $ref: '#/components/parameters/catalogId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
       responses:
         '200':
           description: Catalog details
@@ -504,37 +892,67 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/CatalogResponse'
+              examples:
+                getCatalog200Example:
+                  summary: Default getCatalog 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        dateUpdated: '2025-03-15T14:30:00Z'
+                        description: Example description
+                        isDefault: true
+                        isInternallySearchable: true
+                      relationships:
+                        learningObjects: example
         '404':
           description: Catalog not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getCatalog404Example:
+                  summary: Default getCatalog 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /skills:
     get:
       operationId: getSkills
-      summary: Adobe Captivate List skills
+      summary: Adobe Captivate List Skills
       description: >-
         Retrieves a paginated list of skills defined in the account. Skills
         represent competencies that learners develop by completing learning
         objects.
       tags:
-        - Skills
+      - Skills
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - name: filter.name
-          in: query
-          description: Filter skills by name (partial match supported)
-          schema:
-            type: string
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources to include. Valid values:
-            skillLevels, learningObjects
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: filter.name
+        in: query
+        description: Filter skills by name (partial match supported)
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources to include. Valid values:
+          skillLevels, learningObjects
+        schema:
+          type: string
       responses:
         '200':
           description: List of skills
@@ -542,26 +960,51 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/SkillListResponse'
+              examples:
+                getSkills200Example:
+                  summary: Default getSkills 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSkills401Example:
+                  summary: Default getSkills 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /skills/{skillId}:
     get:
       operationId: getSkill
-      summary: Adobe Captivate Get a skill
+      summary: Adobe Captivate Get a Skill
       description: Retrieves a single skill by its ID with its levels and associations.
       tags:
-        - Skills
+      - Skills
       parameters:
-        - $ref: '#/components/parameters/skillId'
-        - name: include
-          in: query
-          description: Comma-separated list of related resources to include
-          schema:
-            type: string
+      - $ref: '#/components/parameters/skillId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
       responses:
         '200':
           description: Skill details
@@ -569,24 +1012,53 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/SkillResponse'
+              examples:
+                getSkill200Example:
+                  summary: Default getSkill 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        description: Example description
+                        name: Example Name
+                        state: Active
+                      relationships:
+                        skillLevels: example
+                        learningObjects: example
         '404':
           description: Skill not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSkill404Example:
+                  summary: Default getSkill 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /badges:
     get:
       operationId: getBadges
-      summary: Adobe Captivate List badges
+      summary: Adobe Captivate List Badges
       description: >-
         Retrieves a paginated list of badges. Badges are awarded to learners
         upon achieving specific milestones or completing learning objects.
       tags:
-        - Badges
+      - Badges
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
       responses:
         '200':
           description: List of badges
@@ -594,21 +1066,46 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/BadgeListResponse'
+              examples:
+                getBadges200Example:
+                  summary: Default getBadges 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getBadges401Example:
+                  summary: Default getBadges 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /badges/{badgeId}:
     get:
       operationId: getBadge
-      summary: Adobe Captivate Get a badge
+      summary: Adobe Captivate Get a Badge
       description: Retrieves a single badge by its ID.
       tags:
-        - Badges
+      - Badges
       parameters:
-        - $ref: '#/components/parameters/badgeId'
+      - $ref: '#/components/parameters/badgeId'
       responses:
         '200':
           description: Badge details
@@ -616,30 +1113,56 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/BadgeResponse'
+              examples:
+                getBadge200Example:
+                  summary: Default getBadge 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        imageUrl: https://example.com/path/abc123
+                        name: Example Name
+                        state: Active
         '404':
           description: Badge not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getBadge404Example:
+                  summary: Default getBadge 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /userGroups:
     get:
       operationId: getUserGroups
-      summary: Adobe Captivate List user groups
+      summary: Adobe Captivate List User Groups
       description: >-
         Retrieves a paginated list of user groups. User groups are used to
         organize learners and assign content, learning plans, or catalogs
         to specific sets of users.
       tags:
-        - User Groups
+      - User Groups
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - name: filter.name
-          in: query
-          description: Filter by user group name
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: filter.name
+        in: query
+        description: Filter by user group name
+        schema:
+          type: string
       responses:
         '200':
           description: List of user groups
@@ -647,21 +1170,46 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserGroupListResponse'
+              examples:
+                getUserGroups200Example:
+                  summary: Default getUserGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserGroups401Example:
+                  summary: Default getUserGroups 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /userGroups/{userGroupId}:
     get:
       operationId: getUserGroup
-      summary: Adobe Captivate Get a user group
+      summary: Adobe Captivate Get a User Group
       description: Retrieves a single user group by its ID.
       tags:
-        - User Groups
+      - User Groups
       parameters:
-        - $ref: '#/components/parameters/userGroupId'
+      - $ref: '#/components/parameters/userGroupId'
       responses:
         '200':
           description: User group details
@@ -669,38 +1217,66 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserGroupResponse'
+              examples:
+                getUserGroup200Example:
+                  summary: Default getUserGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        description: Example description
+                        name: Example Name
+                        state: Active
+                        userCount: 1
         '404':
           description: User group not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserGroup404Example:
+                  summary: Default getUserGroup 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /certifications:
     get:
       operationId: getCertifications
-      summary: Adobe Captivate List certifications
+      summary: Adobe Captivate List Certifications
       description: >-
         Retrieves a paginated list of certifications. Certifications are
         recurring learning objects that verify a learner's knowledge or
         compliance on a regular basis.
       tags:
-        - Certifications
+      - Certifications
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - name: filter.state
-          in: query
-          description: Filter by certification state
-          schema:
-            type: string
-            enum:
-              - Active
-              - Retired
-        - name: include
-          in: query
-          description: Comma-separated list of related resources to include
-          schema:
-            type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: filter.state
+        in: query
+        description: Filter by certification state
+        schema:
+          type: string
+          enum:
+          - Active
+          - Retired
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
       responses:
         '200':
           description: List of certifications
@@ -708,23 +1284,48 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/CertificationListResponse'
+              examples:
+                getCertifications200Example:
+                  summary: Default getCertifications 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getCertifications401Example:
+                  summary: Default getCertifications 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users/{userId}/gamificationPoints:
     get:
       operationId: getUserGamificationPoints
-      summary: Adobe Captivate Get user gamification points
+      summary: Adobe Captivate Get User Gamification Points
       description: >-
         Retrieves gamification points for a specific user, broken down by
         point category (learning, manager, leader, and overall).
       tags:
-        - Gamification
+      - Gamification
       parameters:
-        - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/userId'
       responses:
         '200':
           description: User gamification points
@@ -732,26 +1333,52 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/GamificationPointsResponse'
+              examples:
+                getUserGamificationPoints200Example:
+                  summary: Default getUserGamificationPoints 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        learnerPoints: 1
+                        managerPoints: 1
+                        overallPoints: 1
         '404':
           description: User not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserGamificationPoints404Example:
+                  summary: Default getUserGamificationPoints 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users/{userId}/userNotifications:
     get:
       operationId: getUserNotifications
-      summary: Adobe Captivate List user notifications
+      summary: Adobe Captivate List User Notifications
       description: >-
         Retrieves notifications for a specific user, including enrollment
         reminders, completion notifications, manager approvals, and
         announcements.
       tags:
-        - Notifications
+      - Notifications
       parameters:
-        - $ref: '#/components/parameters/userId'
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
       responses:
         '200':
           description: List of notifications
@@ -759,35 +1386,60 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/NotificationListResponse'
+              examples:
+                getUserNotifications200Example:
+                  summary: Default getUserNotifications 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '404':
           description: User not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserNotifications404Example:
+                  summary: Default getUserNotifications 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobs:
     get:
       operationId: getJobs
-      summary: Adobe Captivate List jobs
+      summary: Adobe Captivate List Jobs
       description: >-
         Retrieves a paginated list of bulk import/export jobs. Jobs support
         operations such as user import via CSV, learner transcript export,
         and training report export.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - name: filter.status
-          in: query
-          description: Filter by job status
-          schema:
-            type: string
-            enum:
-              - Submitted
-              - InProgress
-              - Completed
-              - Failed
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: filter.status
+        in: query
+        description: Filter by job status
+        schema:
+          type: string
+          enum:
+          - Submitted
+          - InProgress
+          - Completed
+          - Failed
       responses:
         '200':
           description: List of jobs
@@ -795,26 +1447,61 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/JobListResponse'
+              examples:
+                getJobs200Example:
+                  summary: Default getJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getJobs401Example:
+                  summary: Default getJobs 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createJob
-      summary: Adobe Captivate Create a job
+      summary: Adobe Captivate Create a Job
       description: >-
         Creates a new bulk import or export job. Supports user import via
         CSV, learner transcript export, and training data export.
       tags:
-        - Jobs
+      - Jobs
       requestBody:
         required: true
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/JobCreateRequest'
+            examples:
+              createJobRequestExample:
+                summary: Default createJob request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: standard
+                    attributes:
+                      jobType: userImport
+                      description: Example description
       responses:
         '201':
           description: Job created
@@ -822,21 +1509,49 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/JobResponse'
+              examples:
+                createJob201Example:
+                  summary: Default createJob 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        dateCompleted: '2025-03-15T14:30:00Z'
+                        description: Example description
+                        downloadUrl: https://example.com/path/abc123
+                        jobType: userImport
         '400':
           description: Invalid job request
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                createJob400Example:
+                  summary: Default createJob 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobs/{jobId}:
     get:
       operationId: getJob
-      summary: Adobe Captivate Get a job
+      summary: Adobe Captivate Get a Job
       description: Retrieves the status and details of a specific job.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/jobId'
+      - $ref: '#/components/parameters/jobId'
       responses:
         '200':
           description: Job details
@@ -844,22 +1559,50 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/JobResponse'
+              examples:
+                getJob200Example:
+                  summary: Default getJob 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        dateCompleted: '2025-03-15T14:30:00Z'
+                        description: Example description
+                        downloadUrl: https://example.com/path/abc123
+                        jobType: userImport
         '404':
           description: Job not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getJob404Example:
+                  summary: Default getJob 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /account:
     get:
       operationId: getAccount
-      summary: Adobe Captivate Get account details
+      summary: Adobe Captivate Get Account Details
       description: >-
         Retrieves the account configuration and details for the authenticated
         user's Learning Manager account, including timezone, locale, and
         enabled features.
       tags:
-        - Account
+      - Account
       responses:
         '200':
           description: Account details
@@ -867,42 +1610,70 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/AccountResponse'
+              examples:
+                getAccount200Example:
+                  summary: Default getAccount 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        gamificationEnabled: true
+                        locale: example
+                        name: Example Name
+                        subdomain: example
         '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getAccount401Example:
+                  summary: Default getAccount 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /search:
     get:
       operationId: searchLearningObjects
-      summary: Adobe Captivate Search learning objects
+      summary: Adobe Captivate Search Learning Objects
       description: >-
         Performs a text-based search across learning objects. Returns matching
         courses, learning programs, certifications, and job aids based on the
         search query. Supports pagination and filtering by learning object
         type and catalog.
       tags:
-        - Learning Objects
+      - Learning Objects
       parameters:
-        - name: query
-          in: query
-          required: true
-          description: The search query string
-          schema:
-            type: string
-        - name: filter.loTypes
-          in: query
-          description: Comma-separated list of learning object types to search
-          schema:
-            type: string
-        - name: filter.catalogIds
-          in: query
-          description: Comma-separated list of catalog IDs to search within
-          schema:
-            type: string
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
+      - name: query
+        in: query
+        required: true
+        description: The search query string
+        schema:
+          type: string
+      - name: filter.loTypes
+        in: query
+        description: Comma-separated list of learning object types to search
+        schema:
+          type: string
+      - name: filter.catalogIds
+        in: query
+        description: Comma-separated list of catalog IDs to search within
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
       responses:
         '200':
           description: Search results
@@ -910,32 +1681,59 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/LearningObjectListResponse'
+              examples:
+                searchLearningObjects200Example:
+                  summary: Default searchLearningObjects 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+                    included:
+                    - {}
         '400':
           description: Missing or invalid query parameter
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                searchLearningObjects400Example:
+                  summary: Default searchLearningObjects 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users/{userId}/userSkills:
     get:
       operationId: getUserSkills
-      summary: Adobe Captivate List user skills
+      summary: Adobe Captivate List User Skills
       description: >-
         Retrieves skills acquired by a specific user, including the skill
         level achieved and points earned toward each skill.
       tags:
-        - Skills
+      - Skills
       parameters:
-        - $ref: '#/components/parameters/userId'
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
-        - name: include
-          in: query
-          description: >-
-            Comma-separated list of related resources. Valid values:
-            skill, skillLevel
-          schema:
-            type: string
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: include
+        in: query
+        description: >-
+          Comma-separated list of related resources. Valid values:
+          skill, skillLevel
+        schema:
+          type: string
       responses:
         '200':
           description: List of user skills
@@ -943,25 +1741,57 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserSkillListResponse'
+              examples:
+                getUserSkills200Example:
+                  summary: Default getUserSkills 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      type: standard
+                      attributes:
+                        dateAchieved: {}
+                        pointsEarned: {}
+                      relationships:
+                        skill: {}
+                        skillLevel: {}
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '404':
           description: User not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserSkills404Example:
+                  summary: Default getUserSkills 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users/{userId}/userBadges:
     get:
       operationId: getUserBadges
-      summary: Adobe Captivate List user badges
+      summary: Adobe Captivate List User Badges
       description: >-
         Retrieves badges earned by a specific user, including the date
         earned and associated learning object.
       tags:
-        - Badges
+      - Badges
       parameters:
-        - $ref: '#/components/parameters/userId'
-        - $ref: '#/components/parameters/pageOffset'
-        - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
       responses:
         '200':
           description: List of user badges
@@ -969,12 +1799,44 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/UserBadgeListResponse'
+              examples:
+                getUserBadges200Example:
+                  summary: Default getUserBadges 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      type: standard
+                      attributes:
+                        assertionUrl: {}
+                        dateAchieved: {}
+                      relationships:
+                        badge: {}
+                        learningObject: {}
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
         '404':
           description: User not found
           content:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserBadges404Example:
+                  summary: Default getUserBadges 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     oauth2:
@@ -1127,9 +1989,9 @@ components:
               type: string
               description: How users can enroll in this learning object
               enum:
-                - Self Enrolled
-                - Manager Nominated
-                - Admin Enrolled
+              - Self Enrolled
+              - Manager Nominated
+              - Admin Enrolled
             imageUrl:
               type: string
               format: uri
@@ -1138,19 +2000,19 @@ components:
               type: string
               description: Content delivery format
               enum:
-                - Self Paced
-                - Blended
-                - Classroom
-                - Virtual Classroom
-                - Activity
+              - Self Paced
+              - Blended
+              - Classroom
+              - Virtual Classroom
+              - Activity
             loType:
               type: string
               description: Type of learning object
               enum:
-                - course
-                - learningProgram
-                - certification
-                - jobAid
+              - course
+              - learningProgram
+              - certification
+              - jobAid
             localizedMetadata:
               type: array
               description: Metadata in different locales
@@ -1160,10 +2022,10 @@ components:
               type: string
               description: Current state of the learning object
               enum:
-                - Active
-                - Retired
-                - Published
-                - Draft
+              - Active
+              - Retired
+              - Published
+              - Draft
             tags:
               type: array
               description: Tags associated with the learning object
@@ -1239,8 +2101,8 @@ components:
               type: string
               description: Current state of the instance
               enum:
-                - Active
-                - Retired
+              - Active
+              - Retired
     User:
       type: object
       description: A user in the Learning Manager system
@@ -1277,24 +2139,24 @@ components:
               items:
                 type: string
                 enum:
-                  - learner
-                  - manager
-                  - author
-                  - admin
-                  - integrationAdmin
+                - learner
+                - manager
+                - author
+                - admin
+                - integrationAdmin
             state:
               type: string
               description: User account state
               enum:
-                - ACTIVE
-                - DELETED
-                - SUSPENDED
+              - ACTIVE
+              - DELETED
+              - SUSPENDED
             userType:
               type: string
               description: User type classification
               enum:
-                - Internal
-                - External
+              - Internal
+              - External
         relationships:
           type: object
           properties:
@@ -1344,12 +2206,12 @@ components:
               type: string
               description: Current enrollment state
               enum:
-                - ENROLLED
-                - STARTED
-                - COMPLETED
-                - PENDING_APPROVAL
-                - REJECTED
-                - EXPIRED
+              - ENROLLED
+              - STARTED
+              - COMPLETED
+              - PENDING_APPROVAL
+              - REJECTED
+              - EXPIRED
         relationships:
           type: object
           properties:
@@ -1396,8 +2258,8 @@ components:
               type: string
               description: Catalog state
               enum:
-                - Enabled
-                - Disabled
+              - Enabled
+              - Disabled
         relationships:
           type: object
           properties:
@@ -1426,8 +2288,8 @@ components:
               type: string
               description: Skill state
               enum:
-                - Active
-                - Retired
+              - Active
+              - Retired
         relationships:
           type: object
           properties:
@@ -1459,8 +2321,8 @@ components:
               type: string
               description: Badge state
               enum:
-                - Active
-                - Retired
+              - Active
+              - Retired
     UserGroup:
       type: object
       description: A group of users for organizing and targeting content
@@ -1488,8 +2350,8 @@ components:
               type: string
               description: Group state
               enum:
-                - Active
-                - Deleted
+              - Active
+              - Deleted
             userCount:
               type: integer
               description: Number of users in the group
@@ -1525,17 +2387,17 @@ components:
               type: string
               description: The type of bulk operation
               enum:
-                - userImport
-                - learnerTranscriptExport
-                - trainingReportExport
+              - userImport
+              - learnerTranscriptExport
+              - trainingReportExport
             status:
               type: string
               description: Current job status
               enum:
-                - Submitted
-                - InProgress
-                - Completed
-                - Failed
+              - Submitted
+              - InProgress
+              - Completed
+              - Failed
     Account:
       type: object
       description: A Learning Manager account
@@ -1628,10 +2490,10 @@ components:
       properties:
         data:
           oneOf:
-            - $ref: '#/components/schemas/ResourceIdentifier'
-            - type: array
-              items:
-                $ref: '#/components/schemas/ResourceIdentifier'
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
         links:
           type: object
           properties:
@@ -1643,8 +2505,8 @@ components:
       type: object
       description: JSON:API resource identifier
       required:
-        - id
-        - type
+      - id
+      - type
       properties:
         id:
           type: string
@@ -1723,14 +2585,14 @@ components:
       type: object
       description: Request body for updating a user
       required:
-        - data
+      - data
       properties:
         data:
           type: object
           required:
-            - id
-            - type
-            - attributes
+          - id
+          - type
+          - attributes
           properties:
             id:
               type: string
@@ -1754,9 +2616,9 @@ components:
                 state:
                   type: string
                   enum:
-                    - ACTIVE
-                    - DELETED
-                    - SUSPENDED
+                  - ACTIVE
+                  - DELETED
+                  - SUSPENDED
     EnrollmentListResponse:
       type: object
       description: Paginated list of enrollments
@@ -1777,13 +2639,13 @@ components:
       type: object
       description: Request body for creating an enrollment
       required:
-        - data
+      - data
       properties:
         data:
           type: object
           required:
-            - type
-            - attributes
+          - type
+          - attributes
           properties:
             type:
               type: string
@@ -1917,13 +2779,13 @@ components:
       type: object
       description: Request body for creating a bulk job
       required:
-        - data
+      - data
       properties:
         data:
           type: object
           required:
-            - type
-            - attributes
+          - type
+          - attributes
           properties:
             type:
               type: string
@@ -1931,15 +2793,15 @@ components:
             attributes:
               type: object
               required:
-                - jobType
+              - jobType
               properties:
                 jobType:
                   type: string
                   description: The type of bulk operation
                   enum:
-                    - userImport
-                    - learnerTranscriptExport
-                    - trainingReportExport
+                  - userImport
+                  - learnerTranscriptExport
+                  - trainingReportExport
                 description:
                   type: string
                   description: Description for this job

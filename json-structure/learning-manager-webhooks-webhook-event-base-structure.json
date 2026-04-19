@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/learning-manager-webhooks-webhook-event-base-structure.json",
+  "name": "WebhookEventBase",
+  "description": "Base schema for all webhook event payloads",
+  "type": "object",
+  "required": [
+    "eventType",
+    "eventId",
+    "accountId",
+    "timestamp"
+  ],
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "description": "The type of event that triggered this webhook"
+    },
+    "eventId": {
+      "type": "uuid",
+      "description": "Unique identifier for this event instance"
+    },
+    "accountId": {
+      "type": "string",
+      "description": "The Learning Manager account ID"
+    },
+    "timestamp": {
+      "type": "datetime",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "source": {
+      "type": "string",
+      "description": "The system component that generated the event",
+      "enum": [
+        "learner",
+        "admin",
+        "manager",
+        "system",
+        "api"
+      ]
+    }
+  }
+}

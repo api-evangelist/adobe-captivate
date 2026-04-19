@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-badge-structure.json",
+  "name": "Badge",
+  "description": "A badge awarded to learners for achievements",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique badge identifier"
+    },
+    "type": {
+      "type": "string",
+      "const": "badge"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "imageUrl": {
+          "type": "uri",
+          "description": "URL of the badge image"
+        },
+        "name": {
+          "type": "string",
+          "description": "Badge name"
+        },
+        "state": {
+          "type": "string",
+          "description": "Badge state",
+          "enum": [
+            "Active",
+            "Retired"
+          ]
+        }
+      }
+    }
+  }
+}

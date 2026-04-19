@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-notification-list-response-schema.json",
+  "title": "NotificationListResponse",
+  "description": "Paginated list of notifications",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A user notification",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique notification identifier"
+          },
+          "type": {
+            "type": "string",
+            "const": "userNotification"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "actionTaken": {
+                "type": "boolean",
+                "description": "Whether the user has acted on this notification"
+              },
+              "channel": {
+                "type": "string",
+                "description": "Notification delivery channel"
+              },
+              "dateCreated": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Notification creation timestamp"
+              },
+              "message": {
+                "type": "object",
+                "description": "Notification message content"
+              },
+              "modelType": {
+                "type": "string",
+                "description": "The type of model this notification relates to"
+              },
+              "read": {
+                "type": "boolean",
+                "description": "Whether the notification has been read"
+              }
+            }
+          }
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "description": "Pagination links following JSON:API conventions",
+      "properties": {
+        "self": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for the current page"
+        },
+        "next": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for the next page"
+        },
+        "prev": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for the previous page"
+        }
+      }
+    }
+  }
+}

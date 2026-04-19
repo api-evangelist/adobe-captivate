@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-user-group-response-schema.json",
+  "title": "UserGroupResponse",
+  "description": "Single user group response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "A group of users for organizing and targeting content",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique user group identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "userGroup"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "dateCreated": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the group was created"
+            },
+            "description": {
+              "type": "string",
+              "description": "Group description"
+            },
+            "name": {
+              "type": "string",
+              "description": "Group name"
+            },
+            "state": {
+              "type": "string",
+              "description": "Group state",
+              "enum": [
+                "Active",
+                "Deleted"
+              ]
+            },
+            "userCount": {
+              "type": "integer",
+              "description": "Number of users in the group"
+            }
+          }
+        }
+      }
+    }
+  }
+}

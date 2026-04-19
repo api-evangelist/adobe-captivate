@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/learning-manager-webhooks-learner-enrollment-payload-schema.json",
+  "title": "LearnerEnrollmentPayload",
+  "description": "LearnerEnrollmentPayload schema from Adobe Learning Manager Webhooks",
+  "allOf": [
+    {
+      "type": "object",
+      "description": "Base schema for all webhook event payloads",
+      "required": [
+        "eventType",
+        "eventId",
+        "accountId",
+        "timestamp"
+      ],
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "description": "The type of event that triggered this webhook"
+        },
+        "eventId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this event instance"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "The Learning Manager account ID"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the event occurred"
+        },
+        "source": {
+          "type": "string",
+          "description": "The system component that generated the event",
+          "enum": [
+            "learner",
+            "admin",
+            "manager",
+            "system",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "const": "LEARNER_ENROLLMENT"
+        },
+        "learner": {
+          "type": "object",
+          "description": "Reference to a learner involved in an event",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": "Unique user identifier"
+            },
+            "name": {
+              "type": "string",
+              "description": "Learner's full name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Learner's email address"
+            }
+          }
+        },
+        "learningObject": {
+          "type": "object",
+          "description": "Reference to a learning object involved in an event",
+          "properties": {
+            "loId": {
+              "type": "string",
+              "description": "Learning object identifier"
+            },
+            "loType": {
+              "type": "string",
+              "description": "Type of learning object",
+              "enum": [
+                "course",
+                "learningProgram",
+                "certification",
+                "jobAid"
+              ]
+            },
+            "name": {
+              "type": "string",
+              "description": "Learning object name"
+            },
+            "instanceId": {
+              "type": "string",
+              "description": "Learning object instance identifier"
+            }
+          }
+        },
+        "enrollmentId": {
+          "type": "string",
+          "description": "Unique enrollment identifier"
+        },
+        "enrollmentType": {
+          "type": "string",
+          "description": "How the enrollment was initiated",
+          "enum": [
+            "selfEnrolled",
+            "managerNominated",
+            "adminEnrolled",
+            "autoEnrolled"
+          ]
+        },
+        "dateEnrolled": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Enrollment timestamp"
+        }
+      }
+    }
+  ]
+}

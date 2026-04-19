@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-account-schema.json",
+  "title": "Account",
+  "description": "A Learning Manager account",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique account identifier"
+    },
+    "type": {
+      "type": "string",
+      "const": "account"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account creation timestamp"
+        },
+        "gamificationEnabled": {
+          "type": "boolean",
+          "description": "Whether gamification features are enabled"
+        },
+        "locale": {
+          "type": "string",
+          "description": "Default locale for the account"
+        },
+        "name": {
+          "type": "string",
+          "description": "Account name"
+        },
+        "subdomain": {
+          "type": "string",
+          "description": "The Learning Manager subdomain"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "Default timezone for the account"
+        }
+      }
+    }
+  }
+}

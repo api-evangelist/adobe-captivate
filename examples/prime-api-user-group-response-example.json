@@ -1,0 +1,13 @@
+{
+  "data": {
+    "id": "lo:12345678",
+    "type": "course",
+    "attributes": {
+      "dateCreated": "2025-03-15T14:30:00Z",
+      "description": "Comprehensive course covering Adobe Learning Manager features.",
+      "name": "Introduction to Adobe Learning Manager",
+      "state": "Active",
+      "userCount": 76
+    }
+  }
+}

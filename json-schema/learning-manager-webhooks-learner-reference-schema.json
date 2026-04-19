@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/learning-manager-webhooks-learner-reference-schema.json",
+  "title": "LearnerReference",
+  "description": "Reference to a learner involved in an event",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Learner's full name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Learner's email address"
+    }
+  }
+}

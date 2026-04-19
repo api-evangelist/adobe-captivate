@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-user-group-list-response-structure.json",
+  "name": "UserGroupListResponse",
+  "description": "Paginated list of user groups",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A group of users for organizing and targeting content",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique user group identifier"
+          },
+          "type": {
+            "type": "string",
+            "const": "userGroup"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "dateCreated": {
+                "type": "datetime",
+                "description": "Timestamp when the group was created"
+              },
+              "description": {
+                "type": "string",
+                "description": "Group description"
+              },
+              "name": {
+                "type": "string",
+                "description": "Group name"
+              },
+              "state": {
+                "type": "string",
+                "description": "Group state",
+                "enum": [
+                  "Active",
+                  "Deleted"
+                ]
+              },
+              "userCount": {
+                "type": "int32",
+                "description": "Number of users in the group"
+              }
+            }
+          }
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "description": "Pagination links following JSON:API conventions",
+      "properties": {
+        "self": {
+          "type": "uri",
+          "description": "URL for the current page"
+        },
+        "next": {
+          "type": "uri",
+          "description": "URL for the next page"
+        },
+        "prev": {
+          "type": "uri",
+          "description": "URL for the previous page"
+        }
+      }
+    }
+  }
+}

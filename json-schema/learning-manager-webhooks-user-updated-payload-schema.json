@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/learning-manager-webhooks-user-updated-payload-schema.json",
+  "title": "UserUpdatedPayload",
+  "description": "UserUpdatedPayload schema from Adobe Learning Manager Webhooks",
+  "allOf": [
+    {
+      "type": "object",
+      "description": "Base schema for all webhook event payloads",
+      "required": [
+        "eventType",
+        "eventId",
+        "accountId",
+        "timestamp"
+      ],
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "description": "The type of event that triggered this webhook"
+        },
+        "eventId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this event instance"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "The Learning Manager account ID"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the event occurred"
+        },
+        "source": {
+          "type": "string",
+          "description": "The system component that generated the event",
+          "enum": [
+            "learner",
+            "admin",
+            "manager",
+            "system",
+            "api"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "const": "USER_UPDATED"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": "User identifier"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's full name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        },
+        "updatedFields": {
+          "type": "array",
+          "description": "Fields that were modified",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

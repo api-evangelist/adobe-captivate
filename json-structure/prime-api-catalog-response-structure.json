@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-catalog-response-structure.json",
+  "name": "CatalogResponse",
+  "description": "Single catalog response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "A catalog that organizes and controls access to learning objects",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique catalog identifier"
+        },
+        "type": {
+          "type": "string",
+          "const": "catalog"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "dateCreated": {
+              "type": "datetime",
+              "description": "Timestamp when the catalog was created"
+            },
+            "dateUpdated": {
+              "type": "datetime",
+              "description": "Timestamp of the last update"
+            },
+            "description": {
+              "type": "string",
+              "description": "Catalog description"
+            },
+            "isDefault": {
+              "type": "boolean",
+              "description": "Whether this is the default catalog"
+            },
+            "isInternallySearchable": {
+              "type": "boolean",
+              "description": "Whether learning objects in this catalog appear in search"
+            },
+            "name": {
+              "type": "string",
+              "description": "Catalog name"
+            },
+            "state": {
+              "type": "string",
+              "description": "Catalog state",
+              "enum": [
+                "Enabled",
+                "Disabled"
+              ]
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "learningObjects": {
+              "type": "object",
+              "description": "A JSON:API relationship object",
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "JSON:API resource identifier",
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Resource identifier"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Resource type name"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "JSON:API resource identifier",
+                        "required": [
+                          "id",
+                          "type"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Resource identifier"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Resource type name"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "uri",
+                      "description": "URL to fetch the related resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

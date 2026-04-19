@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-enrollment-create-request-schema.json",
+  "title": "EnrollmentCreateRequest",
+  "description": "Request body for creating an enrollment",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "enrollment"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "loInstanceId": {
+              "type": "string",
+              "description": "ID of the learning object instance to enroll in"
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "loInstance": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "description": "JSON:API resource identifier",
+                  "required": [
+                    "id",
+                    "type"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Resource identifier"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Resource type name"
+                    }
+                  }
+                }
+              }
+            },
+            "learner": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "description": "JSON:API resource identifier",
+                  "required": [
+                    "id",
+                    "type"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Resource identifier"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Resource type name"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

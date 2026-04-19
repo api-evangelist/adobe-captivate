@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-notification-structure.json",
+  "name": "Notification",
+  "description": "A user notification",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique notification identifier"
+    },
+    "type": {
+      "type": "string",
+      "const": "userNotification"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "actionTaken": {
+          "type": "boolean",
+          "description": "Whether the user has acted on this notification"
+        },
+        "channel": {
+          "type": "string",
+          "description": "Notification delivery channel"
+        },
+        "dateCreated": {
+          "type": "datetime",
+          "description": "Notification creation timestamp"
+        },
+        "message": {
+          "type": "object",
+          "description": "Notification message content"
+        },
+        "modelType": {
+          "type": "string",
+          "description": "The type of model this notification relates to"
+        },
+        "read": {
+          "type": "boolean",
+          "description": "Whether the notification has been read"
+        }
+      }
+    }
+  }
+}

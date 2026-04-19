@@ -33,7 +33,7 @@ servers:
           The HTTPS URL of your webhook endpoint registered in Adobe
           Learning Manager
     security:
-      - hmacSignature: []
+    - hmacSignature: []
 channels:
   /learner-enrollment:
     description: >-
@@ -215,10 +215,10 @@ components:
       type: object
       description: Base schema for all webhook event payloads
       required:
-        - eventType
-        - eventId
-        - accountId
-        - timestamp
+      - eventType
+      - eventId
+      - accountId
+      - timestamp
       properties:
         eventType:
           type: string
@@ -238,11 +238,11 @@ components:
           type: string
           description: The system component that generated the event
           enum:
-            - learner
-            - admin
-            - manager
-            - system
-            - api
+          - learner
+          - admin
+          - manager
+          - system
+          - api
     LearnerReference:
       type: object
       description: Reference to a learner involved in an event
@@ -268,10 +268,10 @@ components:
           type: string
           description: Type of learning object
           enum:
-            - course
-            - learningProgram
-            - certification
-            - jobAid
+          - course
+          - learningProgram
+          - certification
+          - jobAid
         name:
           type: string
           description: Learning object name
@@ -280,349 +280,349 @@ components:
           description: Learning object instance identifier
     LearnerEnrollmentPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: LEARNER_ENROLLMENT
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            learningObject:
-              $ref: '#/components/schemas/LearningObjectReference'
-            enrollmentId:
-              type: string
-              description: Unique enrollment identifier
-            enrollmentType:
-              type: string
-              description: How the enrollment was initiated
-              enum:
-                - selfEnrolled
-                - managerNominated
-                - adminEnrolled
-                - autoEnrolled
-            dateEnrolled:
-              type: string
-              format: date-time
-              description: Enrollment timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: LEARNER_ENROLLMENT
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          learningObject:
+            $ref: '#/components/schemas/LearningObjectReference'
+          enrollmentId:
+            type: string
+            description: Unique enrollment identifier
+          enrollmentType:
+            type: string
+            description: How the enrollment was initiated
+            enum:
+            - selfEnrolled
+            - managerNominated
+            - adminEnrolled
+            - autoEnrolled
+          dateEnrolled:
+            type: string
+            format: date-time
+            description: Enrollment timestamp
     LearnerCompletionPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: LEARNER_COMPLETION
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            learningObject:
-              $ref: '#/components/schemas/LearningObjectReference'
-            enrollmentId:
-              type: string
-              description: Enrollment identifier
-            completedOn:
-              type: string
-              format: date-time
-              description: Completion timestamp
-            hasPassed:
-              type: boolean
-              description: Whether the learner passed
-            score:
-              type: number
-              description: Score achieved
-            progressPercent:
-              type: integer
-              description: Final progress percentage
-              const: 100
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: LEARNER_COMPLETION
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          learningObject:
+            $ref: '#/components/schemas/LearningObjectReference'
+          enrollmentId:
+            type: string
+            description: Enrollment identifier
+          completedOn:
+            type: string
+            format: date-time
+            description: Completion timestamp
+          hasPassed:
+            type: boolean
+            description: Whether the learner passed
+          score:
+            type: number
+            description: Score achieved
+          progressPercent:
+            type: integer
+            description: Final progress percentage
+            const: 100
     LearnerProgressPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: LEARNER_PROGRESS
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            learningObject:
-              $ref: '#/components/schemas/LearningObjectReference'
-            enrollmentId:
-              type: string
-              description: Enrollment identifier
-            progressPercent:
-              type: integer
-              description: Current progress percentage
-              minimum: 0
-              maximum: 100
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: LEARNER_PROGRESS
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          learningObject:
+            $ref: '#/components/schemas/LearningObjectReference'
+          enrollmentId:
+            type: string
+            description: Enrollment identifier
+          progressPercent:
+            type: integer
+            description: Current progress percentage
+            minimum: 0
+            maximum: 100
     LearnerUnenrollmentPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: LEARNER_UNENROLLMENT
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            learningObject:
-              $ref: '#/components/schemas/LearningObjectReference'
-            enrollmentId:
-              type: string
-              description: Enrollment identifier
-            unenrolledBy:
-              type: string
-              description: Who initiated the unenrollment
-              enum:
-                - learner
-                - manager
-                - admin
-                - system
-            dateUnenrolled:
-              type: string
-              format: date-time
-              description: Unenrollment timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: LEARNER_UNENROLLMENT
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          learningObject:
+            $ref: '#/components/schemas/LearningObjectReference'
+          enrollmentId:
+            type: string
+            description: Enrollment identifier
+          unenrolledBy:
+            type: string
+            description: Who initiated the unenrollment
+            enum:
+            - learner
+            - manager
+            - admin
+            - system
+          dateUnenrolled:
+            type: string
+            format: date-time
+            description: Unenrollment timestamp
     CourseCreatedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: COURSE_CREATED
-            learningObject:
-              $ref: '#/components/schemas/LearningObjectReference'
-            createdBy:
-              type: string
-              description: User ID of the creator
-            dateCreated:
-              type: string
-              format: date-time
-              description: Creation timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: COURSE_CREATED
+          learningObject:
+            $ref: '#/components/schemas/LearningObjectReference'
+          createdBy:
+            type: string
+            description: User ID of the creator
+          dateCreated:
+            type: string
+            format: date-time
+            description: Creation timestamp
     CourseUpdatedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: COURSE_UPDATED
-            learningObject:
-              $ref: '#/components/schemas/LearningObjectReference'
-            updatedBy:
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: COURSE_UPDATED
+          learningObject:
+            $ref: '#/components/schemas/LearningObjectReference'
+          updatedBy:
+            type: string
+            description: User ID of who made the update
+          updatedFields:
+            type: array
+            description: List of fields that were modified
+            items:
               type: string
-              description: User ID of who made the update
-            updatedFields:
-              type: array
-              description: List of fields that were modified
-              items:
-                type: string
-            dateUpdated:
-              type: string
-              format: date-time
-              description: Update timestamp
+          dateUpdated:
+            type: string
+            format: date-time
+            description: Update timestamp
     BadgeAwardedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: BADGE_AWARDED
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            badge:
-              type: object
-              properties:
-                badgeId:
-                  type: string
-                  description: Badge identifier
-                name:
-                  type: string
-                  description: Badge name
-                imageUrl:
-                  type: string
-                  format: uri
-                  description: Badge image URL
-            dateAwarded:
-              type: string
-              format: date-time
-              description: Award timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: BADGE_AWARDED
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          badge:
+            type: object
+            properties:
+              badgeId:
+                type: string
+                description: Badge identifier
+              name:
+                type: string
+                description: Badge name
+              imageUrl:
+                type: string
+                format: uri
+                description: Badge image URL
+          dateAwarded:
+            type: string
+            format: date-time
+            description: Award timestamp
     CertificationCompletedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: CERTIFICATION_COMPLETED
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            certification:
-              type: object
-              properties:
-                certificationId:
-                  type: string
-                  description: Certification identifier
-                name:
-                  type: string
-                  description: Certification name
-                instanceId:
-                  type: string
-                  description: Certification instance identifier
-            completedOn:
-              type: string
-              format: date-time
-              description: Completion timestamp
-            validUntil:
-              type: string
-              format: date-time
-              description: Certification validity expiration date
-            recertificationDeadline:
-              type: string
-              format: date-time
-              description: Deadline for recertification
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: CERTIFICATION_COMPLETED
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          certification:
+            type: object
+            properties:
+              certificationId:
+                type: string
+                description: Certification identifier
+              name:
+                type: string
+                description: Certification name
+              instanceId:
+                type: string
+                description: Certification instance identifier
+          completedOn:
+            type: string
+            format: date-time
+            description: Completion timestamp
+          validUntil:
+            type: string
+            format: date-time
+            description: Certification validity expiration date
+          recertificationDeadline:
+            type: string
+            format: date-time
+            description: Deadline for recertification
     SkillAchievedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: SKILL_ACHIEVED
-            learner:
-              $ref: '#/components/schemas/LearnerReference'
-            skill:
-              type: object
-              properties:
-                skillId:
-                  type: string
-                  description: Skill identifier
-                name:
-                  type: string
-                  description: Skill name
-                levelName:
-                  type: string
-                  description: Skill level name achieved
-                credits:
-                  type: number
-                  description: Skill credits earned
-            dateAchieved:
-              type: string
-              format: date-time
-              description: Achievement timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: SKILL_ACHIEVED
+          learner:
+            $ref: '#/components/schemas/LearnerReference'
+          skill:
+            type: object
+            properties:
+              skillId:
+                type: string
+                description: Skill identifier
+              name:
+                type: string
+                description: Skill name
+              levelName:
+                type: string
+                description: Skill level name achieved
+              credits:
+                type: number
+                description: Skill credits earned
+          dateAchieved:
+            type: string
+            format: date-time
+            description: Achievement timestamp
     UserCreatedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: USER_CREATED
-            user:
-              type: object
-              properties:
-                userId:
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: USER_CREATED
+          user:
+            type: object
+            properties:
+              userId:
+                type: string
+                description: User identifier
+              name:
+                type: string
+                description: User's full name
+              email:
+                type: string
+                format: email
+                description: User's email address
+              roles:
+                type: array
+                items:
                   type: string
-                  description: User identifier
-                name:
-                  type: string
-                  description: User's full name
-                email:
-                  type: string
-                  format: email
-                  description: User's email address
-                roles:
-                  type: array
-                  items:
-                    type: string
-                userType:
-                  type: string
-                  enum:
-                    - Internal
-                    - External
-            creationMethod:
-              type: string
-              description: How the user was created
-              enum:
-                - selfRegistration
-                - adminCreated
-                - csvImport
-                - apiCreated
-                - ssoProvisioned
+              userType:
+                type: string
+                enum:
+                - Internal
+                - External
+          creationMethod:
+            type: string
+            description: How the user was created
+            enum:
+            - selfRegistration
+            - adminCreated
+            - csvImport
+            - apiCreated
+            - ssoProvisioned
     UserUpdatedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: USER_UPDATED
-            user:
-              type: object
-              properties:
-                userId:
-                  type: string
-                  description: User identifier
-                name:
-                  type: string
-                  description: User's full name
-                email:
-                  type: string
-                  format: email
-            updatedFields:
-              type: array
-              description: Fields that were modified
-              items:
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: USER_UPDATED
+          user:
+            type: object
+            properties:
+              userId:
                 type: string
+                description: User identifier
+              name:
+                type: string
+                description: User's full name
+              email:
+                type: string
+                format: email
+          updatedFields:
+            type: array
+            description: Fields that were modified
+            items:
+              type: string
     UserDeletedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: USER_DELETED
-            user:
-              type: object
-              properties:
-                userId:
-                  type: string
-                  description: Deleted user identifier
-                email:
-                  type: string
-                  format: email
-            dateDeleted:
-              type: string
-              format: date-time
-              description: Deletion timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: USER_DELETED
+          user:
+            type: object
+            properties:
+              userId:
+                type: string
+                description: Deleted user identifier
+              email:
+                type: string
+                format: email
+          dateDeleted:
+            type: string
+            format: date-time
+            description: Deletion timestamp
     JobCompletedPayload:
       allOf:
-        - $ref: '#/components/schemas/WebhookEventBase'
-        - type: object
-          properties:
-            eventType:
-              const: JOB_COMPLETED
-            job:
-              type: object
-              properties:
-                jobId:
-                  type: string
-                  description: Job identifier
-                jobType:
-                  type: string
-                  description: Type of bulk operation
-                  enum:
-                    - userImport
-                    - learnerTranscriptExport
-                    - trainingReportExport
-                status:
-                  type: string
-                  description: Final job status
-                  enum:
-                    - Completed
-                    - Failed
-                downloadUrl:
-                  type: string
-                  format: uri
-                  description: URL to download results (for export jobs)
-                recordsProcessed:
-                  type: integer
-                  description: Number of records processed
-                recordsFailed:
-                  type: integer
-                  description: Number of records that failed
-            dateCompleted:
-              type: string
-              format: date-time
-              description: Job completion timestamp
+      - $ref: '#/components/schemas/WebhookEventBase'
+      - type: object
+        properties:
+          eventType:
+            const: JOB_COMPLETED
+          job:
+            type: object
+            properties:
+              jobId:
+                type: string
+                description: Job identifier
+              jobType:
+                type: string
+                description: Type of bulk operation
+                enum:
+                - userImport
+                - learnerTranscriptExport
+                - trainingReportExport
+              status:
+                type: string
+                description: Final job status
+                enum:
+                - Completed
+                - Failed
+              downloadUrl:
+                type: string
+                format: uri
+                description: URL to download results (for export jobs)
+              recordsProcessed:
+                type: integer
+                description: Number of records processed
+              recordsFailed:
+                type: integer
+                description: Number of records that failed
+          dateCompleted:
+            type: string
+            format: date-time
+            description: Job completion timestamp
   messages:
     LearnerEnrollmentEvent:
       name: LearnerEnrollmentEvent
@@ -631,6 +631,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/LearnerEnrollmentPayload'
+      examples:
+      - name: LearnerEnrollmentEventDefaultExample
+        summary: Default LearnerEnrollmentEvent example payload
+        x-microcks-default: true
+        payload: {}
     LearnerCompletionEvent:
       name: LearnerCompletionEvent
       title: Learner Completion Event
@@ -638,6 +643,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/LearnerCompletionPayload'
+      examples:
+      - name: LearnerCompletionEventDefaultExample
+        summary: Default LearnerCompletionEvent example payload
+        x-microcks-default: true
+        payload: {}
     LearnerProgressEvent:
       name: LearnerProgressEvent
       title: Learner Progress Event
@@ -645,6 +655,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/LearnerProgressPayload'
+      examples:
+      - name: LearnerProgressEventDefaultExample
+        summary: Default LearnerProgressEvent example payload
+        x-microcks-default: true
+        payload: {}
     LearnerUnenrollmentEvent:
       name: LearnerUnenrollmentEvent
       title: Learner Unenrollment Event
@@ -652,6 +667,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/LearnerUnenrollmentPayload'
+      examples:
+      - name: LearnerUnenrollmentEventDefaultExample
+        summary: Default LearnerUnenrollmentEvent example payload
+        x-microcks-default: true
+        payload: {}
     CourseCreatedEvent:
       name: CourseCreatedEvent
       title: Course Created Event
@@ -659,6 +679,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/CourseCreatedPayload'
+      examples:
+      - name: CourseCreatedEventDefaultExample
+        summary: Default CourseCreatedEvent example payload
+        x-microcks-default: true
+        payload: {}
     CourseUpdatedEvent:
       name: CourseUpdatedEvent
       title: Course Updated Event
@@ -666,6 +691,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/CourseUpdatedPayload'
+      examples:
+      - name: CourseUpdatedEventDefaultExample
+        summary: Default CourseUpdatedEvent example payload
+        x-microcks-default: true
+        payload: {}
     BadgeAwardedEvent:
       name: BadgeAwardedEvent
       title: Badge Awarded Event
@@ -673,6 +703,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/BadgeAwardedPayload'
+      examples:
+      - name: BadgeAwardedEventDefaultExample
+        summary: Default BadgeAwardedEvent example payload
+        x-microcks-default: true
+        payload: {}
     CertificationCompletedEvent:
       name: CertificationCompletedEvent
       title: Certification Completed Event
@@ -680,6 +715,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/CertificationCompletedPayload'
+      examples:
+      - name: CertificationCompletedEventDefaultExample
+        summary: Default CertificationCompletedEvent example payload
+        x-microcks-default: true
+        payload: {}
     SkillAchievedEvent:
       name: SkillAchievedEvent
       title: Skill Achieved Event
@@ -687,6 +727,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/SkillAchievedPayload'
+      examples:
+      - name: SkillAchievedEventDefaultExample
+        summary: Default SkillAchievedEvent example payload
+        x-microcks-default: true
+        payload: {}
     UserCreatedEvent:
       name: UserCreatedEvent
       title: User Created Event
@@ -694,6 +739,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/UserCreatedPayload'
+      examples:
+      - name: UserCreatedEventDefaultExample
+        summary: Default UserCreatedEvent example payload
+        x-microcks-default: true
+        payload: {}
     UserUpdatedEvent:
       name: UserUpdatedEvent
       title: User Updated Event
@@ -701,6 +751,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/UserUpdatedPayload'
+      examples:
+      - name: UserUpdatedEventDefaultExample
+        summary: Default UserUpdatedEvent example payload
+        x-microcks-default: true
+        payload: {}
     UserDeletedEvent:
       name: UserDeletedEvent
       title: User Deleted Event
@@ -708,6 +763,11 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/UserDeletedPayload'
+      examples:
+      - name: UserDeletedEventDefaultExample
+        summary: Default UserDeletedEvent example payload
+        x-microcks-default: true
+        payload: {}
     JobCompletedEvent:
       name: JobCompletedEvent
       title: Job Completed Event
@@ -715,3 +775,8 @@ components:
       contentType: application/json
       payload:
         $ref: '#/components/schemas/JobCompletedPayload'
+      examples:
+      - name: JobCompletedEventDefaultExample
+        summary: Default JobCompletedEvent example payload
+        x-microcks-default: true
+        payload: {}

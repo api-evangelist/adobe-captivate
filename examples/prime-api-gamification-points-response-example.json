@@ -1,0 +1,11 @@
+{
+  "data": {
+    "id": "lo:12345678",
+    "type": "course",
+    "attributes": {
+      "learnerPoints": 33,
+      "managerPoints": 100,
+      "overallPoints": 80
+    }
+  }
+}

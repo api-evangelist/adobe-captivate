@@ -1,0 +1,33 @@
+{
+  "id": "lo:12345678",
+  "type": "course",
+  "attributes": {
+    "completedOn": "2025-03-15T14:30:00Z",
+    "dateEnrolled": "2025-03-15T14:30:00Z",
+    "dateStarted": "2025-03-15T14:30:00Z",
+    "hasPassed": true,
+    "progressPercent": 47,
+    "score": 98.55,
+    "state": "ENROLLED"
+  },
+  "relationships": {
+    "learner": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "learningObject": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    },
+    "loInstance": {
+      "data": "example-data",
+      "links": {
+        "related": {}
+      }
+    }
+  }
+}

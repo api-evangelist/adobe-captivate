@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-localized-metadata-schema.json",
+  "title": "LocalizedMetadata",
+  "description": "Metadata for a learning object in a specific locale",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Description in the specified locale"
+    },
+    "locale": {
+      "type": "string",
+      "description": "The locale code (e.g. en-US, fr-FR)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name in the specified locale"
+    },
+    "overview": {
+      "type": "string",
+      "description": "Overview or summary text"
+    },
+    "richTextOverview": {
+      "type": "string",
+      "description": "Rich text (HTML) overview content"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/learning-manager-webhooks-learning-object-reference-structure.json",
+  "name": "LearningObjectReference",
+  "description": "Reference to a learning object involved in an event",
+  "type": "object",
+  "properties": {
+    "loId": {
+      "type": "string",
+      "description": "Learning object identifier"
+    },
+    "loType": {
+      "type": "string",
+      "description": "Type of learning object",
+      "enum": [
+        "course",
+        "learningProgram",
+        "certification",
+        "jobAid"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Learning object name"
+    },
+    "instanceId": {
+      "type": "string",
+      "description": "Learning object instance identifier"
+    }
+  }
+}

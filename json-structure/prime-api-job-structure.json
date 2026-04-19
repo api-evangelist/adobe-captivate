@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-job-structure.json",
+  "name": "Job",
+  "description": "A bulk import/export job",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique job identifier"
+    },
+    "type": {
+      "type": "string",
+      "const": "job"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "dateCreated": {
+          "type": "datetime",
+          "description": "Timestamp when the job was created"
+        },
+        "dateCompleted": {
+          "type": "datetime",
+          "description": "Timestamp when the job completed"
+        },
+        "description": {
+          "type": "string",
+          "description": "Job description"
+        },
+        "downloadUrl": {
+          "type": "uri",
+          "description": "URL to download the job result file (for export jobs)"
+        },
+        "jobType": {
+          "type": "string",
+          "description": "The type of bulk operation",
+          "enum": [
+            "userImport",
+            "learnerTranscriptExport",
+            "trainingReportExport"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "description": "Current job status",
+          "enum": [
+            "Submitted",
+            "InProgress",
+            "Completed",
+            "Failed"
+          ]
+        }
+      }
+    }
+  }
+}

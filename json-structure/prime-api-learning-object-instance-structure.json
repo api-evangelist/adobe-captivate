@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-structure/prime-api-learning-object-instance-structure.json",
+  "name": "LearningObjectInstance",
+  "description": "An instance of a learning object representing a specific offering with its own timeline and enrollment settings",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the instance"
+    },
+    "type": {
+      "type": "string",
+      "const": "learningObjectInstance"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "completionDeadline": {
+          "type": "datetime",
+          "description": "Deadline by which the learner must complete the course"
+        },
+        "enrollmentDeadline": {
+          "type": "datetime",
+          "description": "Deadline for enrolling in this instance"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Whether this is the default instance"
+        },
+        "seatLimit": {
+          "type": "int32",
+          "description": "Maximum number of learners who can enroll"
+        },
+        "state": {
+          "type": "string",
+          "description": "Current state of the instance",
+          "enum": [
+            "Active",
+            "Retired"
+          ]
+        }
+      }
+    }
+  }
+}

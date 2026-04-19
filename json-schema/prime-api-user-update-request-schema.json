@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/json-schema/prime-api-user-update-request-schema.json",
+  "title": "UserUpdateRequest",
+  "description": "Request body for updating a user",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "User ID"
+        },
+        "type": {
+          "type": "string",
+          "const": "user"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Updated user name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Updated email address"
+            },
+            "profile": {
+              "type": "string",
+              "description": "Updated profile bio"
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "ACTIVE",
+                "DELETED",
+                "SUSPENDED"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

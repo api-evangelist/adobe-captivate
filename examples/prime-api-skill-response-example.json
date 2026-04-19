@@ -1,0 +1,21 @@
+{
+  "data": {
+    "id": "lo:12345678",
+    "type": "course",
+    "attributes": {
+      "description": "Comprehensive course covering Adobe Learning Manager features.",
+      "name": "Introduction to Adobe Learning Manager",
+      "state": "Active"
+    },
+    "relationships": {
+      "skillLevels": {
+        "data": {},
+        "links": {}
+      },
+      "learningObjects": {
+        "data": {},
+        "links": {}
+      }
+    }
+  }
+}

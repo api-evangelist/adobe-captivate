@@ -1,0 +1,384 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Adobe Captivate"
+  description: "Unified vocabulary for Adobe Learning Manager (Captivate Prime) covering learning objects, users, enrollments, skills, badges, certifications, and webhooks across REST and event-driven APIs."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: captivate-prime
+      name: Adobe Captivate Prime API
+      version: "2"
+      baseUrl: https://learningmanager.adobe.com/primeapi/v2
+      status: active
+    - namespace: captivate-webhooks
+      name: Adobe Learning Manager Webhooks API
+      version: "1.0"
+      baseUrl: "{webhookUrl}"
+      status: active
+
+  resources:
+    - name: learning-objects
+      description: "Courses, learning programs, certifications, and job aids."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+    - name: users
+      description: "Learner, manager, author, and admin user accounts."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+        - create
+        - update
+        - delete
+    - name: enrollments
+      description: "Learner enrollments in learning objects."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+        - create
+        - delete
+    - name: skills
+      description: "Skills and skill levels associated with learning content."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+    - name: badges
+      description: "Badges awarded to learners for achievements."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+    - name: certifications
+      description: "Certification programs and compliance tracking."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+    - name: catalogs
+      description: "Content catalogs organizing learning objects."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+    - name: jobs
+      description: "Bulk import/export jobs for data operations."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+        - create
+    - name: user-groups
+      description: "Groups of users for targeted content delivery."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+        - get
+    - name: notifications
+      description: "User notifications and announcements."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+    - name: gamification
+      description: "Gamification points and leaderboard management."
+      apis:
+        - captivate-prime
+      actions:
+        - list
+    - name: account
+      description: "Account-level settings and configuration."
+      apis:
+        - captivate-prime
+      actions:
+        - get
+    - name: webhook-events
+      description: "Real-time events for enrollment, completion, badge, and certification activities."
+      apis:
+        - captivate-webhooks
+      actions:
+        - subscribe
+
+  actions:
+    - name: list
+      description: "Retrieve a paginated collection of resources."
+      httpMethod: GET
+      pattern: read
+    - name: get
+      description: "Retrieve a single resource by ID."
+      httpMethod: GET
+      pattern: read
+    - name: create
+      description: "Create a new resource."
+      httpMethod: POST
+      pattern: write
+    - name: update
+      description: "Update an existing resource."
+      httpMethod: PATCH
+      pattern: write
+    - name: delete
+      description: "Remove a resource."
+      httpMethod: DELETE
+      pattern: destructive
+    - name: subscribe
+      description: "Receive real-time event notifications via webhook."
+      httpMethod: POST
+      pattern: read
+
+  schemas:
+    core:
+      - name: LearningObject
+        description: "A course, learning program, certification, or job aid."
+        keyProperties: [id, type, attributes.name, attributes.loType, attributes.state]
+      - name: User
+        description: "A learner, manager, author, or admin user account."
+        keyProperties: [id, type, attributes.name, attributes.email, attributes.userType]
+      - name: Enrollment
+        description: "A learner's enrollment in a learning object."
+        keyProperties: [id, type, attributes.state, attributes.progressPercent]
+    reporting:
+      - name: Job
+        description: "A bulk import or export job."
+        keyProperties: [id, type, attributes.jobType, attributes.status]
+      - name: GamificationPoints
+        description: "Gamification points earned by a learner."
+        keyProperties: [id, attributes.points, attributes.type]
+    content:
+      - name: Catalog
+        description: "A catalog organizing learning objects."
+        keyProperties: [id, type, attributes.name]
+      - name: Skill
+        description: "A skill associated with learning content."
+        keyProperties: [id, type, attributes.name, attributes.maxCredits]
+      - name: Badge
+        description: "A badge awarded for achievement."
+        keyProperties: [id, type, attributes.name, attributes.imageUrl]
+    events:
+      - name: LearnerEnrollmentPayload
+        description: "Webhook payload for learner enrollment events."
+        keyProperties: [eventType, learner.id, learningObject.id]
+      - name: LearnerCompletionPayload
+        description: "Webhook payload for learner completion events."
+        keyProperties: [eventType, learner.id, learningObject.id, score, hasPassed]
+      - name: BadgeAwardedPayload
+        description: "Webhook payload for badge award events."
+        keyProperties: [eventType, learner.id, badge.id, dateAwarded]
+
+  parameters:
+    pagination:
+      - name: page.offset
+        description: "Number of records to skip for pagination."
+        apis: [captivate-prime]
+      - name: page.limit
+        description: "Maximum number of records to return per page."
+        apis: [captivate-prime]
+      - name: sort
+        description: "Field to sort results by."
+        apis: [captivate-prime]
+    filters:
+      - name: filter.loTypes
+        description: "Filter learning objects by type (course, learningProgram, certification, jobAid)."
+        apis: [captivate-prime]
+      - name: filter.role
+        description: "Filter users by role (learner, manager, author, admin, integrationAdmin)."
+        apis: [captivate-prime]
+      - name: filter.isActive
+        description: "Filter users by active status."
+        apis: [captivate-prime]
+      - name: filter.loState
+        description: "Filter learning objects by state (Active, Retired)."
+        apis: [captivate-prime]
+    identifiers:
+      - name: learningObjectId
+        description: "Unique identifier for a learning object."
+        apis: [captivate-prime]
+      - name: userId
+        description: "Unique identifier for a user."
+        apis: [captivate-prime]
+      - name: enrollmentId
+        description: "Unique identifier for an enrollment."
+        apis: [captivate-prime]
+
+  enums:
+    loTypes:
+      - course
+      - learningProgram
+      - certification
+      - jobAid
+    userRoles:
+      - learner
+      - manager
+      - author
+      - admin
+      - integrationAdmin
+    loStates:
+      - Active
+      - Retired
+    jobTypes:
+      - userImport
+      - learnerTranscriptExport
+      - trainingReportExport
+    webhookEvents:
+      - LearnerEnrollment
+      - LearnerCompletion
+      - LearnerProgress
+      - LearnerUnenrollment
+      - CourseCreated
+      - CourseUpdated
+      - BadgeAwarded
+      - CertificationCompleted
+      - SkillAchieved
+      - UserCreated
+      - UserUpdated
+      - UserDeleted
+      - JobCompleted
+
+  authentication:
+    schemes:
+      - name: OAuth 2.0
+        type: oauth2
+        apis: [captivate-prime]
+        scopes:
+          - learner
+          - admin
+          - manager
+          - author
+      - name: HMAC Signature
+        type: hmac
+        apis: [captivate-webhooks]
+        description: "Webhook payloads are signed with HMAC-SHA256 for verification."
+
+capability:
+  workflows:
+    - name: Learning Management
+      file: capabilities/learning-management.yaml
+      description: "Unified workflow for managing learning objects, enrollments, users, and compliance."
+      apisComposed: [captivate-prime]
+      toolCount: 12
+      personas:
+        - L&D Administrator
+        - HR Integration Developer
+      domains:
+        - Learning Management
+        - Compliance
+        - Training
+
+  personas:
+    - id: ld-administrator
+      name: L&D Administrator
+      description: "Learning and development professional managing course catalogs, enrollments, and compliance tracking."
+      workflows:
+        - Learning Management
+    - id: hr-integration-developer
+      name: HR Integration Developer
+      description: "Developer integrating HRIS systems with Adobe Learning Manager for user provisioning and data sync."
+      workflows:
+        - Learning Management
+
+  domains:
+    - name: Learning Management
+      description: "Core LMS functionality including course delivery, enrollment, and progress tracking."
+      resources: [learning-objects, enrollments, users, catalogs]
+    - name: Compliance
+      description: "Certification and mandatory training compliance tracking."
+      resources: [certifications, enrollments]
+    - name: Training Analytics
+      description: "Learner progress, skill attainment, and completion reporting."
+      resources: [skills, badges, gamification, jobs]
+    - name: Event Processing
+      description: "Real-time webhook events for downstream integrations."
+      resources: [webhook-events]
+
+  namespaces:
+    - name: captivate-prime
+      type: consumed
+      baseUri: https://learningmanager.adobe.com/primeapi/v2
+    - name: captivate-webhooks
+      type: consumed
+      baseUri: "{webhookUrl}"
+    - name: learning-management-api
+      type: rest-exposed
+      port: 8080
+    - name: learning-management-mcp
+      type: mcp-exposed
+      port: 9090
+
+  binds:
+    - name: ADOBE_CAPTIVATE_ACCESS_TOKEN
+      description: "OAuth 2.0 access token for Adobe Learning Manager API authentication."
+      workflows: [Learning Management]
+
+crossReference:
+  - resource: learning-objects
+    operations:
+      - getLearningObjects
+      - getLearningObject
+      - getLearningObjectInstances
+    workflows:
+      - Learning Management
+    personas:
+      - L&D Administrator
+      - HR Integration Developer
+
+  - resource: users
+    operations:
+      - getUsers
+      - getUser
+      - createUser
+      - updateUser
+      - deleteUser
+    workflows:
+      - Learning Management
+    personas:
+      - L&D Administrator
+      - HR Integration Developer
+
+  - resource: enrollments
+    operations:
+      - getEnrollments
+      - getEnrollment
+      - createEnrollment
+      - deleteEnrollment
+    workflows:
+      - Learning Management
+    personas:
+      - L&D Administrator
+
+  - resource: certifications
+    operations:
+      - getCertifications
+    workflows:
+      - Learning Management
+    personas:
+      - L&D Administrator
+
+  - resource: skills
+    operations:
+      - getSkills
+    workflows:
+      - Learning Management
+    personas:
+      - L&D Administrator
+
+  - resource: badges
+    operations:
+      - getBadges
+    workflows:
+      - Learning Management
+    personas:
+      - L&D Administrator

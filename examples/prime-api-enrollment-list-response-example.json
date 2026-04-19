@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "id": "lo:12345678",
+      "type": "course",
+      "attributes": {
+        "completedOn": {},
+        "dateEnrolled": {},
+        "dateStarted": {},
+        "hasPassed": {},
+        "progressPercent": {},
+        "score": {},
+        "state": {}
+      },
+      "relationships": {
+        "learner": {},
+        "learningObject": {},
+        "loInstance": {}
+      }
+    }
+  ],
+  "links": {
+    "self": "https://learningmanager.adobe.com/example",
+    "next": "https://learningmanager.adobe.com/example",
+    "prev": "https://learningmanager.adobe.com/example"
+  }
+}
