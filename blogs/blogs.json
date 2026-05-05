@@ -1,0 +1,13 @@
+{
+  "repo": "adobe-captivate",
+  "feeds": [
+    {
+      "source": "https://elearning.adobe.com/",
+      "feed_url": "https://elearning.adobe.com/feed/",
+      "saved": 10,
+      "title": "eLearning"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:20:33Z"
+}
