@@ -156,7 +156,7 @@ common:
   url: https://github.com/adobe
 - type: JSONSchema
   url: json-schema/adobe-captivate-learning-object-schema.json
-- type: JSON-LD
+- type: JSONLD
   url: json-ld/adobe-captivate-context.jsonld
 - type: Features
   data:
@@ -220,7 +220,7 @@ common:
   url: capabilities/learning-management.yaml
 - type: Vocabulary
   url: vocabulary/adobe-captivate-vocabulary.yaml
-- type: JSON-LD
+- type: JSONLD
   url: json-ld/adobe-captivate-learning-manager-webhooks-context.jsonld
-- type: JSON-LD
+- type: JSONLD
   url: json-ld/adobe-captivate-prime-api-context.jsonld
