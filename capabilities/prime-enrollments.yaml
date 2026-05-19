@@ -1,0 +1,205 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Adobe Captivate Prime API (Learning Manager) — Enrollments
+  description: 'Adobe Captivate Prime API (Learning Manager) — Enrollments. 4 operations. Lead operation: Adobe Captivate
+    List Enrollments. Self-contained Naftiko capability covering one Adobe Captivate business surface.'
+  tags:
+  - Adobe Captivate
+  - Enrollments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADOBE_CAPTIVATE_API_KEY: ADOBE_CAPTIVATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prime-enrollments
+    baseUri: https://learningmanager.adobe.com/primeapi/v2
+    description: Adobe Captivate Prime API (Learning Manager) — Enrollments business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: enrollments
+      path: /enrollments
+      operations:
+      - name: getenrollments
+        method: GET
+        description: Adobe Captivate List Enrollments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter.loId
+          in: query
+          type: string
+          description: Filter by learning object ID
+        - name: filter.loInstanceId
+          in: query
+          type: string
+          description: Filter by learning object instance ID
+        - name: filter.userId
+          in: query
+          type: string
+          description: Filter by user ID (admin only)
+        - name: filter.states
+          in: query
+          type: string
+          description: Comma-separated list of enrollment states to filter by
+        - name: include
+          in: query
+          type: string
+          description: 'Comma-separated list of related resources to include. Valid values: learningObject, loInstance, loResourceGrades'
+      - name: createenrollment
+        method: POST
+        description: Adobe Captivate Enroll a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: enrollments-enrollmentId
+      path: /enrollments/{enrollmentId}
+      operations:
+      - name: getenrollment
+        method: GET
+        description: Adobe Captivate Get an Enrollment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include
+          in: query
+          type: string
+          description: Comma-separated list of related resources to include
+      - name: unenrolluser
+        method: DELETE
+        description: Adobe Captivate Unenroll a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ADOBE_CAPTIVATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: prime-enrollments-rest
+    port: 8080
+    description: REST adapter for Adobe Captivate Prime API (Learning Manager) — Enrollments. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/enrollments
+      name: enrollments
+      description: REST surface for enrollments.
+      operations:
+      - method: GET
+        name: getenrollments
+        description: Adobe Captivate List Enrollments
+        call: prime-enrollments.getenrollments
+        with:
+          filter.loId: rest.filter.loId
+          filter.loInstanceId: rest.filter.loInstanceId
+          filter.userId: rest.filter.userId
+          filter.states: rest.filter.states
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createenrollment
+        description: Adobe Captivate Enroll a User
+        call: prime-enrollments.createenrollment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/enrollments/{enrollmentid}
+      name: enrollments-enrollmentid
+      description: REST surface for enrollments-enrollmentId.
+      operations:
+      - method: GET
+        name: getenrollment
+        description: Adobe Captivate Get an Enrollment
+        call: prime-enrollments.getenrollment
+        with:
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unenrolluser
+        description: Adobe Captivate Unenroll a User
+        call: prime-enrollments.unenrolluser
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prime-enrollments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Adobe Captivate Prime API (Learning Manager) — Enrollments. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: adobe-captivate-list-enrollments
+      description: Adobe Captivate List Enrollments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-enrollments.getenrollments
+      with:
+        filter.loId: tools.filter.loId
+        filter.loInstanceId: tools.filter.loInstanceId
+        filter.userId: tools.filter.userId
+        filter.states: tools.filter.states
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-enroll-user
+      description: Adobe Captivate Enroll a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prime-enrollments.createenrollment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-get-enrollment
+      description: Adobe Captivate Get an Enrollment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-enrollments.getenrollment
+      with:
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-unenroll-user
+      description: Adobe Captivate Unenroll a User
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prime-enrollments.unenrolluser
+      outputParameters:
+      - type: object
+        mapping: $.

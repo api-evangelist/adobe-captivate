@@ -1,0 +1,173 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Adobe Captivate Prime API (Learning Manager) — Users
+  description: 'Adobe Captivate Prime API (Learning Manager) — Users. 3 operations. Lead operation: Adobe Captivate List Users.
+    Self-contained Naftiko capability covering one Adobe Captivate business surface.'
+  tags:
+  - Adobe Captivate
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADOBE_CAPTIVATE_API_KEY: ADOBE_CAPTIVATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prime-users
+    baseUri: https://learningmanager.adobe.com/primeapi/v2
+    description: Adobe Captivate Prime API (Learning Manager) — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users
+      path: /users
+      operations:
+      - name: getusers
+        method: GET
+        description: Adobe Captivate List Users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter.role
+          in: query
+          type: string
+          description: Filter users by role
+        - name: filter.isActive
+          in: query
+          type: boolean
+          description: Filter by active status
+        - name: filter.userGroupId
+          in: query
+          type: string
+          description: Filter by user group ID
+        - name: include
+          in: query
+          type: string
+          description: 'Comma-separated list of related resources to include. Valid values: manager, userGroups, account'
+    - name: users-userId
+      path: /users/{userId}
+      operations:
+      - name: getuser
+        method: GET
+        description: Adobe Captivate Get a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include
+          in: query
+          type: string
+          description: Comma-separated list of related resources to include
+      - name: updateuser
+        method: PATCH
+        description: Adobe Captivate Update a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ADOBE_CAPTIVATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: prime-users-rest
+    port: 8080
+    description: REST adapter for Adobe Captivate Prime API (Learning Manager) — Users. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users
+      name: users
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: getusers
+        description: Adobe Captivate List Users
+        call: prime-users.getusers
+        with:
+          filter.role: rest.filter.role
+          filter.isActive: rest.filter.isActive
+          filter.userGroupId: rest.filter.userGroupId
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{userid}
+      name: users-userid
+      description: REST surface for users-userId.
+      operations:
+      - method: GET
+        name: getuser
+        description: Adobe Captivate Get a User
+        call: prime-users.getuser
+        with:
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateuser
+        description: Adobe Captivate Update a User
+        call: prime-users.updateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prime-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Adobe Captivate Prime API (Learning Manager) — Users. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: adobe-captivate-list-users
+      description: Adobe Captivate List Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-users.getusers
+      with:
+        filter.role: tools.filter.role
+        filter.isActive: tools.filter.isActive
+        filter.userGroupId: tools.filter.userGroupId
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-get-user
+      description: Adobe Captivate Get a User
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-users.getuser
+      with:
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-update-user
+      description: Adobe Captivate Update a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prime-users.updateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

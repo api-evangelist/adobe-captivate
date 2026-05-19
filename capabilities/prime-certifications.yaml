@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Adobe Captivate Prime API (Learning Manager) — Certifications
+  description: 'Adobe Captivate Prime API (Learning Manager) — Certifications. 1 operations. Lead operation: Adobe Captivate
+    List Certifications. Self-contained Naftiko capability covering one Adobe Captivate business surface.'
+  tags:
+  - Adobe Captivate
+  - Certifications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADOBE_CAPTIVATE_API_KEY: ADOBE_CAPTIVATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prime-certifications
+    baseUri: https://learningmanager.adobe.com/primeapi/v2
+    description: Adobe Captivate Prime API (Learning Manager) — Certifications business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: certifications
+      path: /certifications
+      operations:
+      - name: getcertifications
+        method: GET
+        description: Adobe Captivate List Certifications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter.state
+          in: query
+          type: string
+          description: Filter by certification state
+        - name: include
+          in: query
+          type: string
+          description: Comma-separated list of related resources to include
+    authentication:
+      type: bearer
+      token: '{{env.ADOBE_CAPTIVATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: prime-certifications-rest
+    port: 8080
+    description: REST adapter for Adobe Captivate Prime API (Learning Manager) — Certifications. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/certifications
+      name: certifications
+      description: REST surface for certifications.
+      operations:
+      - method: GET
+        name: getcertifications
+        description: Adobe Captivate List Certifications
+        call: prime-certifications.getcertifications
+        with:
+          filter.state: rest.filter.state
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prime-certifications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Adobe Captivate Prime API (Learning Manager) — Certifications. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: adobe-captivate-list-certifications
+      description: Adobe Captivate List Certifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-certifications.getcertifications
+      with:
+        filter.state: tools.filter.state
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Adobe Captivate Prime API (Learning Manager) — Badges
+  description: 'Adobe Captivate Prime API (Learning Manager) — Badges. 3 operations. Lead operation: Adobe Captivate List
+    Badges. Self-contained Naftiko capability covering one Adobe Captivate business surface.'
+  tags:
+  - Adobe Captivate
+  - Badges
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADOBE_CAPTIVATE_API_KEY: ADOBE_CAPTIVATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prime-badges
+    baseUri: https://learningmanager.adobe.com/primeapi/v2
+    description: Adobe Captivate Prime API (Learning Manager) — Badges business capability. Self-contained, no shared references.
+    resources:
+    - name: badges
+      path: /badges
+      operations:
+      - name: getbadges
+        method: GET
+        description: Adobe Captivate List Badges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: badges-badgeId
+      path: /badges/{badgeId}
+      operations:
+      - name: getbadge
+        method: GET
+        description: Adobe Captivate Get a Badge
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-userId-userBadges
+      path: /users/{userId}/userBadges
+      operations:
+      - name: getuserbadges
+        method: GET
+        description: Adobe Captivate List User Badges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ADOBE_CAPTIVATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: prime-badges-rest
+    port: 8080
+    description: REST adapter for Adobe Captivate Prime API (Learning Manager) — Badges. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/badges
+      name: badges
+      description: REST surface for badges.
+      operations:
+      - method: GET
+        name: getbadges
+        description: Adobe Captivate List Badges
+        call: prime-badges.getbadges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/badges/{badgeid}
+      name: badges-badgeid
+      description: REST surface for badges-badgeId.
+      operations:
+      - method: GET
+        name: getbadge
+        description: Adobe Captivate Get a Badge
+        call: prime-badges.getbadge
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{userid}/userbadges
+      name: users-userid-userbadges
+      description: REST surface for users-userId-userBadges.
+      operations:
+      - method: GET
+        name: getuserbadges
+        description: Adobe Captivate List User Badges
+        call: prime-badges.getuserbadges
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prime-badges-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Adobe Captivate Prime API (Learning Manager) — Badges. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: adobe-captivate-list-badges
+      description: Adobe Captivate List Badges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-badges.getbadges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-get-badge
+      description: Adobe Captivate Get a Badge
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-badges.getbadge
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-list-user-badges
+      description: Adobe Captivate List User Badges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-badges.getuserbadges
+      outputParameters:
+      - type: object
+        mapping: $.

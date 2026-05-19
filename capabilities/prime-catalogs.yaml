@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Adobe Captivate Prime API (Learning Manager) — Catalogs
+  description: 'Adobe Captivate Prime API (Learning Manager) — Catalogs. 2 operations. Lead operation: Adobe Captivate List
+    Catalogs. Self-contained Naftiko capability covering one Adobe Captivate business surface.'
+  tags:
+  - Adobe Captivate
+  - Catalogs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADOBE_CAPTIVATE_API_KEY: ADOBE_CAPTIVATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prime-catalogs
+    baseUri: https://learningmanager.adobe.com/primeapi/v2
+    description: Adobe Captivate Prime API (Learning Manager) — Catalogs business capability. Self-contained, no shared references.
+    resources:
+    - name: catalogs
+      path: /catalogs
+      operations:
+      - name: getcatalogs
+        method: GET
+        description: Adobe Captivate List Catalogs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include
+          in: query
+          type: string
+          description: 'Comma-separated list of related resources to include. Valid values: learningObjects'
+    - name: catalogs-catalogId
+      path: /catalogs/{catalogId}
+      operations:
+      - name: getcatalog
+        method: GET
+        description: Adobe Captivate Get a Catalog
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include
+          in: query
+          type: string
+          description: Comma-separated list of related resources to include
+    authentication:
+      type: bearer
+      token: '{{env.ADOBE_CAPTIVATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: prime-catalogs-rest
+    port: 8080
+    description: REST adapter for Adobe Captivate Prime API (Learning Manager) — Catalogs. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/catalogs
+      name: catalogs
+      description: REST surface for catalogs.
+      operations:
+      - method: GET
+        name: getcatalogs
+        description: Adobe Captivate List Catalogs
+        call: prime-catalogs.getcatalogs
+        with:
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/catalogs/{catalogid}
+      name: catalogs-catalogid
+      description: REST surface for catalogs-catalogId.
+      operations:
+      - method: GET
+        name: getcatalog
+        description: Adobe Captivate Get a Catalog
+        call: prime-catalogs.getcatalog
+        with:
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prime-catalogs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Adobe Captivate Prime API (Learning Manager) — Catalogs. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: adobe-captivate-list-catalogs
+      description: Adobe Captivate List Catalogs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-catalogs.getcatalogs
+      with:
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adobe-captivate-get-catalog
+      description: Adobe Captivate Get a Catalog
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prime-catalogs.getcatalog
+      with:
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.

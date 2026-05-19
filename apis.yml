@@ -122,6 +122,8 @@ maintainers:
   email: kin@apievangelist.com
   url: https://apievangelist.com
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/adobe-captivate
 - type: Support
   url: https://helpx.adobe.com/support/captivate.html
 - type: Community
