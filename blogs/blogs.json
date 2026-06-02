@@ -2,12 +2,20 @@
   "repo": "adobe-captivate",
   "feeds": [
     {
-      "source": "https://elearning.adobe.com/",
+      "source": "https://elearning.adobe.com/feed/",
       "feed_url": "https://elearning.adobe.com/feed/",
-      "title": "eLearning",
-      "saved": 1
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate",
+      "feed_url": "https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 12,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 22,
+  "fetched": "2026-06-01T23:35:02Z"
 }
