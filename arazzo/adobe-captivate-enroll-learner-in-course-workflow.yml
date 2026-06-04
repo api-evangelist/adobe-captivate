@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: Adobe Learning Manager Enroll a Learner in a Course
+  summary: Resolve a course, pick an available instance, enroll a learner, and confirm the enrollment.
+  description: >-
+    A core Adobe Learning Manager (Captivate Prime) flow. The workflow loads a
+    learning object by id to confirm it exists, lists its instances to select a
+    specific offering to enroll into, creates an enrollment for the learner
+    against that instance, and finally reads the new enrollment back to confirm
+    its state. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: learningManagerApi
+  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: enroll-learner-in-course
+  summary: Enroll a learner into a specific instance of a learning object.
+  description: >-
+    Confirms the learning object exists, selects an instance offering, creates
+    the enrollment for the supplied learner, and reads the enrollment back to
+    verify it was created.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - learningObjectId
+    - learnerId
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token issued via Adobe IMS.
+      learningObjectId:
+        type: string
+        description: The id of the course / learning object to enroll into.
+      learnerId:
+        type: string
+        description: The id of the user (learner) to enroll.
+  steps:
+  - stepId: getCourse
+    description: >-
+      Load the learning object by id to confirm it exists before attempting to
+      enroll a learner into one of its instances.
+    operationId: getLearningObject
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: learningObjectId
+      in: path
+      value: $inputs.learningObjectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      courseId: $response.body#/data/id
+  - stepId: listInstances
+    description: >-
+      List the instances of the learning object and select the first available
+      instance to enroll the learner into.
+    operationId: getLearningObjectInstances
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: learningObjectId
+      in: path
+      value: $inputs.learningObjectId
+    - name: page[limit]
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/data/0/id
+  - stepId: createEnrollment
+    description: >-
+      Create an enrollment binding the learner to the selected learning object
+      instance using JSON:API relationships.
+    operationId: createEnrollment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: enrollment
+          attributes:
+            loInstanceId: $steps.listInstances.outputs.instanceId
+          relationships:
+            loInstance:
+              data:
+                id: $steps.listInstances.outputs.instanceId
+                type: learningObjectInstance
+            learner:
+              data:
+                id: $inputs.learnerId
+                type: user
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      enrollmentId: $response.body#/data/id
+  - stepId: confirmEnrollment
+    description: >-
+      Read the freshly created enrollment back by id to confirm it persisted and
+      to capture its progress and dates.
+    operationId: getEnrollment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: enrollmentId
+      in: path
+      value: $steps.createEnrollment.outputs.enrollmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      enrollmentId: $response.body#/data/id
+      dateEnrolled: $response.body#/data/attributes/dateEnrolled
+      progressPercent: $response.body#/data/attributes/progressPercent
+  outputs:
+    enrollmentId: $steps.confirmEnrollment.outputs.enrollmentId
+    instanceId: $steps.listInstances.outputs.instanceId
+    progressPercent: $steps.confirmEnrollment.outputs.progressPercent

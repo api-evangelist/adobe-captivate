@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Adobe Learning Manager Unenroll a Learner from a Course
+  summary: Find a learner's enrollment in a course, confirm it, and remove it if present.
+  description: >-
+    A cleanup flow for Adobe Learning Manager (Captivate Prime). The workflow
+    lists enrollments filtered to a specific learner and learning object,
+    branches on whether a matching enrollment exists, reads it back to confirm,
+    and then deletes it to unenroll the learner. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: learningManagerApi
+  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: unenroll-learner
+  summary: Remove a learner's enrollment in a given learning object if one exists.
+  description: >-
+    Searches enrollments for the learner and learning object, and when a match
+    is found confirms the enrollment and deletes it; otherwise ends without
+    changes.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - learnerId
+    - learningObjectId
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token issued via Adobe IMS.
+      learnerId:
+        type: string
+        description: The id of the learner whose enrollment should be removed.
+      learningObjectId:
+        type: string
+        description: The id of the learning object to unenroll the learner from.
+  steps:
+  - stepId: findEnrollment
+    description: >-
+      List enrollments filtered to the learner and learning object, returning at
+      most one match, and branch on whether an enrollment exists.
+    operationId: getEnrollments
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: filter.userId
+      in: query
+      value: $inputs.learnerId
+    - name: filter.loId
+      in: query
+      value: $inputs.learningObjectId
+    - name: page[limit]
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      enrollmentId: $response.body#/data/0/id
+    onSuccess:
+    - name: enrollmentFound
+      type: goto
+      stepId: confirmEnrollment
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: enrollmentMissing
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: confirmEnrollment
+    description: >-
+      Read the matched enrollment by id to confirm it still exists before
+      deleting it.
+    operationId: getEnrollment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: enrollmentId
+      in: path
+      value: $steps.findEnrollment.outputs.enrollmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      enrollmentId: $response.body#/data/id
+  - stepId: removeEnrollment
+    description: >-
+      Delete the enrollment to unenroll the learner from the learning object
+      instance.
+    operationId: unenrollUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: enrollmentId
+      in: path
+      value: $steps.confirmEnrollment.outputs.enrollmentId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      removedEnrollmentId: $steps.confirmEnrollment.outputs.enrollmentId
+  outputs:
+    removedEnrollmentId: $steps.removeEnrollment.outputs.removedEnrollmentId

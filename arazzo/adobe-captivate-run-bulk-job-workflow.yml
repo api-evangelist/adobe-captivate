@@ -1,0 +1,140 @@
+arazzo: 1.0.1
+info:
+  title: Adobe Learning Manager Run and Poll a Bulk Job
+  summary: Submit a bulk import/export job, poll until it finishes, and branch on success or failure.
+  description: >-
+    A bulk data operation flow for Adobe Learning Manager (Captivate Prime). The
+    workflow creates a job (user import or one of the export types), then polls
+    the job by id until it leaves the running states, branching to a success
+    path that captures the download URL or a failure path. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: learningManagerApi
+  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: run-bulk-job
+  summary: Create a bulk job and poll it to completion.
+  description: >-
+    Submits a bulk job of the requested type, polls its status until it reaches
+    Completed or Failed, and surfaces the download URL on success.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - jobType
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token issued via Adobe IMS.
+      jobType:
+        type: string
+        description: The bulk operation type.
+        enum:
+        - userImport
+        - learnerTranscriptExport
+        - trainingReportExport
+      description:
+        type: string
+        description: Optional human-readable description for the job.
+  steps:
+  - stepId: createJob
+    description: >-
+      Create a new bulk import/export job of the requested type and capture its
+      id for polling.
+    operationId: createJob
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: job
+          attributes:
+            jobType: $inputs.jobType
+            description: $inputs.description
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      jobId: $response.body#/data/id
+  - stepId: pollJob
+    description: >-
+      Poll the job by id. Retries while the job is still Submitted or InProgress,
+      and falls through once it reaches Completed or Failed.
+    operationId: getJob
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: jobId
+      in: path
+      value: $steps.createJob.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/attributes/status
+      downloadUrl: $response.body#/data/attributes/downloadUrl
+    onSuccess:
+    - name: completed
+      type: goto
+      stepId: reportSuccess
+      criteria:
+      - context: $response.body
+        condition: $.data.attributes.status == 'Completed'
+        type: jsonpath
+    - name: failed
+      type: goto
+      stepId: reportFailure
+      criteria:
+      - context: $response.body
+        condition: $.data.attributes.status == 'Failed'
+        type: jsonpath
+    onFailure:
+    - name: retryWhileRunning
+      type: retry
+      retryAfter: 5
+      retryLimit: 20
+      criteria:
+      - condition: $statusCode == 200
+  - stepId: reportSuccess
+    description: >-
+      Re-read the completed job to capture the final download URL and completion
+      timestamp.
+    operationId: getJob
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: jobId
+      in: path
+      value: $steps.createJob.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      downloadUrl: $response.body#/data/attributes/downloadUrl
+      dateCompleted: $response.body#/data/attributes/dateCompleted
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: reportFailure
+    description: >-
+      Re-read the failed job to capture its final status for reporting.
+    operationId: getJob
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: jobId
+      in: path
+      value: $steps.createJob.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/attributes/status
+  outputs:
+    jobId: $steps.createJob.outputs.jobId
+    downloadUrl: $steps.reportSuccess.outputs.downloadUrl

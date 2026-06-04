@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Adobe Learning Manager Learner Progress Report
+  summary: Assemble a learner profile from their account, enrollments, skills, and gamification points.
+  description: >-
+    A reporting flow for Adobe Learning Manager (Captivate Prime). The workflow
+    reads a user, then gathers their enrollments, acquired skills, and
+    gamification points into a single consolidated learner snapshot. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: learningManagerApi
+  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: learner-progress-report
+  summary: Build a consolidated progress snapshot for a single learner.
+  description: >-
+    Reads the learner's user record, lists their enrollments, lists their
+    acquired skills, and reads their gamification points, returning all four as
+    workflow outputs.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - userId
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token issued via Adobe IMS.
+      userId:
+        type: string
+        description: The id of the learner to build the progress report for.
+  steps:
+  - stepId: getUser
+    description: >-
+      Read the learner's user record to confirm the account and capture profile
+      basics for the report header.
+    operationId: getUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: userId
+      in: path
+      value: $inputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/data/id
+      name: $response.body#/data/attributes/name
+      email: $response.body#/data/attributes/email
+  - stepId: getEnrollments
+    description: >-
+      List the learner's enrollments to capture their current and completed
+      course participation.
+    operationId: getEnrollments
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: filter.userId
+      in: query
+      value: $steps.getUser.outputs.userId
+    - name: page[limit]
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      enrollments: $response.body#/data
+  - stepId: getUserSkills
+    description: >-
+      List the skills the learner has acquired, including points earned toward
+      each skill.
+    operationId: getUserSkills
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: userId
+      in: path
+      value: $steps.getUser.outputs.userId
+    - name: page[limit]
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      skills: $response.body#/data
+  - stepId: getGamificationPoints
+    description: >-
+      Read the learner's gamification points broken down by category for the
+      report summary.
+    operationId: getUserGamificationPoints
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: userId
+      in: path
+      value: $steps.getUser.outputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      overallPoints: $response.body#/data/attributes/overallPoints
+      learnerPoints: $response.body#/data/attributes/learnerPoints
+  outputs:
+    userId: $steps.getUser.outputs.userId
+    name: $steps.getUser.outputs.name
+    enrollments: $steps.getEnrollments.outputs.enrollments
+    skills: $steps.getUserSkills.outputs.skills
+    overallPoints: $steps.getGamificationPoints.outputs.overallPoints

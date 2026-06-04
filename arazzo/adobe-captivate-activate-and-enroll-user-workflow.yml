@@ -1,0 +1,148 @@
+arazzo: 1.0.1
+info:
+  title: Adobe Learning Manager Activate and Enroll a User
+  summary: Read a user, activate them if not already ACTIVE, then enroll them into a course instance.
+  description: >-
+    An onboarding flow for Adobe Learning Manager (Captivate Prime). The
+    workflow reads a user by id, branches on whether the account is already
+    active, patches the user to ACTIVE state when needed, lists instances of the
+    target course, and enrolls the now-active user against the first instance.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: learningManagerApi
+  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: activate-and-enroll-user
+  summary: Ensure a user is active, then enroll them into a course instance.
+  description: >-
+    Loads the user, activates the account when its state is not ACTIVE, resolves
+    a course instance, and creates the enrollment.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - userId
+    - learningObjectId
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token issued via Adobe IMS.
+      userId:
+        type: string
+        description: The id of the user to activate and enroll.
+      learningObjectId:
+        type: string
+        description: The id of the course / learning object to enroll into.
+  steps:
+  - stepId: getUser
+    description: >-
+      Read the user by id to determine the current account name, email, and
+      state before deciding whether activation is required.
+    operationId: getUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: userId
+      in: path
+      value: $inputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/data/id
+      name: $response.body#/data/attributes/name
+      email: $response.body#/data/attributes/email
+    onSuccess:
+    - name: alreadyActive
+      type: goto
+      stepId: listInstances
+      criteria:
+      - context: $response.body
+        condition: $.data.attributes.state == 'ACTIVE'
+        type: jsonpath
+    - name: needsActivation
+      type: goto
+      stepId: activateUser
+      criteria:
+      - context: $response.body
+        condition: $.data.attributes.state != 'ACTIVE'
+        type: jsonpath
+  - stepId: activateUser
+    description: >-
+      Patch the user to ACTIVE state, preserving the existing name and email,
+      following JSON:API PATCH semantics.
+    operationId: updateUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: userId
+      in: path
+      value: $inputs.userId
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          id: $inputs.userId
+          type: user
+          attributes:
+            name: $steps.getUser.outputs.name
+            email: $steps.getUser.outputs.email
+            state: ACTIVE
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/data/id
+  - stepId: listInstances
+    description: >-
+      List instances of the target learning object and pick the first available
+      instance to enroll the user into.
+    operationId: getLearningObjectInstances
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: learningObjectId
+      in: path
+      value: $inputs.learningObjectId
+    - name: page[limit]
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/data/0/id
+  - stepId: enrollUser
+    description: >-
+      Enroll the active user into the selected learning object instance.
+    operationId: createEnrollment
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: enrollment
+          attributes:
+            loInstanceId: $steps.listInstances.outputs.instanceId
+          relationships:
+            loInstance:
+              data:
+                id: $steps.listInstances.outputs.instanceId
+                type: learningObjectInstance
+            learner:
+              data:
+                id: $inputs.userId
+                type: user
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      enrollmentId: $response.body#/data/id
+  outputs:
+    userId: $steps.getUser.outputs.userId
+    enrollmentId: $steps.enrollUser.outputs.enrollmentId
