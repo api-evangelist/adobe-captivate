@@ -1,0 +1,949 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adobe Captivate Prime API (Learning Manager)",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://learningmanager.adobe.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Learning Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Learning Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/learningObjects",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+              },
+              {
+                "name": "filter.loTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of learning object types to filter by"
+              },
+              {
+                "name": "filter.catalogIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of catalog IDs to filter by"
+              },
+              {
+                "name": "filter.skillName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by skill name"
+              },
+              {
+                "name": "filter.tagName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag name"
+              },
+              {
+                "name": "filter.loState",
+                "value": "",
+                "type": "query",
+                "description": "Filter by learning object state"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: instances, enrollment, skills, subLOs, prerequisiteLOs, supplementaryResources, authors, catalogLabels"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of learning objects available to the authenticated user. Learning objects include courses, learning programs, certifications, and job aids. Supports filtering by type, catalog, skill, tag, and status."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Learning Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/learningObjects/:learningObjectId",
+            "params": [
+              {
+                "name": "learningObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response"
+              }
+            ]
+          },
+          "docs": "Retrieves a single learning object by its ID, including its metadata, instances, and relationships. The response follows JSON:API format with optional included resources."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate List Instances of a Learning Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/learningObjects/:learningObjectId/instances",
+            "params": [
+              {
+                "name": "learningObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves all instances associated with a learning object. Each instance represents a specific offering of the course with its own enrollment deadline, completion deadline, and seat limit."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Search Learning Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The search query string"
+              },
+              {
+                "name": "filter.loTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of learning object types to search"
+              },
+              {
+                "name": "filter.catalogIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of catalog IDs to search within"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Performs a text-based search across learning objects. Returns matching courses, learning programs, certifications, and job aids based on the search query. Supports pagination and filtering by learning object type and catalog."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+              },
+              {
+                "name": "filter.role",
+                "value": "",
+                "type": "query",
+                "description": "Filter users by role"
+              },
+              {
+                "name": "filter.isActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active status"
+              },
+              {
+                "name": "filter.userGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user group ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: manager, userGroups, account"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of users in the account. Supports filtering by role, active status, and user group. Only accessible by admin and integration admin roles."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a single user by their ID, including profile information and related resources."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Update a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates user profile fields such as name, email, manager assignment, and user state. Follows JSON:API PATCH semantics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Enrollments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+              },
+              {
+                "name": "filter.loId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by learning object ID"
+              },
+              {
+                "name": "filter.loInstanceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by learning object instance ID"
+              },
+              {
+                "name": "filter.userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user ID (admin only)"
+              },
+              {
+                "name": "filter.states",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of enrollment states to filter by"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: learningObject, loInstance, loResourceGrades"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of enrollments. Can be scoped to the authenticated user or to all users (admin only). Supports filtering by learning object ID, state, and date range."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Enroll a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enrolls a user in a learning object instance. The request must specify the learning object instance and the user to enroll."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get an Enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments/:enrollmentId",
+            "params": [
+              {
+                "name": "enrollmentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enrollment"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a single enrollment by its ID."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Unenroll a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments/:enrollmentId",
+            "params": [
+              {
+                "name": "enrollmentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enrollment"
+              }
+            ]
+          },
+          "docs": "Removes a user's enrollment from a learning object instance. Only applicable if the enrollment is in a state that allows unenrollment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Catalogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Catalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/catalogs",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: learningObjects"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of catalogs available to the authenticated user. Catalogs organize learning objects and control visibility."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/catalogs/:catalogId",
+            "params": [
+              {
+                "name": "catalogId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the catalog"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a single catalog by its ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Skills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/skills",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "filter.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter skills by name (partial match supported)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: skillLevels, learningObjects"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of skills defined in the account. Skills represent competencies that learners develop by completing learning objects."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/skills/:skillId",
+            "params": [
+              {
+                "name": "skillId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the skill"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a single skill by its ID with its levels and associations."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate List User Skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId/userSkills",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources. Valid values: skill, skillLevel"
+              }
+            ]
+          },
+          "docs": "Retrieves skills acquired by a specific user, including the skill level achieved and points earned toward each skill."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Badges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Badges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/badges",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of badges. Badges are awarded to learners upon achieving specific milestones or completing learning objects."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Badge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/badges/:badgeId",
+            "params": [
+              {
+                "name": "badgeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the badge"
+              }
+            ]
+          },
+          "docs": "Retrieves a single badge by its ID."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate List User Badges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId/userBadges",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves badges earned by a specific user, including the date earned and associated learning object."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List User Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/userGroups",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "filter.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user group name"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of user groups. User groups are used to organize learners and assign content, learning plans, or catalogs to specific sets of users."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/userGroups/:userGroupId",
+            "params": [
+              {
+                "name": "userGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user group"
+              }
+            ]
+          },
+          "docs": "Retrieves a single user group by its ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Certifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Certifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/certifications",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "filter.state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by certification state"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of certifications. Certifications are recurring learning objects that verify a learner's knowledge or compliance on a regular basis."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Gamification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate Get User Gamification Points",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId/gamificationPoints",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves gamification points for a specific user, broken down by point category (learning, manager, leader, and overall)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List User Notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId/userNotifications",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves notifications for a specific user, including enrollment reminders, completion notifications, manager approvals, and announcements."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/jobs",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "filter.status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by job status"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of bulk import/export jobs. Jobs support operations such as user import via CSV, learner transcript export, and training report export."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Create a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new bulk import or export job. Supports user import via CSV, learner transcript export, and training data export."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the job"
+              }
+            ]
+          },
+          "docs": "Retrieves the status and details of a specific job."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate Get Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/account"
+          },
+          "docs": "Retrieves the account configuration and details for the authenticated user's Learning Manager account, including timezone, locale, and enabled features."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

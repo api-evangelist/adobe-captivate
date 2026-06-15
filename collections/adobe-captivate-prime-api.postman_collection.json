@@ -1,0 +1,5309 @@
+{
+  "item": [
+    {
+      "id": "2958cadd-b9f5-4105-8124-952294bdb21a",
+      "name": "Account",
+      "description": {
+        "content": "Retrieve and manage account-level settings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95d0398e-e926-4932-a777-5404082ba2e2",
+          "name": "Adobe Captivate Get Account Details",
+          "request": {
+            "name": "Adobe Captivate Get Account Details",
+            "description": {
+              "content": "Retrieves the account configuration and details for the authenticated user's Learning Manager account, including timezone, locale, and enabled features.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcf0803e-0eac-460e-a933-231783d5007c",
+              "name": "Account details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"gamificationEnabled\": true,\n      \"locale\": \"example\",\n      \"name\": \"Example Name\",\n      \"subdomain\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dcbdc8b-75c2-4ecf-9807-4f72608ba806",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2eb59b3a-c248-43a7-83db-dfef4bc6232e",
+      "name": "Badges",
+      "description": {
+        "content": "Manage badges awarded to learners for achievements",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76373b70-228b-4d20-bbd7-ddde3fd658ca",
+          "name": "Adobe Captivate List Badges",
+          "request": {
+            "name": "Adobe Captivate List Badges",
+            "description": {
+              "content": "Retrieves a paginated list of badges. Badges are awarded to learners upon achieving specific milestones or completing learning objects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "318a12d4-a106-42ef-9605-702fd24da9dd",
+              "name": "List of badges",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "228712f9-3dc9-498e-8351-8d53847ca4c3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f48289bf-c964-4ed0-8ca2-b8d1689e762d",
+          "name": "Adobe Captivate Get a Badge",
+          "request": {
+            "name": "Adobe Captivate Get a Badge",
+            "description": {
+              "content": "Retrieves a single badge by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges",
+                ":badgeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "badgeId",
+                  "description": "(Required) The unique identifier of the badge"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a34367d0-df82-4ad5-ad90-09e8661045ad",
+              "name": "Badge details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges",
+                    ":badgeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "badgeId",
+                      "description": "(Required) The unique identifier of the badge"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"imageUrl\": \"https://example.com/path/abc123\",\n      \"name\": \"Example Name\",\n      \"state\": \"Active\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59537ed0-0c19-4d58-b9e4-317e1a4b8bb6",
+              "name": "Badge not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges",
+                    ":badgeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "badgeId",
+                      "description": "(Required) The unique identifier of the badge"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "061429dd-8c7e-4e43-b82e-2beb798082cf",
+          "name": "Adobe Captivate List User Badges",
+          "request": {
+            "name": "Adobe Captivate List User Badges",
+            "description": {
+              "content": "Retrieves badges earned by a specific user, including the date earned and associated learning object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId",
+                "userBadges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60eeba78-21f9-458a-9e97-23e09e667ce3",
+              "name": "List of user badges",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "userBadges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"type\": \"standard\",\n      \"attributes\": {\n        \"assertionUrl\": {},\n        \"dateAchieved\": {}\n      },\n      \"relationships\": {\n        \"badge\": {},\n        \"learningObject\": {}\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a89c80de-8576-4816-a984-366445e0edac",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "userBadges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "552c7841-7ebf-45e1-b5a7-d7306b6e7f72",
+      "name": "Catalogs",
+      "description": {
+        "content": "Manage content catalogs that organize learning objects",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d228ef58-33c4-477c-b616-c6083404b49a",
+          "name": "Adobe Captivate List Catalogs",
+          "request": {
+            "name": "Adobe Captivate List Catalogs",
+            "description": {
+              "content": "Retrieves a paginated list of catalogs available to the authenticated user. Catalogs organize learning objects and control visibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include. Valid values: learningObjects"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f254e9f-8e87-42b3-a3d3-41587a36c962",
+              "name": "List of catalogs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20811095-7c89-4408-8b57-a433bd83678c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e2944e6-b5c8-4fbc-a2b1-fc5cb936ab55",
+          "name": "Adobe Captivate Get a Catalog",
+          "request": {
+            "name": "Adobe Captivate Get a Catalog",
+            "description": {
+              "content": "Retrieves a single catalog by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                ":catalogId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "catalogId",
+                  "description": "(Required) The unique identifier of the catalog"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "174b32a7-5d55-4bc8-9e19-91b41ded6476",
+              "name": "Catalog details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    ":catalogId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "catalogId",
+                      "description": "(Required) The unique identifier of the catalog"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"dateUpdated\": \"2025-03-15T14:30:00Z\",\n      \"description\": \"Example description\",\n      \"isDefault\": true,\n      \"isInternallySearchable\": true\n    },\n    \"relationships\": {\n      \"learningObjects\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44515991-2988-4af7-ab70-a35e58515dc4",
+              "name": "Catalog not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    ":catalogId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "catalogId",
+                      "description": "(Required) The unique identifier of the catalog"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "033cdff2-0b97-4a4e-a792-946412dda632",
+      "name": "Certifications",
+      "description": {
+        "content": "Manage certification programs and compliance tracking",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89844257-0355-4b19-96c1-0a6826c478a9",
+          "name": "Adobe Captivate List Certifications",
+          "request": {
+            "name": "Adobe Captivate List Certifications",
+            "description": {
+              "content": "Retrieves a paginated list of certifications. Certifications are recurring learning objects that verify a learner's knowledge or compliance on a regular basis.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.state",
+                  "value": "<string>",
+                  "description": "Filter by certification state"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbd007c4-fb7b-4f2c-b6e2-3fd6d535a90d",
+              "name": "List of certifications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0957f715-2f41-4b87-99a3-591678f214b6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f1377ace-e9c3-4f7c-aac3-cf56e6d132a2",
+      "name": "Enrollments",
+      "description": {
+        "content": "Manage learner enrollments in courses and learning programs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "20ed8e70-5a78-4a64-a59a-4a5081aedf9f",
+          "name": "Adobe Captivate List Enrollments",
+          "request": {
+            "name": "Adobe Captivate List Enrollments",
+            "description": {
+              "content": "Retrieves a paginated list of enrollments. Can be scoped to the authenticated user or to all users (admin only). Supports filtering by learning object ID, state, and date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loId",
+                  "value": "<string>",
+                  "description": "Filter by learning object ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loInstanceId",
+                  "value": "<string>",
+                  "description": "Filter by learning object instance ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.userId",
+                  "value": "<string>",
+                  "description": "Filter by user ID (admin only)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.states",
+                  "value": "<string>",
+                  "description": "Comma-separated list of enrollment states to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include. Valid values: learningObject, loInstance, loResourceGrades"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1445768b-e36f-4a89-8fdc-c268d4472d75",
+              "name": "List of enrollments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loInstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdb5a34a-2721-4de4-ae51-9a3abadf72c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loInstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5db15ca9-09cb-417b-8738-46f55f4beaf0",
+          "name": "Adobe Captivate Enroll a User",
+          "request": {
+            "name": "Adobe Captivate Enroll a User",
+            "description": {
+              "content": "Enrolls a user in a learning object instance. The request must specify the learning object instance and the user to enroll.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"loInstanceId\": \"<string>\"\n    },\n    \"relationships\": {\n      \"loInstance\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      },\n      \"learner\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d611733c-f9d8-4730-9ea7-81d04f2667d7",
+              "name": "Enrollment created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"loInstanceId\": \"abc123\"\n    },\n    \"relationships\": {\n      \"loInstance\": {\n        \"data\": {}\n      },\n      \"learner\": {\n        \"data\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"completedOn\": \"2025-03-15T14:30:00Z\",\n      \"dateEnrolled\": \"2025-03-15T14:30:00Z\",\n      \"dateStarted\": \"2025-03-15T14:30:00Z\",\n      \"hasPassed\": true,\n      \"progressPercent\": 1\n    },\n    \"relationships\": {\n      \"learner\": \"example\",\n      \"learningObject\": \"example\",\n      \"loInstance\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51b4efd7-7eb5-42a7-ad96-0c66566bd965",
+              "name": "Invalid enrollment request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"loInstanceId\": \"abc123\"\n    },\n    \"relationships\": {\n      \"loInstance\": {\n        \"data\": {}\n      },\n      \"learner\": {\n        \"data\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "899e0c9d-87ef-4771-a36d-59246bb0cbc7",
+              "name": "User is already enrolled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"loInstanceId\": \"abc123\"\n    },\n    \"relationships\": {\n      \"loInstance\": {\n        \"data\": {}\n      },\n      \"learner\": {\n        \"data\": {}\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cec32e84-c9c8-4b9a-bc89-0337332c0e79",
+          "name": "Adobe Captivate Get an Enrollment",
+          "request": {
+            "name": "Adobe Captivate Get an Enrollment",
+            "description": {
+              "content": "Retrieves a single enrollment by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments",
+                ":enrollmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enrollmentId",
+                  "description": "(Required) The unique identifier of the enrollment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4439f46-8fab-40bd-b885-61883fd09ea1",
+              "name": "Enrollment details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":enrollmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enrollmentId",
+                      "description": "(Required) The unique identifier of the enrollment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"completedOn\": \"2025-03-15T14:30:00Z\",\n      \"dateEnrolled\": \"2025-03-15T14:30:00Z\",\n      \"dateStarted\": \"2025-03-15T14:30:00Z\",\n      \"hasPassed\": true,\n      \"progressPercent\": 1\n    },\n    \"relationships\": {\n      \"learner\": \"example\",\n      \"learningObject\": \"example\",\n      \"loInstance\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9438b56-b7e6-4b29-a4d9-e138f0c0313d",
+              "name": "Enrollment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":enrollmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enrollmentId",
+                      "description": "(Required) The unique identifier of the enrollment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3152803-6a5e-4400-a445-4a686a3e88ca",
+          "name": "Adobe Captivate Unenroll a User",
+          "request": {
+            "name": "Adobe Captivate Unenroll a User",
+            "description": {
+              "content": "Removes a user's enrollment from a learning object instance. Only applicable if the enrollment is in a state that allows unenrollment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrollments",
+                ":enrollmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "enrollmentId",
+                  "description": "(Required) The unique identifier of the enrollment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e02d2d9-8bde-44a7-8cf1-9bf3e1b60119",
+              "name": "Enrollment deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":enrollmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enrollmentId",
+                      "description": "(Required) The unique identifier of the enrollment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d6c04466-1a17-4291-bb88-5224f5b1c197",
+              "name": "Enrollment cannot be deleted in its current state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":enrollmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enrollmentId",
+                      "description": "(Required) The unique identifier of the enrollment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee310860-43ea-4ad2-956c-3d441eb911a8",
+              "name": "Enrollment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrollments",
+                    ":enrollmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "enrollmentId",
+                      "description": "(Required) The unique identifier of the enrollment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "69deeb91-dccf-49ad-b170-e55fe3c878d1",
+      "name": "Gamification",
+      "description": {
+        "content": "Manage gamification points and leaderboard features",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a145bd19-cf17-4f0e-840a-de24b4ef2d32",
+          "name": "Adobe Captivate Get User Gamification Points",
+          "request": {
+            "name": "Adobe Captivate Get User Gamification Points",
+            "description": {
+              "content": "Retrieves gamification points for a specific user, broken down by point category (learning, manager, leader, and overall).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId",
+                "gamificationPoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ec7472e-28ef-41c8-8bcb-4230aa077a56",
+              "name": "User gamification points",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "gamificationPoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"learnerPoints\": 1,\n      \"managerPoints\": 1,\n      \"overallPoints\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1db8e3cd-a943-4877-9c23-616c46f88e07",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "gamificationPoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "cf80a7b8-20f6-4eda-96f9-801fbea66be5",
+      "name": "Jobs",
+      "description": {
+        "content": "Manage bulk import/export jobs for data operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "757234bc-3665-4fe5-b15f-355515b660e0",
+          "name": "Adobe Captivate List Jobs",
+          "request": {
+            "name": "Adobe Captivate List Jobs",
+            "description": {
+              "content": "Retrieves a paginated list of bulk import/export jobs. Jobs support operations such as user import via CSV, learner transcript export, and training report export.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.status",
+                  "value": "<string>",
+                  "description": "Filter by job status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef917a50-5ab1-4bc4-9a7f-30d48dd8ac79",
+              "name": "List of jobs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "697a26c0-e260-4c17-8afa-8ed1043c034a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4cf8507-e0c8-4d91-a9d0-e77c82193a61",
+          "name": "Adobe Captivate Create a Job",
+          "request": {
+            "name": "Adobe Captivate Create a Job",
+            "description": {
+              "content": "Creates a new bulk import or export job. Supports user import via CSV, learner transcript export, and training data export.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"jobType\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7505fe9d-7bab-42d4-955a-e7db343a0419",
+              "name": "Job created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"jobType\": \"userImport\",\n      \"description\": \"Example description\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"dateCompleted\": \"2025-03-15T14:30:00Z\",\n      \"description\": \"Example description\",\n      \"downloadUrl\": \"https://example.com/path/abc123\",\n      \"jobType\": \"userImport\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2558069-1104-47c5-84ca-a92189fa130b",
+              "name": "Invalid job request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"jobType\": \"userImport\",\n      \"description\": \"Example description\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "748038bc-303e-420c-9161-8d47f0293424",
+          "name": "Adobe Captivate Get a Job",
+          "request": {
+            "name": "Adobe Captivate Get a Job",
+            "description": {
+              "content": "Retrieves the status and details of a specific job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ca774d4-03ab-4093-9574-7fbe8e42b0ad",
+              "name": "Job details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"dateCompleted\": \"2025-03-15T14:30:00Z\",\n      \"description\": \"Example description\",\n      \"downloadUrl\": \"https://example.com/path/abc123\",\n      \"jobType\": \"userImport\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63e836d4-ac39-4874-9e5f-649f3ade98f9",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "06fb382e-976c-460b-92a9-7b85cf65235a",
+      "name": "Learning Objects",
+      "description": {
+        "content": "Manage learning objects including courses, learning programs, certifications, and job aids",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b79c4ed-5f76-4819-ac9b-69adcb7834f7",
+          "name": "Adobe Captivate List Learning Objects",
+          "request": {
+            "name": "Adobe Captivate List Learning Objects",
+            "description": {
+              "content": "Retrieves a paginated list of learning objects available to the authenticated user. Learning objects include courses, learning programs, certifications, and job aids. Supports filtering by type, catalog, skill, tag, and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "learningObjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of learning object types to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.catalogIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of catalog IDs to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.skillName",
+                  "value": "<string>",
+                  "description": "Filter by skill name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.tagName",
+                  "value": "<string>",
+                  "description": "Filter by tag name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loState",
+                  "value": "<string>",
+                  "description": "Filter by learning object state"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include. Valid values: instances, enrollment, skills, subLOs, prerequisiteLOs, supplementaryResources, authors, catalogLabels"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72fed6d5-43d5-4acb-8e0e-2e5ab87b766c",
+              "name": "List of learning objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.skillName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loState",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  },\n  \"included\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cffd4ff6-a02f-482c-8d9d-4ea9bc528ce6",
+              "name": "Invalid filter parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.skillName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loState",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d570ac1c-a4fa-4e38-b752-04962dfd20f3",
+              "name": "Unauthorized - missing or invalid access token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.skillName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loState",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f29e9971-604e-4387-8f6c-7c5699ca90cd",
+          "name": "Adobe Captivate Get a Learning Object",
+          "request": {
+            "name": "Adobe Captivate Get a Learning Object",
+            "description": {
+              "content": "Retrieves a single learning object by its ID, including its metadata, instances, and relationships. The response follows JSON:API format with optional included resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "learningObjects",
+                ":learningObjectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "learningObjectId",
+                  "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a77b5371-84b3-4b35-9d86-4c90329527b7",
+              "name": "Learning object details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"authorNames\": [\n        {}\n      ],\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"datePublished\": \"2025-03-15T14:30:00Z\",\n      \"dateUpdated\": \"2025-03-15T14:30:00Z\",\n      \"duration\": 1\n    },\n    \"relationships\": {\n      \"instances\": \"example\",\n      \"skills\": \"example\",\n      \"prerequisiteLOs\": \"example\",\n      \"subLOs\": \"example\",\n      \"authors\": \"example\"\n    }\n  },\n  \"included\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cef486cc-5933-4adc-9c2e-e2e29c20699f",
+              "name": "Learning object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a74c8d6-61b2-466b-81c9-f8303196ea9a",
+          "name": "Adobe Captivate List Instances of a Learning Object",
+          "request": {
+            "name": "Adobe Captivate List Instances of a Learning Object",
+            "description": {
+              "content": "Retrieves all instances associated with a learning object. Each instance represents a specific offering of the course with its own enrollment deadline, completion deadline, and seat limit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "learningObjects",
+                ":learningObjectId",
+                "instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "learningObjectId",
+                  "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64e9444c-749e-417b-805c-f604153c9bff",
+              "name": "List of learning object instances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8225c380-c39c-4fbd-85e1-3c6c734ec6b1",
+              "name": "Learning object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71c495b3-c955-400c-a2a0-c5784fd7b70e",
+          "name": "Adobe Captivate Search Learning Objects",
+          "request": {
+            "name": "Adobe Captivate Search Learning Objects",
+            "description": {
+              "content": "Performs a text-based search across learning objects. Returns matching courses, learning programs, certifications, and job aids based on the search query. Supports pagination and filtering by learning object type and catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) The search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of learning object types to search"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.catalogIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of catalog IDs to search within"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b91d7061-bfbd-4362-862a-2d8f0f8d8420",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  },\n  \"included\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "821090d4-167c-421d-a2c7-333e10c4226b",
+              "name": "Missing or invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7a1ff067-bb40-4283-81a1-acc82b865aa5",
+      "name": "Notifications",
+      "description": {
+        "content": "Manage user notifications and announcements",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ba6c1b0-980f-413b-b530-5ba5c1cf0645",
+          "name": "Adobe Captivate List User Notifications",
+          "request": {
+            "name": "Adobe Captivate List User Notifications",
+            "description": {
+              "content": "Retrieves notifications for a specific user, including enrollment reminders, completion notifications, manager approvals, and announcements.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId",
+                "userNotifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "580fcc38-619f-4afc-9b6f-94554e032be4",
+              "name": "List of notifications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "userNotifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63210d1b-508d-4cc7-8893-311a98e21f79",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "userNotifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "094939a1-5cc5-4f74-9774-82be87b16352",
+      "name": "Skills",
+      "description": {
+        "content": "Manage skills and skill levels associated with learning content",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0357c60e-be63-4928-8e28-c3cbd1784293",
+          "name": "Adobe Captivate List Skills",
+          "request": {
+            "name": "Adobe Captivate List Skills",
+            "description": {
+              "content": "Retrieves a paginated list of skills defined in the account. Skills represent competencies that learners develop by completing learning objects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.name",
+                  "value": "<string>",
+                  "description": "Filter skills by name (partial match supported)"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include. Valid values: skillLevels, learningObjects"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7dbb3ce5-3a7e-458b-8926-8a67b85a8d16",
+              "name": "List of skills",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1bdef99-ac84-4576-b19b-f92f3843610b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e7fb03b-9bf6-4cb4-b96b-d94f4537edfc",
+          "name": "Adobe Captivate Get a Skill",
+          "request": {
+            "name": "Adobe Captivate Get a Skill",
+            "description": {
+              "content": "Retrieves a single skill by its ID with its levels and associations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills",
+                ":skillId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "skillId",
+                  "description": "(Required) The unique identifier of the skill"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ac4710e-85e9-451d-b57d-2e267b104e98",
+              "name": "Skill details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skillId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skillId",
+                      "description": "(Required) The unique identifier of the skill"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"description\": \"Example description\",\n      \"name\": \"Example Name\",\n      \"state\": \"Active\"\n    },\n    \"relationships\": {\n      \"skillLevels\": \"example\",\n      \"learningObjects\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf3d1b86-b1f8-41f7-9db8-ec7bc9890ffc",
+              "name": "Skill not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skillId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skillId",
+                      "description": "(Required) The unique identifier of the skill"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fad4a2b7-6fcd-4166-86ca-4c8548356a67",
+          "name": "Adobe Captivate List User Skills",
+          "request": {
+            "name": "Adobe Captivate List User Skills",
+            "description": {
+              "content": "Retrieves skills acquired by a specific user, including the skill level achieved and points earned toward each skill.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId",
+                "userSkills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources. Valid values: skill, skillLevel"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd2f2fdd-6ff8-4fa5-9463-a7ea8a294eac",
+              "name": "List of user skills",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "userSkills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"type\": \"standard\",\n      \"attributes\": {\n        \"dateAchieved\": {},\n        \"pointsEarned\": {}\n      },\n      \"relationships\": {\n        \"skill\": {},\n        \"skillLevel\": {}\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47328da2-dddd-4e8f-a92e-18a4983aea8a",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "userSkills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f80ff5f4-e7c8-4b03-9a4b-91888c404cb6",
+      "name": "User Groups",
+      "description": {
+        "content": "Manage groups of users for targeted content delivery",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4304ac29-d3b5-4822-bad8-8de054885b34",
+          "name": "Adobe Captivate List User Groups",
+          "request": {
+            "name": "Adobe Captivate List User Groups",
+            "description": {
+              "content": "Retrieves a paginated list of user groups. User groups are used to organize learners and assign content, learning plans, or catalogs to specific sets of users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userGroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.name",
+                  "value": "<string>",
+                  "description": "Filter by user group name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79057a01-45b3-4b36-bb66-2c4e781a2bd9",
+              "name": "List of user groups",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dddc8201-39d3-40f3-865b-20d3b6f4912d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userGroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "filter.name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85814315-328f-4128-8cef-e2627a65b376",
+          "name": "Adobe Captivate Get a User Group",
+          "request": {
+            "name": "Adobe Captivate Get a User Group",
+            "description": {
+              "content": "Retrieves a single user group by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userGroups",
+                ":userGroupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userGroupId",
+                  "description": "(Required) The unique identifier of the user group"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25cd5f50-6802-4e07-b909-8b7ec04d5eb3",
+              "name": "User group details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userGroups",
+                    ":userGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userGroupId",
+                      "description": "(Required) The unique identifier of the user group"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"description\": \"Example description\",\n      \"name\": \"Example Name\",\n      \"state\": \"Active\",\n      \"userCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39978b90-ba5f-440b-ae5d-d9797adaff12",
+              "name": "User group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userGroups",
+                    ":userGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userGroupId",
+                      "description": "(Required) The unique identifier of the user group"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c90fb045-f3cd-4d9f-aca7-c448a7d225eb",
+      "name": "Users",
+      "description": {
+        "content": "Manage learner, manager, author, and admin user accounts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a28f29c-e250-4009-8064-1b4149128a01",
+          "name": "Adobe Captivate List Users",
+          "request": {
+            "name": "Adobe Captivate List Users",
+            "description": {
+              "content": "Retrieves a paginated list of users in the account. Supports filtering by role, active status, and user group. Only accessible by admin and integration admin roles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.role",
+                  "value": "<string>",
+                  "description": "Filter users by role"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.isActive",
+                  "value": "<boolean>",
+                  "description": "Filter by active status"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.userGroupId",
+                  "value": "<string>",
+                  "description": "Filter by user group ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include. Valid values: manager, userGroups, account"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a2dfa8e-f7ad-480b-8546-b8a80e6658cd",
+              "name": "List of users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.isActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter.userGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "123c5184-c24c-4cd5-9c04-c8d7b8cb6fdc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.isActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter.userGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbcc0a41-485b-47fe-95de-b15685b9e33c",
+              "name": "Forbidden - insufficient role permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.isActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter.userGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63506d5d-e1c3-4282-a27d-dde59c594417",
+          "name": "Adobe Captivate Get a User",
+          "request": {
+            "name": "Adobe Captivate Get a User",
+            "description": {
+              "content": "Retrieves a single user by their ID, including profile information and related resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb5f5149-72dd-41c3-8ee3-9bdcd552b7d9",
+              "name": "User details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"avatarUrl\": \"https://example.com/path/abc123\",\n      \"email\": \"user@example.com\",\n      \"name\": \"Example Name\",\n      \"pointsEarned\": 1,\n      \"profile\": \"example\"\n    },\n    \"relationships\": {\n      \"manager\": \"example\",\n      \"userGroups\": \"example\",\n      \"account\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "907293bf-4338-4c20-80bf-b27e0f12df14",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82938bf4-01b2-46f0-ab26-f13db0dbbddc",
+          "name": "Adobe Captivate Update a User",
+          "request": {
+            "name": "Adobe Captivate Update a User",
+            "description": {
+              "content": "Updates user profile fields such as name, email, manager assignment, and user state. Follows JSON:API PATCH semantics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"profile\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c1d0a3f-66ee-455b-b7d0-64fa8349abb3",
+              "name": "Updated user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"name\": \"Example Name\",\n      \"email\": \"user@example.com\",\n      \"profile\": \"example\",\n      \"state\": \"ACTIVE\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"avatarUrl\": \"https://example.com/path/abc123\",\n      \"email\": \"user@example.com\",\n      \"name\": \"Example Name\",\n      \"pointsEarned\": 1,\n      \"profile\": \"example\"\n    },\n    \"relationships\": {\n      \"manager\": \"example\",\n      \"userGroups\": \"example\",\n      \"account\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc910ba9-a3e3-4a51-ac33-34ded16a2ed3",
+              "name": "Invalid update data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"name\": \"Example Name\",\n      \"email\": \"user@example.com\",\n      \"profile\": \"example\",\n      \"state\": \"ACTIVE\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e096c0a1-eee7-4c2b-b7a8-5011a95ee630",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"name\": \"Example Name\",\n      \"email\": \"user@example.com\",\n      \"profile\": \"example\",\n      \"state\": \"ACTIVE\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://learningmanager.adobe.com/primeapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "learner:read learner:write admin:read admin:write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://learningmanager.adobe.com/oauth/token/refresh"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://learningmanager.adobe.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://learningmanager.adobe.com/oauth/o/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d36632a4-62a4-461b-8ee7-b26af7a68749",
+    "name": "Adobe Captivate Prime API (Learning Manager)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.\n\nContact Support:\n Name: Adobe Learning Manager Support",
+      "type": "text/plain"
+    }
+  }
+}
