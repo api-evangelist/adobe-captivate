@@ -37,7 +37,7 @@ apis:
         url: openapi/adobe-captivate-prime-api-openapi.yml
       - type: Authentication
         url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
-      - type: Postman Collection
+      - type: PostmanCollection
         url: https://www.postman.com/adobe-captivate-prime
       - type: JSONSchema
         url: json-schema/prime-api-account-response-schema.json
@@ -119,27 +119,24 @@ maintainers:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/adobe-captivate/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/adobe-captivate-activate-and-enroll-user-workflow.yml
-        name: Adobe Learning Manager Activate and Enroll a User
-        summary: Read a user, activate them if not already ACTIVE, then enroll them into a course instance.
-      - url: arazzo/adobe-captivate-enroll-learner-in-course-workflow.yml
-        name: Adobe Learning Manager Enroll a Learner in a Course
-        summary: Resolve a course, pick an available instance, enroll a learner, and confirm the enrollment.
-      - url: arazzo/adobe-captivate-learner-progress-report-workflow.yml
-        name: Adobe Learning Manager Learner Progress Report
-        summary: Assemble a learner profile from their account, enrollments, skills, and gamification points.
-      - url: arazzo/adobe-captivate-run-bulk-job-workflow.yml
-        name: Adobe Learning Manager Run and Poll a Bulk Job
-        summary: Submit a bulk import/export job, poll until it finishes, and branch on success or failure.
-      - url: arazzo/adobe-captivate-search-and-enroll-workflow.yml
-        name: Adobe Learning Manager Search and Enroll
-        summary: Search the catalog by text, pick the top course, choose an instance, and enroll a learner.
-      - url: arazzo/adobe-captivate-unenroll-learner-workflow.yml
-        name: Adobe Learning Manager Unenroll a Learner from a Course
-        summary: Find a learner's enrollment in a course, confirm it, and remove it if present.
+  - type: Arazzo
+    url: arazzo/adobe-captivate-activate-and-enroll-user-workflow.yml
+    name: Adobe Learning Manager Activate and Enroll a User
+  - type: Arazzo
+    url: arazzo/adobe-captivate-enroll-learner-in-course-workflow.yml
+    name: Adobe Learning Manager Enroll a Learner in a Course
+  - type: Arazzo
+    url: arazzo/adobe-captivate-learner-progress-report-workflow.yml
+    name: Adobe Learning Manager Learner Progress Report
+  - type: Arazzo
+    url: arazzo/adobe-captivate-run-bulk-job-workflow.yml
+    name: Adobe Learning Manager Run and Poll a Bulk Job
+  - type: Arazzo
+    url: arazzo/adobe-captivate-search-and-enroll-workflow.yml
+    name: Adobe Learning Manager Search and Enroll
+  - type: Arazzo
+    url: arazzo/adobe-captivate-unenroll-learner-workflow.yml
+    name: Adobe Learning Manager Unenroll a Learner from a Course
   - type: LinkedIn
     url: https://www.linkedin.com/company/adobe-captivate
   - type: Support
