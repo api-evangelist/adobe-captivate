@@ -1,0 +1,42 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/adobe-captivate-prime-api-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/adobe-captivate-prime-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+    tokenUrl: https://learningmanager.adobe.com/oauth/token
+  - flow: clientCredentials
+    tokenUrl: https://learningmanager.adobe.com/oauth/token
+  description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for
+    user-context access and client credentials flow for application-level access.
+scopes:
+- scope: admin:read
+  description: Read access to admin data
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/adobe-captivate-prime-api-openapi.yml
+- scope: admin:write
+  description: Write access to admin data
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/adobe-captivate-prime-api-openapi.yml
+- scope: learner:read
+  description: Read access to learner data
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/adobe-captivate-prime-api-openapi.yml
+- scope: learner:write
+  description: Write access to learner data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adobe-captivate-prime-api-openapi.yml

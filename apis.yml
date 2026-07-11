@@ -117,6 +117,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: OAuthScopes
+    url: scopes/adobe-captivate-scopes.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/adobe-captivate/overview
   - type: Arazzo
