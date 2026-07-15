@@ -117,6 +117,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/adobe-captivate-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/adobe-captivate-vulnerability-disclosure.yml
   - type: DomainSecurity
