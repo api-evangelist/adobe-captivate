@@ -1,0 +1,199 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account Notifications API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: Notifications
+  description: Manage user notifications and announcements
+paths:
+  /users/{userId}/userNotifications:
+    get:
+      operationId: getUserNotifications
+      summary: Adobe Captivate List User Notifications
+      description: Retrieves notifications for a specific user, including enrollment reminders, completion notifications, manager approvals, and announcements.
+      tags:
+      - Notifications
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: List of notifications
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotificationListResponse'
+              examples:
+                getUserNotifications200Example:
+                  summary: Default getUserNotifications 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserNotifications404Example:
+                  summary: Default getUserNotifications 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    NotificationListResponse:
+      type: object
+      description: Paginated list of notifications
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    Notification:
+      type: object
+      description: A user notification
+      properties:
+        id:
+          type: string
+          description: Unique notification identifier
+        type:
+          type: string
+          const: userNotification
+        attributes:
+          type: object
+          properties:
+            actionTaken:
+              type: boolean
+              description: Whether the user has acted on this notification
+            channel:
+              type: string
+              description: Notification delivery channel
+            dateCreated:
+              type: string
+              format: date-time
+              description: Notification creation timestamp
+            message:
+              type: object
+              description: Notification message content
+            modelType:
+              type: string
+              description: The type of model this notification relates to
+            read:
+              type: boolean
+              description: Whether the notification has been read
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/

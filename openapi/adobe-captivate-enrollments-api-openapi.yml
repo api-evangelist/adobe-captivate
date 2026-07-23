@@ -1,0 +1,518 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account Enrollments API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: Enrollments
+  description: Manage learner enrollments in courses and learning programs
+paths:
+  /enrollments:
+    get:
+      operationId: getEnrollments
+      summary: Adobe Captivate List Enrollments
+      description: Retrieves a paginated list of enrollments. Can be scoped to the authenticated user or to all users (admin only). Supports filtering by learning object ID, state, and date range.
+      tags:
+      - Enrollments
+      parameters:
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/sort'
+      - name: filter.loId
+        in: query
+        description: Filter by learning object ID
+        schema:
+          type: string
+      - name: filter.loInstanceId
+        in: query
+        description: Filter by learning object instance ID
+        schema:
+          type: string
+      - name: filter.userId
+        in: query
+        description: Filter by user ID (admin only)
+        schema:
+          type: string
+      - name: filter.states
+        in: query
+        description: Comma-separated list of enrollment states to filter by
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: 'Comma-separated list of related resources to include. Valid values: learningObject, loInstance, loResourceGrades'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of enrollments
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentListResponse'
+              examples:
+                getEnrollments200Example:
+                  summary: Default getEnrollments 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getEnrollments401Example:
+                  summary: Default getEnrollments 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createEnrollment
+      summary: Adobe Captivate Enroll a User
+      description: Enrolls a user in a learning object instance. The request must specify the learning object instance and the user to enroll.
+      tags:
+      - Enrollments
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EnrollmentCreateRequest'
+            examples:
+              createEnrollmentRequestExample:
+                summary: Default createEnrollment request
+                x-microcks-default: true
+                value:
+                  data:
+                    type: standard
+                    attributes:
+                      loInstanceId: abc123
+                    relationships:
+                      loInstance:
+                        data: {}
+                      learner:
+                        data: {}
+      responses:
+        '201':
+          description: Enrollment created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentResponse'
+              examples:
+                createEnrollment201Example:
+                  summary: Default createEnrollment 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        completedOn: '2025-03-15T14:30:00Z'
+                        dateEnrolled: '2025-03-15T14:30:00Z'
+                        dateStarted: '2025-03-15T14:30:00Z'
+                        hasPassed: true
+                        progressPercent: 1
+                      relationships:
+                        learner: example
+                        learningObject: example
+                        loInstance: example
+        '400':
+          description: Invalid enrollment request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                createEnrollment400Example:
+                  summary: Default createEnrollment 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+        '409':
+          description: User is already enrolled
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                createEnrollment409Example:
+                  summary: Default createEnrollment 409 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /enrollments/{enrollmentId}:
+    get:
+      operationId: getEnrollment
+      summary: Adobe Captivate Get an Enrollment
+      description: Retrieves a single enrollment by its ID.
+      tags:
+      - Enrollments
+      parameters:
+      - $ref: '#/components/parameters/enrollmentId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Enrollment details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentResponse'
+              examples:
+                getEnrollment200Example:
+                  summary: Default getEnrollment 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        completedOn: '2025-03-15T14:30:00Z'
+                        dateEnrolled: '2025-03-15T14:30:00Z'
+                        dateStarted: '2025-03-15T14:30:00Z'
+                        hasPassed: true
+                        progressPercent: 1
+                      relationships:
+                        learner: example
+                        learningObject: example
+                        loInstance: example
+        '404':
+          description: Enrollment not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getEnrollment404Example:
+                  summary: Default getEnrollment 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: unenrollUser
+      summary: Adobe Captivate Unenroll a User
+      description: Removes a user's enrollment from a learning object instance. Only applicable if the enrollment is in a state that allows unenrollment.
+      tags:
+      - Enrollments
+      parameters:
+      - $ref: '#/components/parameters/enrollmentId'
+      responses:
+        '204':
+          description: Enrollment deleted successfully
+        '400':
+          description: Enrollment cannot be deleted in its current state
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unenrollUser400Example:
+                  summary: Default unenrollUser 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+        '404':
+          description: Enrollment not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unenrollUser404Example:
+                  summary: Default unenrollUser 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EnrollmentCreateRequest:
+      type: object
+      description: Request body for creating an enrollment
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            type:
+              type: string
+              const: enrollment
+            attributes:
+              type: object
+              properties:
+                loInstanceId:
+                  type: string
+                  description: ID of the learning object instance to enroll in
+            relationships:
+              type: object
+              properties:
+                loInstance:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
+                learner:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    Enrollment:
+      type: object
+      description: A learner's enrollment in a learning object instance
+      properties:
+        id:
+          type: string
+          description: Unique enrollment identifier
+        type:
+          type: string
+          const: enrollment
+        attributes:
+          type: object
+          properties:
+            completedOn:
+              type: string
+              format: date-time
+              description: Timestamp when the enrollment was completed
+            dateEnrolled:
+              type: string
+              format: date-time
+              description: Timestamp when the learner was enrolled
+            dateStarted:
+              type: string
+              format: date-time
+              description: Timestamp when the learner started
+            hasPassed:
+              type: boolean
+              description: Whether the learner passed the learning object
+            progressPercent:
+              type: integer
+              description: Completion progress as a percentage (0-100)
+              minimum: 0
+              maximum: 100
+            score:
+              type: number
+              description: Score achieved by the learner
+            state:
+              type: string
+              description: Current enrollment state
+              enum:
+              - ENROLLED
+              - STARTED
+              - COMPLETED
+              - PENDING_APPROVAL
+              - REJECTED
+              - EXPIRED
+        relationships:
+          type: object
+          properties:
+            learner:
+              $ref: '#/components/schemas/Relationship'
+            learningObject:
+              $ref: '#/components/schemas/Relationship'
+            loInstance:
+              $ref: '#/components/schemas/Relationship'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    EnrollmentResponse:
+      type: object
+      description: Single enrollment response
+      properties:
+        data:
+          $ref: '#/components/schemas/Enrollment'
+    EnrollmentListResponse:
+      type: object
+      description: Paginated list of enrollments
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+  parameters:
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    enrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: The unique identifier of the enrollment
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/

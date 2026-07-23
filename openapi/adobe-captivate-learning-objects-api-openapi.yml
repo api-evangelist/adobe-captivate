@@ -1,0 +1,618 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account Learning Objects API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: Learning Objects
+  description: Manage learning objects including courses, learning programs, certifications, and job aids
+paths:
+  /learningObjects:
+    get:
+      operationId: getLearningObjects
+      summary: Adobe Captivate List Learning Objects
+      description: Retrieves a paginated list of learning objects available to the authenticated user. Learning objects include courses, learning programs, certifications, and job aids. Supports filtering by type, catalog, skill, tag, and status.
+      tags:
+      - Learning Objects
+      parameters:
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/sort'
+      - name: filter.loTypes
+        in: query
+        description: Comma-separated list of learning object types to filter by
+        schema:
+          type: string
+          enum:
+          - course
+          - learningProgram
+          - certification
+          - jobAid
+      - name: filter.catalogIds
+        in: query
+        description: Comma-separated list of catalog IDs to filter by
+        schema:
+          type: string
+      - name: filter.skillName
+        in: query
+        description: Filter by skill name
+        schema:
+          type: string
+      - name: filter.tagName
+        in: query
+        description: Filter by tag name
+        schema:
+          type: string
+      - name: filter.loState
+        in: query
+        description: Filter by learning object state
+        schema:
+          type: string
+          enum:
+          - Active
+          - Retired
+      - name: include
+        in: query
+        description: 'Comma-separated list of related resources to include. Valid values: instances, enrollment, skills, subLOs, prerequisiteLOs, supplementaryResources, authors, catalogLabels'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of learning objects
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectListResponse'
+              examples:
+                getLearningObjects200Example:
+                  summary: Default getLearningObjects 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+                    included:
+                    - {}
+        '400':
+          description: Invalid filter parameters
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObjects400Example:
+                  summary: Default getLearningObjects 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+        '401':
+          description: Unauthorized - missing or invalid access token
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObjects401Example:
+                  summary: Default getLearningObjects 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /learningObjects/{learningObjectId}:
+    get:
+      operationId: getLearningObject
+      summary: Adobe Captivate Get a Learning Object
+      description: Retrieves a single learning object by its ID, including its metadata, instances, and relationships. The response follows JSON:API format with optional included resources.
+      tags:
+      - Learning Objects
+      parameters:
+      - $ref: '#/components/parameters/learningObjectId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include in the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Learning object details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectResponse'
+              examples:
+                getLearningObject200Example:
+                  summary: Default getLearningObject 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        authorNames:
+                        - {}
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        datePublished: '2025-03-15T14:30:00Z'
+                        dateUpdated: '2025-03-15T14:30:00Z'
+                        duration: 1
+                      relationships:
+                        instances: example
+                        skills: example
+                        prerequisiteLOs: example
+                        subLOs: example
+                        authors: example
+                    included:
+                    - {}
+        '404':
+          description: Learning object not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObject404Example:
+                  summary: Default getLearningObject 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /learningObjects/{learningObjectId}/instances:
+    get:
+      operationId: getLearningObjectInstances
+      summary: Adobe Captivate List Instances of a Learning Object
+      description: Retrieves all instances associated with a learning object. Each instance represents a specific offering of the course with its own enrollment deadline, completion deadline, and seat limit.
+      tags:
+      - Learning Objects
+      parameters:
+      - $ref: '#/components/parameters/learningObjectId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: List of learning object instances
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectInstanceListResponse'
+              examples:
+                getLearningObjectInstances200Example:
+                  summary: Default getLearningObjectInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '404':
+          description: Learning object not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getLearningObjectInstances404Example:
+                  summary: Default getLearningObjectInstances 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search:
+    get:
+      operationId: searchLearningObjects
+      summary: Adobe Captivate Search Learning Objects
+      description: Performs a text-based search across learning objects. Returns matching courses, learning programs, certifications, and job aids based on the search query. Supports pagination and filtering by learning object type and catalog.
+      tags:
+      - Learning Objects
+      parameters:
+      - name: query
+        in: query
+        required: true
+        description: The search query string
+        schema:
+          type: string
+      - name: filter.loTypes
+        in: query
+        description: Comma-separated list of learning object types to search
+        schema:
+          type: string
+      - name: filter.catalogIds
+        in: query
+        description: Comma-separated list of catalog IDs to search within
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LearningObjectListResponse'
+              examples:
+                searchLearningObjects200Example:
+                  summary: Default searchLearningObjects 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+                    included:
+                    - {}
+        '400':
+          description: Missing or invalid query parameter
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                searchLearningObjects400Example:
+                  summary: Default searchLearningObjects 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LearningObjectListResponse:
+      type: object
+      description: Paginated list of learning objects
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObject'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        included:
+          type: array
+          description: Related resources included via the include parameter
+          items:
+            type: object
+    LocalizedMetadata:
+      type: object
+      description: Metadata for a learning object in a specific locale
+      properties:
+        description:
+          type: string
+          description: Description in the specified locale
+        locale:
+          type: string
+          description: The locale code (e.g. en-US, fr-FR)
+        name:
+          type: string
+          description: Name in the specified locale
+        overview:
+          type: string
+          description: Overview or summary text
+        richTextOverview:
+          type: string
+          description: Rich text (HTML) overview content
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    LearningObjectResponse:
+      type: object
+      description: Single learning object response
+      properties:
+        data:
+          $ref: '#/components/schemas/LearningObject'
+        included:
+          type: array
+          items:
+            type: object
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    LearningObjectInstanceListResponse:
+      type: object
+      description: Paginated list of learning object instances
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObjectInstance'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    LearningObject:
+      type: object
+      description: A learning object representing a course, learning program, certification, or job aid in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the learning object
+        type:
+          type: string
+          description: JSON:API resource type
+          const: learningObject
+        attributes:
+          type: object
+          properties:
+            authorNames:
+              type: array
+              description: Names of the content authors
+              items:
+                type: string
+            dateCreated:
+              type: string
+              format: date-time
+              description: Timestamp when the learning object was created
+            datePublished:
+              type: string
+              format: date-time
+              description: Timestamp when the learning object was published
+            dateUpdated:
+              type: string
+              format: date-time
+              description: Timestamp of the last update
+            duration:
+              type: integer
+              description: Estimated duration to complete in seconds
+            effectiveModifiedDate:
+              type: string
+              format: date-time
+              description: Effective modification date
+            enrollmentType:
+              type: string
+              description: How users can enroll in this learning object
+              enum:
+              - Self Enrolled
+              - Manager Nominated
+              - Admin Enrolled
+            imageUrl:
+              type: string
+              format: uri
+              description: URL of the learning object thumbnail image
+            loFormat:
+              type: string
+              description: Content delivery format
+              enum:
+              - Self Paced
+              - Blended
+              - Classroom
+              - Virtual Classroom
+              - Activity
+            loType:
+              type: string
+              description: Type of learning object
+              enum:
+              - course
+              - learningProgram
+              - certification
+              - jobAid
+            localizedMetadata:
+              type: array
+              description: Metadata in different locales
+              items:
+                $ref: '#/components/schemas/LocalizedMetadata'
+            state:
+              type: string
+              description: Current state of the learning object
+              enum:
+              - Active
+              - Retired
+              - Published
+              - Draft
+            tags:
+              type: array
+              description: Tags associated with the learning object
+              items:
+                type: string
+            unenrollmentAllowed:
+              type: boolean
+              description: Whether learners can self-unenroll
+        relationships:
+          type: object
+          properties:
+            instances:
+              $ref: '#/components/schemas/Relationship'
+            skills:
+              $ref: '#/components/schemas/Relationship'
+            prerequisiteLOs:
+              $ref: '#/components/schemas/Relationship'
+            subLOs:
+              $ref: '#/components/schemas/Relationship'
+            authors:
+              $ref: '#/components/schemas/Relationship'
+            catalog:
+              $ref: '#/components/schemas/Relationship'
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    LearningObjectInstance:
+      type: object
+      description: An instance of a learning object representing a specific offering with its own timeline and enrollment settings
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the instance
+        type:
+          type: string
+          const: learningObjectInstance
+        attributes:
+          type: object
+          properties:
+            completionDeadline:
+              type: string
+              format: date-time
+              description: Deadline by which the learner must complete the course
+            enrollmentDeadline:
+              type: string
+              format: date-time
+              description: Deadline for enrolling in this instance
+            isDefault:
+              type: boolean
+              description: Whether this is the default instance
+            seatLimit:
+              type: integer
+              description: Maximum number of learners who can enroll
+            state:
+              type: string
+              description: Current state of the instance
+              enum:
+              - Active
+              - Retired
+  parameters:
+    learningObjectId:
+      name: learningObjectId
+      in: path
+      required: true
+      description: 'The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)'
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/

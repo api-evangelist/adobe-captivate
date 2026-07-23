@@ -1,0 +1,401 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account Skills API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: Skills
+  description: Manage skills and skill levels associated with learning content
+paths:
+  /skills:
+    get:
+      operationId: getSkills
+      summary: Adobe Captivate List Skills
+      description: Retrieves a paginated list of skills defined in the account. Skills represent competencies that learners develop by completing learning objects.
+      tags:
+      - Skills
+      parameters:
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: filter.name
+        in: query
+        description: Filter skills by name (partial match supported)
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: 'Comma-separated list of related resources to include. Valid values: skillLevels, learningObjects'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of skills
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/SkillListResponse'
+              examples:
+                getSkills200Example:
+                  summary: Default getSkills 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSkills401Example:
+                  summary: Default getSkills 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /skills/{skillId}:
+    get:
+      operationId: getSkill
+      summary: Adobe Captivate Get a Skill
+      description: Retrieves a single skill by its ID with its levels and associations.
+      tags:
+      - Skills
+      parameters:
+      - $ref: '#/components/parameters/skillId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Skill details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/SkillResponse'
+              examples:
+                getSkill200Example:
+                  summary: Default getSkill 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        description: Example description
+                        name: Example Name
+                        state: Active
+                      relationships:
+                        skillLevels: example
+                        learningObjects: example
+        '404':
+          description: Skill not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSkill404Example:
+                  summary: Default getSkill 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{userId}/userSkills:
+    get:
+      operationId: getUserSkills
+      summary: Adobe Captivate List User Skills
+      description: Retrieves skills acquired by a specific user, including the skill level achieved and points earned toward each skill.
+      tags:
+      - Skills
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: include
+        in: query
+        description: 'Comma-separated list of related resources. Valid values: skill, skillLevel'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of user skills
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserSkillListResponse'
+              examples:
+                getUserSkills200Example:
+                  summary: Default getUserSkills 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      type: standard
+                      attributes:
+                        dateAchieved: {}
+                        pointsEarned: {}
+                      relationships:
+                        skill: {}
+                        skillLevel: {}
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserSkills404Example:
+                  summary: Default getUserSkills 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Skill:
+      type: object
+      description: A skill competency defined in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique skill identifier
+        type:
+          type: string
+          const: skill
+        attributes:
+          type: object
+          properties:
+            description:
+              type: string
+              description: Skill description
+            name:
+              type: string
+              description: Skill name
+            state:
+              type: string
+              description: Skill state
+              enum:
+              - Active
+              - Retired
+        relationships:
+          type: object
+          properties:
+            skillLevels:
+              $ref: '#/components/schemas/Relationship'
+            learningObjects:
+              $ref: '#/components/schemas/Relationship'
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    UserSkillListResponse:
+      type: object
+      description: Paginated list of user skills
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                const: userSkill
+              attributes:
+                type: object
+                properties:
+                  dateAchieved:
+                    type: string
+                    format: date-time
+                    description: When the skill was achieved
+                  pointsEarned:
+                    type: number
+                    description: Points earned toward this skill
+              relationships:
+                type: object
+                properties:
+                  skill:
+                    $ref: '#/components/schemas/Relationship'
+                  skillLevel:
+                    $ref: '#/components/schemas/Relationship'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    SkillListResponse:
+      type: object
+      description: Paginated list of skills
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SkillResponse:
+      type: object
+      description: Single skill response
+      properties:
+        data:
+          $ref: '#/components/schemas/Skill'
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    skillId:
+      name: skillId
+      in: path
+      required: true
+      description: The unique identifier of the skill
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/

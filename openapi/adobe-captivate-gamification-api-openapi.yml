@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account Gamification API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: Gamification
+  description: Manage gamification points and leaderboard features
+paths:
+  /users/{userId}/gamificationPoints:
+    get:
+      operationId: getUserGamificationPoints
+      summary: Adobe Captivate Get User Gamification Points
+      description: Retrieves gamification points for a specific user, broken down by point category (learning, manager, leader, and overall).
+      tags:
+      - Gamification
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User gamification points
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/GamificationPointsResponse'
+              examples:
+                getUserGamificationPoints200Example:
+                  summary: Default getUserGamificationPoints 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        learnerPoints: 1
+                        managerPoints: 1
+                        overallPoints: 1
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserGamificationPoints404Example:
+                  summary: Default getUserGamificationPoints 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GamificationPointsResponse:
+      type: object
+      description: User gamification points response
+      properties:
+        data:
+          $ref: '#/components/schemas/GamificationPoints'
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    GamificationPoints:
+      type: object
+      description: Gamification points for a user
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        type:
+          type: string
+          const: gamification
+        attributes:
+          type: object
+          properties:
+            learnerPoints:
+              type: integer
+              description: Points earned through learning activities
+            managerPoints:
+              type: integer
+              description: Points earned as a manager
+            overallPoints:
+              type: integer
+              description: Total points across all categories
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/

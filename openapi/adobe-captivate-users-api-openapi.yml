@@ -1,0 +1,501 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account Users API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: Users
+  description: Manage learner, manager, author, and admin user accounts
+paths:
+  /users:
+    get:
+      operationId: getUsers
+      summary: Adobe Captivate List Users
+      description: Retrieves a paginated list of users in the account. Supports filtering by role, active status, and user group. Only accessible by admin and integration admin roles.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/sort'
+      - name: filter.role
+        in: query
+        description: Filter users by role
+        schema:
+          type: string
+          enum:
+          - learner
+          - manager
+          - author
+          - admin
+          - integrationAdmin
+      - name: filter.isActive
+        in: query
+        description: Filter by active status
+        schema:
+          type: boolean
+      - name: filter.userGroupId
+        in: query
+        description: Filter by user group ID
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: 'Comma-separated list of related resources to include. Valid values: manager, userGroups, account'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+              examples:
+                getUsers200Example:
+                  summary: Default getUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUsers401Example:
+                  summary: Default getUsers 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+        '403':
+          description: Forbidden - insufficient role permissions
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUsers403Example:
+                  summary: Default getUsers 403 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{userId}:
+    get:
+      operationId: getUser
+      summary: Adobe Captivate Get a User
+      description: Retrieves a single user by their ID, including profile information and related resources.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      - name: include
+        in: query
+        description: Comma-separated list of related resources to include
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              examples:
+                getUser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        avatarUrl: https://example.com/path/abc123
+                        email: user@example.com
+                        name: Example Name
+                        pointsEarned: 1
+                        profile: example
+                      relationships:
+                        manager: example
+                        userGroups: example
+                        account: example
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUser404Example:
+                  summary: Default getUser 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateUser
+      summary: Adobe Captivate Update a User
+      description: Updates user profile fields such as name, email, manager assignment, and user state. Follows JSON:API PATCH semantics.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+            examples:
+              updateUserRequestExample:
+                summary: Default updateUser request
+                x-microcks-default: true
+                value:
+                  data:
+                    id: abc123
+                    type: standard
+                    attributes:
+                      name: Example Name
+                      email: user@example.com
+                      profile: example
+                      state: ACTIVE
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              examples:
+                updateUser200Example:
+                  summary: Default updateUser 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        avatarUrl: https://example.com/path/abc123
+                        email: user@example.com
+                        name: Example Name
+                        pointsEarned: 1
+                        profile: example
+                      relationships:
+                        manager: example
+                        userGroups: example
+                        account: example
+        '400':
+          description: Invalid update data
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                updateUser400Example:
+                  summary: Default updateUser 400 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+        '404':
+          description: User not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                updateUser404Example:
+                  summary: Default updateUser 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UserUpdateRequest:
+      type: object
+      description: Request body for updating a user
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - id
+          - type
+          - attributes
+          properties:
+            id:
+              type: string
+              description: User ID
+            type:
+              type: string
+              const: user
+            attributes:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated user name
+                email:
+                  type: string
+                  format: email
+                  description: Updated email address
+                profile:
+                  type: string
+                  description: Updated profile bio
+                state:
+                  type: string
+                  enum:
+                  - ACTIVE
+                  - DELETED
+                  - SUSPENDED
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    UserListResponse:
+      type: object
+      description: Paginated list of users
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    UserResponse:
+      type: object
+      description: Single user response
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    User:
+      type: object
+      description: A user in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+        type:
+          type: string
+          const: user
+        attributes:
+          type: object
+          properties:
+            avatarUrl:
+              type: string
+              format: uri
+              description: URL of the user's avatar image
+            email:
+              type: string
+              format: email
+              description: User's email address
+            name:
+              type: string
+              description: User's full name
+            pointsEarned:
+              type: integer
+              description: Total gamification points earned
+            profile:
+              type: string
+              description: Profile bio text
+            roles:
+              type: array
+              description: List of roles assigned to the user
+              items:
+                type: string
+                enum:
+                - learner
+                - manager
+                - author
+                - admin
+                - integrationAdmin
+            state:
+              type: string
+              description: User account state
+              enum:
+              - ACTIVE
+              - DELETED
+              - SUSPENDED
+            userType:
+              type: string
+              description: User type classification
+              enum:
+              - Internal
+              - External
+        relationships:
+          type: object
+          properties:
+            manager:
+              $ref: '#/components/schemas/Relationship'
+            userGroups:
+              $ref: '#/components/schemas/Relationship'
+            account:
+              $ref: '#/components/schemas/Relationship'
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/

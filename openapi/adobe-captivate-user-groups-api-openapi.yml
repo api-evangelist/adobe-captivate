@@ -1,0 +1,259 @@
+openapi: 3.1.0
+info:
+  title: Adobe Captivate Prime API (Learning Manager) Account User Groups API
+  description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
+  version: '2'
+  contact:
+    name: Adobe Learning Manager Support
+    url: https://helpx.adobe.com/learning-manager/kb/helpdesk.html
+  termsOfService: https://www.adobe.com/legal/terms.html
+  license:
+    name: Adobe Terms of Use
+    url: https://www.adobe.com/legal/terms.html
+servers:
+- url: https://learningmanager.adobe.com/primeapi/v2
+  description: Adobe Learning Manager Production API
+security:
+- oauth2: []
+tags:
+- name: User Groups
+  description: Manage groups of users for targeted content delivery
+paths:
+  /userGroups:
+    get:
+      operationId: getUserGroups
+      summary: Adobe Captivate List User Groups
+      description: Retrieves a paginated list of user groups. User groups are used to organize learners and assign content, learning plans, or catalogs to specific sets of users.
+      tags:
+      - User Groups
+      parameters:
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/pageLimit'
+      - name: filter.name
+        in: query
+        description: Filter by user group name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of user groups
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserGroupListResponse'
+              examples:
+                getUserGroups200Example:
+                  summary: Default getUserGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - example
+                    links:
+                      self: https://example.com/path/abc123
+                      next: https://example.com/path/abc123
+                      prev: https://example.com/path/abc123
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserGroups401Example:
+                  summary: Default getUserGroups 401 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /userGroups/{userGroupId}:
+    get:
+      operationId: getUserGroup
+      summary: Adobe Captivate Get a User Group
+      description: Retrieves a single user group by its ID.
+      tags:
+      - User Groups
+      parameters:
+      - $ref: '#/components/parameters/userGroupId'
+      responses:
+        '200':
+          description: User group details
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserGroupResponse'
+              examples:
+                getUserGroup200Example:
+                  summary: Default getUserGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: abc123
+                      type: standard
+                      attributes:
+                        dateCreated: '2025-03-15T14:30:00Z'
+                        description: Example description
+                        name: Example Name
+                        state: Active
+                        userCount: 1
+        '404':
+          description: User group not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getUserGroup404Example:
+                  summary: Default getUserGroup 404 response
+                  x-microcks-default: true
+                  value:
+                    source:
+                      info: example
+                    status: active
+                    title: example
+                    detail: example
+                    code: example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UserGroupResponse:
+      type: object
+      description: Single user group response
+      properties:
+        data:
+          $ref: '#/components/schemas/UserGroup'
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    UserGroupListResponse:
+      type: object
+      description: Paginated list of user groups
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    UserGroup:
+      type: object
+      description: A group of users for organizing and targeting content
+      properties:
+        id:
+          type: string
+          description: Unique user group identifier
+        type:
+          type: string
+          const: userGroup
+        attributes:
+          type: object
+          properties:
+            dateCreated:
+              type: string
+              format: date-time
+              description: Timestamp when the group was created
+            description:
+              type: string
+              description: Group description
+            name:
+              type: string
+              description: Group name
+            state:
+              type: string
+              description: Group state
+              enum:
+              - Active
+              - Deleted
+            userCount:
+              type: integer
+              description: Number of users in the group
+  parameters:
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    userGroupId:
+      name: userGroupId
+      in: path
+      required: true
+      description: The unique identifier of the user group
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication via Adobe IMS. Supports authorization code flow for user-context access and client credentials flow for application-level access.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://learningmanager.adobe.com/oauth/o/authorize
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          refreshUrl: https://learningmanager.adobe.com/oauth/token/refresh
+          scopes:
+            learner:read: Read access to learner data
+            learner:write: Write access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+        clientCredentials:
+          tokenUrl: https://learningmanager.adobe.com/oauth/token
+          scopes:
+            learner:read: Read access to learner data
+            admin:read: Read access to admin data
+            admin:write: Write access to admin data
+externalDocs:
+  description: Adobe Learning Manager API v2 Documentation
+  url: https://captivateprime.adobe.com/docs/primeapi/v2/
