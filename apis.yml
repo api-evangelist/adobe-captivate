@@ -4,7 +4,20 @@ name: Adobe Captivate
 description: >-
   Adobe Captivate is an eLearning authoring tool used to create responsive eLearning content, software demonstrations,
   and interactive training modules.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/adobe-captivate.png
 type: Index
 created: '2024-01-20'
 modified: '2026-04-19'
@@ -18,100 +31,406 @@ tags:
   - Training
   - xAPI
 apis:
-  - name: Adobe Captivate Prime API
-    description: Learning Management System API for managing courses, learners, and learning content.
-    image: https://www.adobe.com/content/dam/cc/icons/captivate-prime.svg
-    humanURL: https://www.adobe.com/products/captivateprime.html
-    baseURL: https://learningmanager.adobe.com/primeapi/v2
-    tags:
-      - Courses
-      - Learners
-      - Learning Management
-      - LMS
-    properties:
-      - type: Documentation
-        url: https://captivateprime.adobe.com/docs/primeapi/v2/
-      - type: OpenAPI
-        url: https://learningmanager.adobe.com/primeapi/v2/swagger.json
-      - type: OpenAPI
-        url: openapi/adobe-captivate-prime-api-openapi.yml
-      - type: Authentication
-        url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
-      - type: PostmanCollection
-        url: https://www.postman.com/adobe-captivate-prime
-      - type: JSONSchema
-        url: json-schema/prime-api-account-response-schema.json
-      - type: JSONSchema
-        url: json-schema/prime-api-account-schema.json
-      - type: JSONSchema
-        url: json-schema/prime-api-badge-list-response-schema.json
-      - type: JSONStructure
-        url: json-structure/prime-api-account-response-structure.json
-      - type: JSONStructure
-        url: json-structure/prime-api-account-structure.json
-      - type: JSONStructure
-        url: json-structure/prime-api-badge-list-response-structure.json
-  - name: Adobe Captivate SCORM API
-    description: API for SCORM-compliant content delivery and tracking.
-    humanURL: https://helpx.adobe.com/captivate/using/publish-projects-scorm-compliant-lms.html
-    tags:
-      - Content Delivery
-      - LMS Integration
-      - SCORM
-    properties:
-      - type: Documentation
-        url: https://scorm.com/scorm-explained/technical-scorm/
-      - type: Specification
-        url: https://adlnet.gov/projects/scorm/
-  - name: Adobe Captivate xAPI (Tin Can API)
-    description: Experience API for tracking learning experiences.
-    humanURL: https://helpx.adobe.com/captivate/using/xapi-tin-can-support.html
-    tags:
-      - Learning Analytics
-      - Tin Can
-      - xAPI
-    properties:
-      - type: Documentation
-        url: https://xapi.com/overview/
-      - type: Specification
-        url: https://github.com/adlnet/xAPI-Spec
-  - name: Adobe Captivate Review API
-    description: API for collaborative review and commenting on eLearning projects.
-    humanURL: https://helpx.adobe.com/captivate/using/shared-review.html
-    tags:
-      - Collaboration
-      - Comments
-      - Review
-    properties:
-      - type: Documentation
-        url: https://helpx.adobe.com/captivate/using/shared-review.html
-  - name: Adobe Learning Manager Webhooks API
-    description: >-
-      Webhooks API for Adobe Learning Manager that enables real-time event notifications for learner activities, course
-      completions, enrollments, and other learning management events.
-    humanURL: https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
-    tags:
-      - Events
-      - Learning Management
-      - Notifications
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
-      - type: AsyncAPI
-        url: asyncapi/adobe-captivate-learning-manager-webhooks-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/learning-manager-webhooks-badge-awarded-payload-schema.json
-      - type: JSONSchema
-        url: json-schema/learning-manager-webhooks-certification-completed-payload-schema.json
-      - type: JSONSchema
-        url: json-schema/learning-manager-webhooks-course-created-payload-schema.json
-      - type: JSONStructure
-        url: json-structure/learning-manager-webhooks-badge-awarded-payload-structure.json
-      - type: JSONStructure
-        url: json-structure/learning-manager-webhooks-certification-completed-payload-structure.json
-      - type: JSONStructure
-        url: json-structure/learning-manager-webhooks-course-created-payload-structure.json
+- name: Adobe Captivate SCORM API
+  description: API for SCORM-compliant content delivery and tracking.
+  humanURL: https://helpx.adobe.com/captivate/using/publish-projects-scorm-compliant-lms.html
+  tags:
+  - Content Delivery
+  - LMS Integration
+  - SCORM
+  properties:
+  - type: Documentation
+    url: https://scorm.com/scorm-explained/technical-scorm/
+  - type: Specification
+    url: https://adlnet.gov/projects/scorm/
+- name: Adobe Captivate xAPI (Tin Can API)
+  description: Experience API for tracking learning experiences.
+  humanURL: https://helpx.adobe.com/captivate/using/xapi-tin-can-support.html
+  tags:
+  - Learning Analytics
+  - Tin Can
+  - xAPI
+  properties:
+  - type: Documentation
+    url: https://xapi.com/overview/
+  - type: Specification
+    url: https://github.com/adlnet/xAPI-Spec
+- name: Adobe Captivate Review API
+  description: API for collaborative review and commenting on eLearning projects.
+  humanURL: https://helpx.adobe.com/captivate/using/shared-review.html
+  tags:
+  - Collaboration
+  - Comments
+  - Review
+  properties:
+  - type: Documentation
+    url: https://helpx.adobe.com/captivate/using/shared-review.html
+- name: Adobe Learning Manager Webhooks API
+  description: >-
+    Webhooks API for Adobe Learning Manager that enables real-time event notifications for learner activities,
+    course completions, enrollments, and other learning management events.
+  humanURL: >-
+    https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
+  tags:
+  - Events
+  - Learning Management
+  - Notifications
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: >-
+      https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
+  - type: AsyncAPI
+    url: asyncapi/adobe-captivate-learning-manager-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/learning-manager-webhooks-badge-awarded-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/learning-manager-webhooks-certification-completed-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/learning-manager-webhooks-course-created-payload-schema.json
+  - type: JSONStructure
+    url: json-structure/learning-manager-webhooks-badge-awarded-payload-structure.json
+  - type: JSONStructure
+    url: json-structure/learning-manager-webhooks-certification-completed-payload-structure.json
+  - type: JSONStructure
+    url: json-structure/learning-manager-webhooks-course-created-payload-structure.json
+- aid: adobe-captivate:adobe-captivate-account-api
+  name: Adobe Captivate Account API
+  description: Retrieve and manage account-level settings
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-account-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-badges-api
+  name: Adobe Captivate Badges API
+  description: Manage badges awarded to learners for achievements
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Badges
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-badges-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-catalogs-api
+  name: Adobe Captivate Catalogs API
+  description: Manage content catalogs that organize learning objects
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Catalogs
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-catalogs-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-certifications-api
+  name: Adobe Captivate Certifications API
+  description: Manage certification programs and compliance tracking
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Certifications
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-certifications-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-enrollments-api
+  name: Adobe Captivate Enrollments API
+  description: Manage learner enrollments in courses and learning programs
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-enrollments-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-gamification-api
+  name: Adobe Captivate Gamification API
+  description: Manage gamification points and leaderboard features
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Gamification
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-gamification-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-jobs-api
+  name: Adobe Captivate Jobs API
+  description: Manage bulk import/export jobs for data operations
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-learning-objects-api
+  name: Adobe Captivate Learning Objects API
+  description: >-
+    Manage learning objects including courses, learning programs, certifications, and job aids
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Learning Objects
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-learning-objects-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-notifications-api
+  name: Adobe Captivate Notifications API
+  description: Manage user notifications and announcements
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-skills-api
+  name: Adobe Captivate Skills API
+  description: Manage skills and skill levels associated with learning content
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Skills
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-skills-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-user-groups-api
+  name: Adobe Captivate User Groups API
+  description: Manage groups of users for targeted content delivery
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - User Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-user-groups-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
+- aid: adobe-captivate:adobe-captivate-users-api
+  name: Adobe Captivate Users API
+  description: Manage learner, manager, author, and admin user accounts
+  humanURL: https://www.adobe.com/products/captivateprime.html
+  baseURL: https://learningmanager.adobe.com/primeapi/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/adobe-captivate-users-api-openapi.yml
+  - type: Documentation
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/
+  - type: Authentication
+    url: https://captivateprime.adobe.com/docs/primeapi/v2/#authentication
+  - type: PostmanCollection
+    url: https://www.postman.com/adobe-captivate-prime
+  - type: JSONSchema
+    url: json-schema/prime-api-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/prime-api-badge-list-response-schema.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-response-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-account-structure.json
+  - type: JSONStructure
+    url: json-structure/prime-api-badge-list-response-structure.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
