@@ -1,0 +1,36 @@
+{
+  "provider": "adobe-captivate",
+  "sources": [
+    "adobe-captivate-account-api-openapi.yml",
+    "adobe-captivate-badges-api-openapi.yml",
+    "adobe-captivate-catalogs-api-openapi.yml",
+    "adobe-captivate-certifications-api-openapi.yml",
+    "adobe-captivate-enrollments-api-openapi.yml",
+    "adobe-captivate-gamification-api-openapi.yml",
+    "adobe-captivate-jobs-api-openapi.yml",
+    "adobe-captivate-learning-objects-api-openapi.yml",
+    "adobe-captivate-notifications-api-openapi.yml",
+    "adobe-captivate-skills-api-openapi.yml",
+    "adobe-captivate-user-groups-api-openapi.yml",
+    "adobe-captivate-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "adobe-captivate-account-api-openapi.yml",
+    "adobe-captivate-badges-api-openapi.yml",
+    "adobe-captivate-catalogs-api-openapi.yml",
+    "adobe-captivate-certifications-api-openapi.yml",
+    "adobe-captivate-enrollments-api-openapi.yml",
+    "adobe-captivate-gamification-api-openapi.yml",
+    "adobe-captivate-jobs-api-openapi.yml",
+    "adobe-captivate-learning-objects-api-openapi.yml",
+    "adobe-captivate-notifications-api-openapi.yml",
+    "adobe-captivate-skills-api-openapi.yml",
+    "adobe-captivate-user-groups-api-openapi.yml",
+    "adobe-captivate-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
