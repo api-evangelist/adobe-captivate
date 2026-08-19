@@ -21,7 +21,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/adobe-capt
 type: Index
 created: '2024-01-20'
 modified: '2026-04-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - Authoring
   - Education
