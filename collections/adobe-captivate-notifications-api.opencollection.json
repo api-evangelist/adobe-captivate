@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Notifications API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://learningmanager.adobe.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List User Notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId/userNotifications",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves notifications for a specific user, including enrollment reminders, completion notifications, manager approvals, and announcements."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

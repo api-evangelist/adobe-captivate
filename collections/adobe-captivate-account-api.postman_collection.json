@@ -1,0 +1,178 @@
+{
+  "item": [
+    {
+      "id": "19e1b83d-b8f1-43db-9e36-0cce72863842",
+      "name": "Account",
+      "description": {
+        "content": "Retrieve and manage account-level settings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "379caae8-cbfc-4ff3-8514-42bb529bd004",
+          "name": "Adobe Captivate Get Account Details",
+          "request": {
+            "name": "Adobe Captivate Get Account Details",
+            "description": {
+              "content": "Retrieves the account configuration and details for the authenticated user's Learning Manager account, including timezone, locale, and enabled features.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30f600c7-476e-4ff1-a7b0-036fbb539ba9",
+              "name": "Account details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"gamificationEnabled\": true,\n      \"locale\": \"example\",\n      \"name\": \"Example Name\",\n      \"subdomain\": \"example\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e9b3260-007c-498b-9145-bf705e6e159d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://learningmanager.adobe.com/primeapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "learner:read learner:write admin:read admin:write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://learningmanager.adobe.com/oauth/token/refresh"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://learningmanager.adobe.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://learningmanager.adobe.com/oauth/o/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4416e293-533d-41e4-a82b-6a20fdec5911",
+    "name": "Adobe Captivate Prime API (Learning Manager) Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.\n\nContact Support:\n Name: Adobe Learning Manager Support",
+      "type": "text/plain"
+    }
+  }
+}

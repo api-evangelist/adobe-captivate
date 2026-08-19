@@ -1,0 +1,208 @@
+{
+  "item": [
+    {
+      "id": "1d00acba-7728-4325-839e-3389c9b1e96e",
+      "name": "Gamification",
+      "description": {
+        "content": "Manage gamification points and leaderboard features",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee0f2b36-bc97-4e6a-8719-9c67caa2a8c4",
+          "name": "Adobe Captivate Get User Gamification Points",
+          "request": {
+            "name": "Adobe Captivate Get User Gamification Points",
+            "description": {
+              "content": "Retrieves gamification points for a specific user, broken down by point category (learning, manager, leader, and overall).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId",
+                "gamificationPoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "908f0f87-176e-4e6f-b426-ce54fe51ebc5",
+              "name": "User gamification points",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "gamificationPoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"learnerPoints\": 1,\n      \"managerPoints\": 1,\n      \"overallPoints\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f56c8ba8-5323-46fd-8866-580d405325d6",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId",
+                    "gamificationPoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://learningmanager.adobe.com/primeapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "learner:read learner:write admin:read admin:write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://learningmanager.adobe.com/oauth/token/refresh"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://learningmanager.adobe.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://learningmanager.adobe.com/oauth/o/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e0a78f2-f1f7-462c-bb02-430e5f944c5a",
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Gamification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.\n\nContact Support:\n Name: Adobe Learning Manager Support",
+      "type": "text/plain"
+    }
+  }
+}

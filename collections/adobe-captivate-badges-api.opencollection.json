@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Badges API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://learningmanager.adobe.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Badges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Badges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/badges",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of badges. Badges are awarded to learners upon achieving specific milestones or completing learning objects."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Badge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/badges/:badgeId",
+            "params": [
+              {
+                "name": "badgeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the badge"
+              }
+            ]
+          },
+          "docs": "Retrieves a single badge by its ID."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate List User Badges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId/userBadges",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves badges earned by a specific user, including the date earned and associated learning object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

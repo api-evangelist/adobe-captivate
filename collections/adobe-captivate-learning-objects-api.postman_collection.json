@@ -1,0 +1,928 @@
+{
+  "item": [
+    {
+      "id": "6abfdc75-c711-47e4-8f28-6ef1eee28f6c",
+      "name": "Learning Objects",
+      "description": {
+        "content": "Manage learning objects including courses, learning programs, certifications, and job aids",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c672e5a9-7c4d-400f-af89-ff5c022e183f",
+          "name": "Adobe Captivate List Learning Objects",
+          "request": {
+            "name": "Adobe Captivate List Learning Objects",
+            "description": {
+              "content": "Retrieves a paginated list of learning objects available to the authenticated user. Learning objects include courses, learning programs, certifications, and job aids. Supports filtering by type, catalog, skill, tag, and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "learningObjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of learning object types to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.catalogIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of catalog IDs to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.skillName",
+                  "value": "<string>",
+                  "description": "Filter by skill name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.tagName",
+                  "value": "<string>",
+                  "description": "Filter by tag name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loState",
+                  "value": "<string>",
+                  "description": "Filter by learning object state"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include. Valid values: instances, enrollment, skills, subLOs, prerequisiteLOs, supplementaryResources, authors, catalogLabels"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03793a86-da6c-406d-85f2-bf8b23b69ace",
+              "name": "List of learning objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.skillName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loState",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  },\n  \"included\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1f85717-fbe3-4be8-ba20-3356821a1901",
+              "name": "Invalid filter parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.skillName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loState",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abb8b36b-934e-410e-a3eb-44a2c71806a6",
+              "name": "Unauthorized - missing or invalid access token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.skillName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.tagName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loState",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90b9349e-785f-4d14-b846-e84097b69bc3",
+          "name": "Adobe Captivate Get a Learning Object",
+          "request": {
+            "name": "Adobe Captivate Get a Learning Object",
+            "description": {
+              "content": "Retrieves a single learning object by its ID, including its metadata, instances, and relationships. The response follows JSON:API format with optional included resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "learningObjects",
+                ":learningObjectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of related resources to include in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "learningObjectId",
+                  "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "124c82d9-2535-40cc-ba2e-c2c1d3366d8c",
+              "name": "Learning object details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"abc123\",\n    \"type\": \"standard\",\n    \"attributes\": {\n      \"authorNames\": [\n        {}\n      ],\n      \"dateCreated\": \"2025-03-15T14:30:00Z\",\n      \"datePublished\": \"2025-03-15T14:30:00Z\",\n      \"dateUpdated\": \"2025-03-15T14:30:00Z\",\n      \"duration\": 1\n    },\n    \"relationships\": {\n      \"instances\": \"example\",\n      \"skills\": \"example\",\n      \"prerequisiteLOs\": \"example\",\n      \"subLOs\": \"example\",\n      \"authors\": \"example\"\n    }\n  },\n  \"included\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "106ecf23-6f79-4383-bf28-af87525af1e2",
+              "name": "Learning object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "195d8c39-5ca0-4e9a-b721-47dac12ee48a",
+          "name": "Adobe Captivate List Instances of a Learning Object",
+          "request": {
+            "name": "Adobe Captivate List Instances of a Learning Object",
+            "description": {
+              "content": "Retrieves all instances associated with a learning object. Each instance represents a specific offering of the course with its own enrollment deadline, completion deadline, and seat limit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "learningObjects",
+                ":learningObjectId",
+                "instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "learningObjectId",
+                  "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aafcd75d-da7a-46e3-ac00-65e22d58e651",
+              "name": "List of learning object instances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba603ebe-96fc-47cc-8b8d-d51407c1f8f5",
+              "name": "Learning object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "learningObjects",
+                    ":learningObjectId",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "learningObjectId",
+                      "description": "(Required) The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a6a515c-0ee9-4d92-ac8c-f32c89399fed",
+          "name": "Adobe Captivate Search Learning Objects",
+          "request": {
+            "name": "Adobe Captivate Search Learning Objects",
+            "description": {
+              "content": "Performs a text-based search across learning objects. Returns matching courses, learning programs, certifications, and job aids based on the search query. Supports pagination and filtering by learning object type and catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) The search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.loTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of learning object types to search"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.catalogIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of catalog IDs to search within"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "The offset for pagination (number of records to skip)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "10",
+                  "description": "Maximum number of records to return per page (max 10)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72af5a27-f176-475b-b22a-a5ba75e44d07",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"example\"\n  ],\n  \"links\": {\n    \"self\": \"https://example.com/path/abc123\",\n    \"next\": \"https://example.com/path/abc123\",\n    \"prev\": \"https://example.com/path/abc123\"\n  },\n  \"included\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9bf1e0f-035e-4fb8-b8da-0d58cca4aaf6",
+              "name": "Missing or invalid query parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.loTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.catalogIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"source\": {\n    \"info\": \"example\"\n  },\n  \"status\": \"active\",\n  \"title\": \"example\",\n  \"detail\": \"example\",\n  \"code\": \"example\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://learningmanager.adobe.com/primeapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "learner:read learner:write admin:read admin:write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://learningmanager.adobe.com/oauth/token/refresh"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://learningmanager.adobe.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://learningmanager.adobe.com/oauth/o/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bcad44e9-4dd0-436c-b804-da521590467c",
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Learning Objects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.\n\nContact Support:\n Name: Adobe Learning Manager Support",
+      "type": "text/plain"
+    }
+  }
+}

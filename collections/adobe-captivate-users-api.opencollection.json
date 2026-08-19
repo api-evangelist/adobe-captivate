@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Users API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://learningmanager.adobe.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+              },
+              {
+                "name": "filter.role",
+                "value": "",
+                "type": "query",
+                "description": "Filter users by role"
+              },
+              {
+                "name": "filter.isActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active status"
+              },
+              {
+                "name": "filter.userGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user group ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: manager, userGroups, account"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of users in the account. Supports filtering by role, active status, and user group. Only accessible by admin and integration admin roles."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a single user by their ID, including profile information and related resources."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Update a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates user profile fields such as name, email, manager assignment, and user state. Follows JSON:API PATCH semantics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

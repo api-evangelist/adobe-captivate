@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Enrollments API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://learningmanager.adobe.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrollments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+              },
+              {
+                "name": "filter.loId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by learning object ID"
+              },
+              {
+                "name": "filter.loInstanceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by learning object instance ID"
+              },
+              {
+                "name": "filter.userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user ID (admin only)"
+              },
+              {
+                "name": "filter.states",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of enrollment states to filter by"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: learningObject, loInstance, loResourceGrades"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of enrollments. Can be scoped to the authenticated user or to all users (admin only). Supports filtering by learning object ID, state, and date range."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Enroll a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enrolls a user in a learning object instance. The request must specify the learning object instance and the user to enroll."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get an Enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments/:enrollmentId",
+            "params": [
+              {
+                "name": "enrollmentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enrollment"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include"
+              }
+            ]
+          },
+          "docs": "Retrieves a single enrollment by its ID."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Unenroll a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/enrollments/:enrollmentId",
+            "params": [
+              {
+                "name": "enrollmentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the enrollment"
+              }
+            ]
+          },
+          "docs": "Removes a user's enrollment from a learning object instance. Only applicable if the enrollment is in a state that allows unenrollment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

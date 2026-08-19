@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Adobe Captivate Prime API (Learning Manager) Account Learning Objects API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://learningmanager.adobe.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Learning Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Adobe Captivate List Learning Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/learningObjects",
+            "params": [
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated"
+              },
+              {
+                "name": "filter.loTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of learning object types to filter by"
+              },
+              {
+                "name": "filter.catalogIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of catalog IDs to filter by"
+              },
+              {
+                "name": "filter.skillName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by skill name"
+              },
+              {
+                "name": "filter.tagName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag name"
+              },
+              {
+                "name": "filter.loState",
+                "value": "",
+                "type": "query",
+                "description": "Filter by learning object state"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include. Valid values: instances, enrollment, skills, subLOs, prerequisiteLOs, supplementaryResources, authors, catalogLabels"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of learning objects available to the authenticated user. Learning objects include courses, learning programs, certifications, and job aids. Supports filtering by type, catalog, skill, tag, and status."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Get a Learning Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/learningObjects/:learningObjectId",
+            "params": [
+              {
+                "name": "learningObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response"
+              }
+            ]
+          },
+          "docs": "Retrieves a single learning object by its ID, including its metadata, instances, and relationships. The response follows JSON:API format with optional included resources."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate List Instances of a Learning Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/learningObjects/:learningObjectId/instances",
+            "params": [
+              {
+                "name": "learningObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Retrieves all instances associated with a learning object. Each instance represents a specific offering of the course with its own enrollment deadline, completion deadline, and seat limit."
+        },
+        {
+          "info": {
+            "name": "Adobe Captivate Search Learning Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://learningmanager.adobe.com/primeapi/v2/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The search query string"
+              },
+              {
+                "name": "filter.loTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of learning object types to search"
+              },
+              {
+                "name": "filter.catalogIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of catalog IDs to search within"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "The offset for pagination (number of records to skip)"
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (max 10)"
+              }
+            ]
+          },
+          "docs": "Performs a text-based search across learning objects. Returns matching courses, learning programs, certifications, and job aids based on the search query. Supports pagination and filtering by learning object type and catalog."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
