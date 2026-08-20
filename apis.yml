@@ -25,6 +25,14 @@ specificationVersion: '0.23'
 tags:
   - Authoring
   - Education
+  - E-Learning
+  - LMS
+  - SCORM
+  - Training
+  - xAPI
+tags_raw:
+  - Authoring
+  - Education
   - eLearning
   - LMS
   - SCORM
@@ -72,6 +80,11 @@ apis:
   humanURL: >-
     https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
   tags:
+  - Event
+  - Learning Management
+  - Notification
+  - Webhook
+  tags_raw:
   - Events
   - Learning Management
   - Notifications
@@ -268,6 +281,8 @@ apis:
   humanURL: https://www.adobe.com/products/captivateprime.html
   baseURL: https://learningmanager.adobe.com/primeapi/v2
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -325,6 +340,8 @@ apis:
   humanURL: https://www.adobe.com/products/captivateprime.html
   baseURL: https://learningmanager.adobe.com/primeapi/v2
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -409,6 +426,8 @@ apis:
   humanURL: https://www.adobe.com/products/captivateprime.html
   baseURL: https://learningmanager.adobe.com/primeapi/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
