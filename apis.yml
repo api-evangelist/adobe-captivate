@@ -4,6 +4,18 @@ name: Adobe Captivate
 description: >-
   Adobe Captivate is an eLearning authoring tool used to create responsive eLearning content, software demonstrations,
   and interactive training modules.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -455,6 +467,9 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: CapabilityMap
+    url: capabilities/adobe-captivate-capability-edges.yml
+    name: Adobe Captivate Business Capability Map
   - type: AgenticAccess
     url: agentic-access/adobe-captivate-agentic-access.yml
   - type: VulnerabilityDisclosure
