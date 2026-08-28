@@ -10,8 +10,17 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: learningManagerApi
-  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+- name: enrollmentsApi
+  url: ../openapi/adobe-captivate-enrollments-api-openapi.yml
+  type: openapi
+- name: gamificationApi
+  url: ../openapi/adobe-captivate-gamification-api-openapi.yml
+  type: openapi
+- name: skillsApi
+  url: ../openapi/adobe-captivate-skills-api-openapi.yml
+  type: openapi
+- name: usersApi
+  url: ../openapi/adobe-captivate-users-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: learner-progress-report

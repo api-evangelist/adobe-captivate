@@ -11,8 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: learningManagerApi
-  url: ../openapi/adobe-captivate-prime-api-openapi.yml
+- name: enrollmentsApi
+  url: ../openapi/adobe-captivate-enrollments-api-openapi.yml
+  type: openapi
+- name: learningObjectsApi
+  url: ../openapi/adobe-captivate-learning-objects-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: search-and-enroll
