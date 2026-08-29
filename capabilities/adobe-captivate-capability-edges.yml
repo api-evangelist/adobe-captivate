@@ -3,8 +3,7 @@ provider: Adobe Captivate
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Banking & Capital Markets
-- Software & Technology
+- Education
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -12,54 +11,24 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 5
+edge_count: 2
 edges:
-- tag: Enrollments
-  spec_file: adobe-captivate-enrollments-api-openapi.yml
-  capability_id: BC-300.40
-  capability_id_l1: BC-300
-  capability_name: Learning & Development Management
-  confidence: 0.88
-  evidence: POST /enrollments createEnrollment 'Enroll a User'; DELETE /enrollments/{enrollmentId} 'Unenroll
-    a User'
-  reason: Enrolling and unenrolling users in learning objects is core training administration.
 - tag: Certifications
   spec_file: adobe-captivate-certifications-api-openapi.yml
   capability_id: BC-300.40
   capability_id_l1: BC-300
   capability_name: Learning & Development Management
-  confidence: 0.85
-  evidence: GET /certifications 'List Certifications'; schema LearningObject
-  reason: Learning certifications administered by an LMS map directly to training and certification management
-    under Learning & Development.
-- tag: Learning Objects
-  spec_file: adobe-captivate-learning-objects-api-openapi.yml
-  capability_id: BC-300.40
-  capability_id_l1: BC-300
-  capability_name: Learning & Development Management
-  confidence: 0.85
-  evidence: GET /learningObjects 'List Learning Objects'; GET /learningObjects/{learningObjectId}/instances
-    'List Instances of a Learning Object'
-  reason: Learning objects are the courses/training content of the LMS; managing them is training and
-    capability building.
-- tag: Badges
-  spec_file: adobe-captivate-badges-api-openapi.yml
-  capability_id: BC-300.40
-  capability_id_l1: BC-300
-  capability_name: Learning & Development Management
-  confidence: 0.72
-  evidence: GET /badges getBadges 'List Badges'; GET /users/{userId}/userBadges 'List User Badges' within
-    "the Learning Management System for managing learning objects, courses, users, enrollments, certifications,
-    skills, badges"
-  reason: Badges here are learner achievement credentials issued by an LMS, part of training/capability
-    building administration rather than any other business domain.
-- tag: Catalogs
-  spec_file: adobe-captivate-catalogs-api-openapi.yml
+  confidence: 0.7
+  evidence: GET /certifications getCertifications 'Adobe Captivate List Certifications'; schema LearningObject
+  reason: Certifications are learning objects in a corporate LMS; the capability definition for Learning
+    & Development Management explicitly covers 'training, capability building, certifications'.
+- tag: Enrollments
+  spec_file: adobe-captivate-enrollments-api-openapi.yml
   capability_id: BC-300.40
   capability_id_l1: BC-300
   capability_name: Learning & Development Management
   confidence: 0.7
-  evidence: GET /catalogs 'List Catalogs' in an API providing "access to the Learning Management System
-    for managing learning objects, courses...catalogs"
-  reason: Catalogs are course catalogues within the learning management system, i.e. training content
-    organisation, not a product catalogue.
+  evidence: POST /enrollments createEnrollment 'Adobe Captivate Enroll a User'; DELETE /enrollments/{enrollmentId}
+    unenrollUser 'Adobe Captivate Unenroll a User'
+  reason: Enrolling and unenrolling learners into courses in a corporate learning management system is
+    training administration (Learning & Development), not institutional student enrolment records.
