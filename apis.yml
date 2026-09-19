@@ -181,6 +181,8 @@ apis:
   humanURL: https://www.adobe.com/products/captivateprime.html
   baseURL: https://learningmanager.adobe.com/primeapi/v2
   tags:
+  - Catalog
+  tags_raw:
   - Catalogs
   properties:
   - type: OpenAPI
@@ -209,6 +211,8 @@ apis:
   humanURL: https://www.adobe.com/products/captivateprime.html
   baseURL: https://learningmanager.adobe.com/primeapi/v2
   tags:
+  - Certification
+  tags_raw:
   - Certifications
   properties:
   - type: OpenAPI
@@ -237,6 +241,8 @@ apis:
   humanURL: https://www.adobe.com/products/captivateprime.html
   baseURL: https://learningmanager.adobe.com/primeapi/v2
   tags:
+  - Enrollment
+  tags_raw:
   - Enrollments
   properties:
   - type: OpenAPI
