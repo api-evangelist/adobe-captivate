@@ -1,31 +1,29 @@
-# Kin Score artifact — adobe-captivate — 2026-08-20T205517
+# Kin Score artifact — adobe-captivate — 2026-09-20T232958
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: adobe-captivate
-  schema_version: 0.12.0
-  scored_at: '2026-08-20'
-  run_ts: 2026-08-20T205517
-  composite: 55.4
+  schema_version: 0.22.0
+  scored_at: '2026-09-20'
+  run_ts: 2026-09-20T232958
+  composite: 54.4
   band: strong
   facets:
-    discoverability: 55.6
-    contract_quality: 83.5
-    governance: 28.8
-    operational_transparency: 7.9
-    developer_ergonomics: 45.2
-    commercial_clarity: 40.8
+    discoverability: 50.0
+    contract_quality: 80.5
     contract_governance: 28.8
+    operational_transparency: 15.8
+    developer_ergonomics: 45.2
     access_clarity: 40.8
   agent_readiness:
-    score: 43.2
+    score: 36.7
     band: agent-ready
     dimensions:
       spec_presence: true
       agentic_access: derived
       reversibility_documented: false
       mcp_server: false
-      auth_clarity: true
+      auth_clarity: negotiable
       idempotency: false
       error_semantics: verified
       openapi_examples: verified
@@ -36,6 +34,10 @@ kin_score:
       consent_identity: false
       agent_card: false
       dry_run_mode: false
+      delegated_identity: documented
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
   regulatory:
     applies: true
     regime: Education & Research
