@@ -1,18 +1,7 @@
 {
   "provider": "adobe-captivate",
   "sources": [
-    "adobe-captivate-account-api-openapi.yml",
-    "adobe-captivate-badges-api-openapi.yml",
-    "adobe-captivate-catalogs-api-openapi.yml",
-    "adobe-captivate-certifications-api-openapi.yml",
-    "adobe-captivate-enrollments-api-openapi.yml",
-    "adobe-captivate-gamification-api-openapi.yml",
-    "adobe-captivate-jobs-api-openapi.yml",
-    "adobe-captivate-learning-objects-api-openapi.yml",
-    "adobe-captivate-notifications-api-openapi.yml",
-    "adobe-captivate-skills-api-openapi.yml",
-    "adobe-captivate-user-groups-api-openapi.yml",
-    "adobe-captivate-users-api-openapi.yml"
+    "_original/adobe-captivate-prime-api-openapi.yml"
   ],
   "outputs": [
     "adobe-captivate-account-api-openapi.yml",
@@ -31,6 +20,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "adobe-captivate-prime-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "adobe-captivate-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-badges-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-catalogs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-certifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-enrollments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-gamification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-learning-objects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-notifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-skills-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-user-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adobe-captivate-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

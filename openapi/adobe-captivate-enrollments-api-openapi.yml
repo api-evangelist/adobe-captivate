@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Adobe Captivate Prime API (Learning Manager) Account Enrollments API
+  title: Adobe Captivate Prime API (Learning Manager) Enrollments API
   description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
   version: '2'
   contact:
@@ -289,80 +289,37 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    enrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: The unique identifier of the enrollment
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
   schemas:
-    EnrollmentCreateRequest:
-      type: object
-      description: Request body for creating an enrollment
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - attributes
-          properties:
-            type:
-              type: string
-              const: enrollment
-            attributes:
-              type: object
-              properties:
-                loInstanceId:
-                  type: string
-                  description: ID of the learning object instance to enroll in
-            relationships:
-              type: object
-              properties:
-                loInstance:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/ResourceIdentifier'
-                learner:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/ResourceIdentifier'
-    Relationship:
-      type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
     Enrollment:
       type: object
       description: A learner's enrollment in a learning object instance
@@ -418,25 +375,45 @@ components:
               $ref: '#/components/schemas/Relationship'
             loInstance:
               $ref: '#/components/schemas/Relationship'
-    ResourceIdentifier:
+    Relationship:
       type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
-    EnrollmentResponse:
-      type: object
-      description: Single enrollment response
+      description: A JSON:API relationship object
       properties:
         data:
-          $ref: '#/components/schemas/Enrollment'
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
     EnrollmentListResponse:
       type: object
       description: Paginated list of enrollments
@@ -463,36 +440,59 @@ components:
           type: string
           format: uri
           description: URL for the previous page
-  parameters:
-    sort:
-      name: sort
-      in: query
-      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
-      schema:
-        type: string
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    enrollmentId:
-      name: enrollmentId
-      in: path
-      required: true
-      description: The unique identifier of the enrollment
-      schema:
-        type: string
+    EnrollmentResponse:
+      type: object
+      description: Single enrollment response
+      properties:
+        data:
+          $ref: '#/components/schemas/Enrollment'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    EnrollmentCreateRequest:
+      type: object
+      description: Request body for creating an enrollment
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            type:
+              type: string
+              const: enrollment
+            attributes:
+              type: object
+              properties:
+                loInstanceId:
+                  type: string
+                  description: ID of the learning object instance to enroll in
+            relationships:
+              type: object
+              properties:
+                loInstance:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
+                learner:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
   securitySchemes:
     oauth2:
       type: oauth2

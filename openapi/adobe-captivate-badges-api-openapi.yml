@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Adobe Captivate Prime API (Learning Manager) Account Badges API
+  title: Adobe Captivate Prime API (Learning Manager) Badges API
   description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
   version: '2'
   contact:
@@ -173,12 +173,62 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BadgeResponse:
+    Relationship:
       type: object
-      description: Single badge response
+      description: A JSON:API relationship object
       properties:
         data:
-          $ref: '#/components/schemas/Badge'
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    Badge:
+      type: object
+      description: A badge awarded to learners for achievements
+      properties:
+        id:
+          type: string
+          description: Unique badge identifier
+        type:
+          type: string
+          const: badge
+        attributes:
+          type: object
+          properties:
+            imageUrl:
+              type: string
+              format: uri
+              description: URL of the badge image
+            name:
+              type: string
+              description: Badge name
+            state:
+              type: string
+              description: Badge state
+              enum:
+              - Active
+              - Retired
     UserBadgeListResponse:
       type: object
       description: Paginated list of user badges
@@ -213,23 +263,16 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    Relationship:
+    BadgeListResponse:
       type: object
-      description: A JSON:API relationship object
+      description: Paginated list of badges
       properties:
         data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
+          type: array
+          items:
+            $ref: '#/components/schemas/Badge'
         links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
+          $ref: '#/components/schemas/PaginationLinks'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -252,29 +295,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    BadgeListResponse:
-      type: object
-      description: Paginated list of badges
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Badge'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
     PaginationLinks:
       type: object
       description: Pagination links following JSON:API conventions
@@ -291,40 +311,21 @@ components:
           type: string
           format: uri
           description: URL for the previous page
-    Badge:
+    BadgeResponse:
       type: object
-      description: A badge awarded to learners for achievements
+      description: Single badge response
       properties:
-        id:
-          type: string
-          description: Unique badge identifier
-        type:
-          type: string
-          const: badge
-        attributes:
-          type: object
-          properties:
-            imageUrl:
-              type: string
-              format: uri
-              description: URL of the badge image
-            name:
-              type: string
-              description: Badge name
-            state:
-              type: string
-              description: Badge state
-              enum:
-              - Active
-              - Retired
+        data:
+          $ref: '#/components/schemas/Badge'
   parameters:
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
       schema:
-        type: string
+        type: integer
+        default: 0
+        minimum: 0
     pageLimit:
       name: page[limit]
       in: query
@@ -340,14 +341,13 @@ components:
       description: The unique identifier of the badge
       schema:
         type: string
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
       schema:
-        type: integer
-        default: 0
-        minimum: 0
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2

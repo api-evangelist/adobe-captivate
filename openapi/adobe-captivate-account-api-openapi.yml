@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Adobe Captivate Prime API (Learning Manager) Account API
   description: The Adobe Learning Manager (formerly Captivate Prime) API v2 provides programmatic access to the Learning Management System for managing learning objects, courses, users, enrollments, certifications, skills, badges, gamification, catalogs, and user groups. The API follows the JSON:API specification and uses OAuth 2.0 for authentication. It enables integration with third-party systems for automating learner management, content delivery, and reporting.
@@ -91,12 +91,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    AccountResponse:
-      type: object
-      description: Account details response
-      properties:
-        data:
-          $ref: '#/components/schemas/Account'
     Account:
       type: object
       description: A Learning Manager account
@@ -129,6 +123,12 @@ components:
             timezone:
               type: string
               description: Default timezone for the account
+    AccountResponse:
+      type: object
+      description: Account details response
+      properties:
+        data:
+          $ref: '#/components/schemas/Account'
   securitySchemes:
     oauth2:
       type: oauth2
