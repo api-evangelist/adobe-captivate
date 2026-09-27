@@ -261,44 +261,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UserUpdateRequest:
-      type: object
-      description: Request body for updating a user
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - id
-          - type
-          - attributes
-          properties:
-            id:
-              type: string
-              description: User ID
-            type:
-              type: string
-              const: user
-            attributes:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Updated user name
-                email:
-                  type: string
-                  format: email
-                  description: Updated email address
-                profile:
-                  type: string
-                  description: Updated profile bio
-                state:
-                  type: string
-                  enum:
-                  - ACTIVE
-                  - DELETED
-                  - SUSPENDED
     UserListResponse:
       type: object
       description: Paginated list of users
@@ -309,51 +271,6 @@ components:
             $ref: '#/components/schemas/User'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    Relationship:
-      type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
-    UserResponse:
-      type: object
-      description: Single user response
-      properties:
-        data:
-          $ref: '#/components/schemas/User'
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
     User:
       type: object
       description: A user in the Learning Manager system
@@ -417,6 +334,85 @@ components:
               $ref: '#/components/schemas/Relationship'
             account:
               $ref: '#/components/schemas/Relationship'
+    UserResponse:
+      type: object
+      description: Single user response
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    UserUpdateRequest:
+      type: object
+      description: Request body for updating a user
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - id
+          - type
+          - attributes
+          properties:
+            id:
+              type: string
+              description: User ID
+            type:
+              type: string
+              const: user
+            attributes:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated user name
+                email:
+                  type: string
+                  format: email
+                  description: Updated email address
+                profile:
+                  type: string
+                  description: Updated profile bio
+                state:
+                  type: string
+                  enum:
+                  - ACTIVE
+                  - DELETED
+                  - SUSPENDED
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
     PaginationLinks:
       type: object
       description: Pagination links following JSON:API conventions
@@ -433,34 +429,24 @@ components:
           type: string
           format: uri
           description: URL for the previous page
-    ResourceIdentifier:
+    Relationship:
       type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
+      description: A JSON:API relationship object
       properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
   parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    sort:
-      name: sort
-      in: query
-      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
-      schema:
-        type: string
     pageLimit:
       name: page[limit]
       in: query
@@ -469,6 +455,12 @@ components:
         type: integer
         default: 10
         maximum: 10
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+      schema:
+        type: string
     userId:
       name: userId
       in: path
@@ -476,6 +468,14 @@ components:
       description: The unique identifier of the user
       schema:
         type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

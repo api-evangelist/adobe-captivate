@@ -69,34 +69,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GamificationPointsResponse:
-      type: object
-      description: User gamification points response
-      properties:
-        data:
-          $ref: '#/components/schemas/GamificationPoints'
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
     GamificationPoints:
       type: object
       description: Gamification points for a user
@@ -119,6 +91,34 @@ components:
             overallPoints:
               type: integer
               description: Total points across all categories
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    GamificationPointsResponse:
+      type: object
+      description: User gamification points response
+      properties:
+        data:
+          $ref: '#/components/schemas/GamificationPoints'
   parameters:
     userId:
       name: userId

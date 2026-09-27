@@ -124,60 +124,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UserGroupListResponse:
-      type: object
-      description: Paginated list of user groups
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    UserGroupResponse:
-      type: object
-      description: Single user group response
-      properties:
-        data:
-          $ref: '#/components/schemas/UserGroup'
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
     UserGroup:
       type: object
       description: A group of users for organizing and targeting content
@@ -210,15 +156,61 @@ components:
             userCount:
               type: integer
               description: Number of users in the group
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    UserGroupResponse:
+      type: object
+      description: Single user group response
+      properties:
+        data:
+          $ref: '#/components/schemas/UserGroup'
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    UserGroupListResponse:
+      type: object
+      description: Paginated list of user groups
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
   parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
     pageLimit:
       name: page[limit]
       in: query
@@ -234,6 +226,14 @@ components:
       description: The unique identifier of the user group
       schema:
         type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

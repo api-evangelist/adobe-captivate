@@ -306,6 +306,77 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    LearningObjectInstance:
+      type: object
+      description: An instance of a learning object representing a specific offering with its own timeline and enrollment settings
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the instance
+        type:
+          type: string
+          const: learningObjectInstance
+        attributes:
+          type: object
+          properties:
+            completionDeadline:
+              type: string
+              format: date-time
+              description: Deadline by which the learner must complete the course
+            enrollmentDeadline:
+              type: string
+              format: date-time
+              description: Deadline for enrolling in this instance
+            isDefault:
+              type: boolean
+              description: Whether this is the default instance
+            seatLimit:
+              type: integer
+              description: Maximum number of learners who can enroll
+            state:
+              type: string
+              description: Current state of the instance
+              enum:
+              - Active
+              - Retired
+    LearningObjectResponse:
+      type: object
+      description: Single learning object response
+      properties:
+        data:
+          $ref: '#/components/schemas/LearningObject'
+        included:
+          type: array
+          items:
+            type: object
+    LearningObjectListResponse:
+      type: object
+      description: Paginated list of learning objects
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObject'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        included:
+          type: array
+          description: Related resources included via the include parameter
+          items:
+            type: object
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
     LearningObject:
       type: object
       description: A learning object representing a course, learning program, certification, or job aid in the Learning Manager system
@@ -408,86 +479,16 @@ components:
               $ref: '#/components/schemas/Relationship'
             catalog:
               $ref: '#/components/schemas/Relationship'
-    Relationship:
+    LearningObjectInstanceListResponse:
       type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
-    LocalizedMetadata:
-      type: object
-      description: Metadata for a learning object in a specific locale
-      properties:
-        description:
-          type: string
-          description: Description in the specified locale
-        locale:
-          type: string
-          description: The locale code (e.g. en-US, fr-FR)
-        name:
-          type: string
-          description: Name in the specified locale
-        overview:
-          type: string
-          description: Overview or summary text
-        richTextOverview:
-          type: string
-          description: Rich text (HTML) overview content
-    LearningObjectListResponse:
-      type: object
-      description: Paginated list of learning objects
+      description: Paginated list of learning object instances
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/LearningObject'
+            $ref: '#/components/schemas/LearningObjectInstance'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-        included:
-          type: array
-          description: Related resources included via the include parameter
-          items:
-            type: object
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -510,65 +511,71 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    LearningObjectResponse:
+    PaginationLinks:
       type: object
-      description: Single learning object response
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
       properties:
         data:
-          $ref: '#/components/schemas/LearningObject'
-        included:
-          type: array
-          items:
-            type: object
-    LearningObjectInstanceListResponse:
-      type: object
-      description: Paginated list of learning object instances
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearningObjectInstance'
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
         links:
-          $ref: '#/components/schemas/PaginationLinks'
-    LearningObjectInstance:
-      type: object
-      description: An instance of a learning object representing a specific offering with its own timeline and enrollment settings
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the instance
-        type:
-          type: string
-          const: learningObjectInstance
-        attributes:
           type: object
           properties:
-            completionDeadline:
+            related:
               type: string
-              format: date-time
-              description: Deadline by which the learner must complete the course
-            enrollmentDeadline:
-              type: string
-              format: date-time
-              description: Deadline for enrolling in this instance
-            isDefault:
-              type: boolean
-              description: Whether this is the default instance
-            seatLimit:
-              type: integer
-              description: Maximum number of learners who can enroll
-            state:
-              type: string
-              description: Current state of the instance
-              enum:
-              - Active
-              - Retired
+              format: uri
+              description: URL to fetch the related resource
+    LocalizedMetadata:
+      type: object
+      description: Metadata for a learning object in a specific locale
+      properties:
+        description:
+          type: string
+          description: Description in the specified locale
+        locale:
+          type: string
+          description: The locale code (e.g. en-US, fr-FR)
+        name:
+          type: string
+          description: Name in the specified locale
+        overview:
+          type: string
+          description: Overview or summary text
+        richTextOverview:
+          type: string
+          description: Rich text (HTML) overview content
   parameters:
-    learningObjectId:
-      name: learningObjectId
-      in: path
-      required: true
-      description: 'The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)'
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
       schema:
         type: string
     pageOffset:
@@ -579,20 +586,13 @@ components:
         type: integer
         default: 0
         minimum: 0
-    sort:
-      name: sort
-      in: query
-      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+    learningObjectId:
+      name: learningObjectId
+      in: path
+      required: true
+      description: 'The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)'
       schema:
         type: string
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
   securitySchemes:
     oauth2:
       type: oauth2

@@ -151,21 +151,6 @@ components:
         links:
           $ref: '#/components/schemas/PaginationLinks'
   parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
     pageLimit:
       name: page[limit]
       in: query
@@ -174,6 +159,21 @@ components:
         type: integer
         default: 10
         maximum: 10
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

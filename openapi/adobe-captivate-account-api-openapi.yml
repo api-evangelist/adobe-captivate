@@ -69,6 +69,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    AccountResponse:
+      type: object
+      description: Account details response
+      properties:
+        data:
+          $ref: '#/components/schemas/Account'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -123,12 +129,6 @@ components:
             timezone:
               type: string
               description: Default timezone for the account
-    AccountResponse:
-      type: object
-      description: Account details response
-      properties:
-        data:
-          $ref: '#/components/schemas/Account'
   securitySchemes:
     oauth2:
       type: oauth2

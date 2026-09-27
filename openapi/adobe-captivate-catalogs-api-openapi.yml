@@ -130,7 +130,88 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    catalogId:
+      name: catalogId
+      in: path
+      required: true
+      description: The unique identifier of the catalog
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   schemas:
+    CatalogResponse:
+      type: object
+      description: Single catalog response
+      properties:
+        data:
+          $ref: '#/components/schemas/Catalog'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     Catalog:
       type: object
       description: A catalog that organizes and controls access to learning objects
@@ -175,6 +256,16 @@ components:
           properties:
             learningObjects:
               $ref: '#/components/schemas/Relationship'
+    CatalogListResponse:
+      type: object
+      description: Paginated list of catalogs
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Catalog'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     Relationship:
       type: object
       description: A JSON:API relationship object
@@ -192,97 +283,6 @@ components:
               type: string
               format: uri
               description: URL to fetch the related resource
-    CatalogResponse:
-      type: object
-      description: Single catalog response
-      properties:
-        data:
-          $ref: '#/components/schemas/Catalog'
-    CatalogListResponse:
-      type: object
-      description: Paginated list of catalogs
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Catalog'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
-  parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    catalogId:
-      name: catalogId
-      in: path
-      required: true
-      description: The unique identifier of the catalog
-      schema:
-        type: string
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
   securitySchemes:
     oauth2:
       type: oauth2

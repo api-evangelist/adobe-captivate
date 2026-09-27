@@ -235,42 +235,22 @@ components:
               - InProgress
               - Completed
               - Failed
-    JobCreateRequest:
-      type: object
-      description: Request body for creating a bulk job
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - attributes
-          properties:
-            type:
-              type: string
-              const: job
-            attributes:
-              type: object
-              required:
-              - jobType
-              properties:
-                jobType:
-                  type: string
-                  description: The type of bulk operation
-                  enum:
-                  - userImport
-                  - learnerTranscriptExport
-                  - trainingReportExport
-                description:
-                  type: string
-                  description: Description for this job
     JobResponse:
       type: object
       description: Single job response
       properties:
         data:
           $ref: '#/components/schemas/Job'
+    JobListResponse:
+      type: object
+      description: Paginated list of jobs
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -309,32 +289,37 @@ components:
           type: string
           format: uri
           description: URL for the previous page
-    JobListResponse:
+    JobCreateRequest:
       type: object
-      description: Paginated list of jobs
+      description: Request body for creating a bulk job
+      required:
+      - data
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+          type: object
+          required:
+          - type
+          - attributes
+          properties:
+            type:
+              type: string
+              const: job
+            attributes:
+              type: object
+              required:
+              - jobType
+              properties:
+                jobType:
+                  type: string
+                  description: The type of bulk operation
+                  enum:
+                  - userImport
+                  - learnerTranscriptExport
+                  - trainingReportExport
+                description:
+                  type: string
+                  description: Description for this job
   parameters:
-    jobId:
-      name: jobId
-      in: path
-      required: true
-      description: The unique identifier of the job
-      schema:
-        type: string
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
     pageLimit:
       name: page[limit]
       in: query
@@ -343,6 +328,21 @@ components:
         type: integer
         default: 10
         maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the job
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2

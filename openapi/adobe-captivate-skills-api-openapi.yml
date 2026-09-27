@@ -196,23 +196,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Relationship:
-      type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
     SkillListResponse:
       type: object
       description: Paginated list of skills
@@ -223,44 +206,19 @@ components:
             $ref: '#/components/schemas/Skill'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    Skill:
+    ResourceIdentifier:
       type: object
-      description: A skill competency defined in the Learning Manager system
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
       properties:
         id:
           type: string
-          description: Unique skill identifier
+          description: Resource identifier
         type:
           type: string
-          const: skill
-        attributes:
-          type: object
-          properties:
-            description:
-              type: string
-              description: Skill description
-            name:
-              type: string
-              description: Skill name
-            state:
-              type: string
-              description: Skill state
-              enum:
-              - Active
-              - Retired
-        relationships:
-          type: object
-          properties:
-            skillLevels:
-              $ref: '#/components/schemas/Relationship'
-            learningObjects:
-              $ref: '#/components/schemas/Relationship'
-    SkillResponse:
-      type: object
-      description: Single skill response
-      properties:
-        data:
-          $ref: '#/components/schemas/Skill'
+          description: Resource type name
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -299,6 +257,61 @@ components:
           type: string
           format: uri
           description: URL for the previous page
+    SkillResponse:
+      type: object
+      description: Single skill response
+      properties:
+        data:
+          $ref: '#/components/schemas/Skill'
+    Skill:
+      type: object
+      description: A skill competency defined in the Learning Manager system
+      properties:
+        id:
+          type: string
+          description: Unique skill identifier
+        type:
+          type: string
+          const: skill
+        attributes:
+          type: object
+          properties:
+            description:
+              type: string
+              description: Skill description
+            name:
+              type: string
+              description: Skill name
+            state:
+              type: string
+              description: Skill state
+              enum:
+              - Active
+              - Retired
+        relationships:
+          type: object
+          properties:
+            skillLevels:
+              $ref: '#/components/schemas/Relationship'
+            learningObjects:
+              $ref: '#/components/schemas/Relationship'
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
     UserSkillListResponse:
       type: object
       description: Paginated list of user skills
@@ -332,28 +345,7 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
   parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
     skillId:
       name: skillId
       in: path
@@ -376,6 +368,14 @@ components:
       description: The unique identifier of the user
       schema:
         type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

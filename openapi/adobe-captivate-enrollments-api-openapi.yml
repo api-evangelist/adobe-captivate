@@ -289,37 +289,74 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    enrollmentId:
-      name: enrollmentId
-      in: path
-      required: true
-      description: The unique identifier of the enrollment
-      schema:
-        type: string
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    sort:
-      name: sort
-      in: query
-      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
-      schema:
-        type: string
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
   schemas:
+    EnrollmentListResponse:
+      type: object
+      description: Paginated list of enrollments
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    EnrollmentResponse:
+      type: object
+      description: Single enrollment response
+      properties:
+        data:
+          $ref: '#/components/schemas/Enrollment'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     Enrollment:
       type: object
       description: A learner's enrollment in a learning object instance
@@ -392,73 +429,6 @@ components:
               type: string
               format: uri
               description: URL to fetch the related resource
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
-    EnrollmentListResponse:
-      type: object
-      description: Paginated list of enrollments
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Enrollment'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
-    EnrollmentResponse:
-      type: object
-      description: Single enrollment response
-      properties:
-        data:
-          $ref: '#/components/schemas/Enrollment'
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
     EnrollmentCreateRequest:
       type: object
       description: Request body for creating an enrollment
@@ -493,6 +463,36 @@ components:
                   properties:
                     data:
                       $ref: '#/components/schemas/ResourceIdentifier'
+  parameters:
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    sort:
+      name: sort
+      in: query
+      description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
+      schema:
+        type: string
+    enrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: The unique identifier of the enrollment
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

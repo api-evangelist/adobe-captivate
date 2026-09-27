@@ -172,63 +172,54 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    badgeId:
+      name: badgeId
+      in: path
+      required: true
+      description: The unique identifier of the badge
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   schemas:
-    Relationship:
+    BadgeListResponse:
       type: object
-      description: A JSON:API relationship object
+      description: Paginated list of badges
       properties:
         data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
+          type: array
+          items:
+            $ref: '#/components/schemas/Badge'
         links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
-    ResourceIdentifier:
+          $ref: '#/components/schemas/PaginationLinks'
+    BadgeResponse:
       type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
+      description: Single badge response
       properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
-    Badge:
-      type: object
-      description: A badge awarded to learners for achievements
-      properties:
-        id:
-          type: string
-          description: Unique badge identifier
-        type:
-          type: string
-          const: badge
-        attributes:
-          type: object
-          properties:
-            imageUrl:
-              type: string
-              format: uri
-              description: URL of the badge image
-            name:
-              type: string
-              description: Badge name
-            state:
-              type: string
-              description: Badge state
-              enum:
-              - Active
-              - Retired
+        data:
+          $ref: '#/components/schemas/Badge'
     UserBadgeListResponse:
       type: object
       description: Paginated list of user badges
@@ -263,16 +254,19 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    BadgeListResponse:
+    ResourceIdentifier:
       type: object
-      description: Paginated list of badges
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Badge'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -311,43 +305,49 @@ components:
           type: string
           format: uri
           description: URL for the previous page
-    BadgeResponse:
+    Badge:
       type: object
-      description: Single badge response
+      description: A badge awarded to learners for achievements
+      properties:
+        id:
+          type: string
+          description: Unique badge identifier
+        type:
+          type: string
+          const: badge
+        attributes:
+          type: object
+          properties:
+            imageUrl:
+              type: string
+              format: uri
+              description: URL of the badge image
+            name:
+              type: string
+              description: Badge name
+            state:
+              type: string
+              description: Badge state
+              enum:
+              - Active
+              - Retired
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
       properties:
         data:
-          $ref: '#/components/schemas/Badge'
-  parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
-    badgeId:
-      name: badgeId
-      in: path
-      required: true
-      description: The unique identifier of the badge
-      schema:
-        type: string
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
   securitySchemes:
     oauth2:
       type: oauth2
