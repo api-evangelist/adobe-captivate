@@ -306,6 +306,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     LearningObjectInstance:
       type: object
       description: An instance of a learning object representing a specific offering with its own timeline and enrollment settings
@@ -339,44 +355,6 @@ components:
               enum:
               - Active
               - Retired
-    LearningObjectResponse:
-      type: object
-      description: Single learning object response
-      properties:
-        data:
-          $ref: '#/components/schemas/LearningObject'
-        included:
-          type: array
-          items:
-            type: object
-    LearningObjectListResponse:
-      type: object
-      description: Paginated list of learning objects
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearningObject'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-        included:
-          type: array
-          description: Related resources included via the include parameter
-          items:
-            type: object
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
     LearningObject:
       type: object
       description: A learning object representing a course, learning program, certification, or job aid in the Learning Manager system
@@ -479,16 +457,6 @@ components:
               $ref: '#/components/schemas/Relationship'
             catalog:
               $ref: '#/components/schemas/Relationship'
-    LearningObjectInstanceListResponse:
-      type: object
-      description: Paginated list of learning object instances
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearningObjectInstance'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -511,39 +479,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
-    Relationship:
-      type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
     LocalizedMetadata:
       type: object
       description: Metadata for a learning object in a specific locale
@@ -563,7 +498,79 @@ components:
         richTextOverview:
           type: string
           description: Rich text (HTML) overview content
+    LearningObjectListResponse:
+      type: object
+      description: Paginated list of learning objects
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObject'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        included:
+          type: array
+          description: Related resources included via the include parameter
+          items:
+            type: object
+    LearningObjectResponse:
+      type: object
+      description: Single learning object response
+      properties:
+        data:
+          $ref: '#/components/schemas/LearningObject'
+        included:
+          type: array
+          items:
+            type: object
+    LearningObjectInstanceListResponse:
+      type: object
+      description: Paginated list of learning object instances
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningObjectInstance'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
   parameters:
+    learningObjectId:
+      name: learningObjectId
+      in: path
+      required: true
+      description: 'The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)'
+      schema:
+        type: string
     pageLimit:
       name: page[limit]
       in: query
@@ -586,13 +593,6 @@ components:
         type: integer
         default: 0
         minimum: 0
-    learningObjectId:
-      name: learningObjectId
-      in: path
-      required: true
-      description: 'The unique identifier of the learning object (format: course:XXXXXX, learningProgram:XXXXXX, certification:XXXXXX, or jobAid:XXXXXX)'
-      schema:
-        type: string
   securitySchemes:
     oauth2:
       type: oauth2

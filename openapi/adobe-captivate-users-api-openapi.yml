@@ -271,6 +271,60 @@ components:
             $ref: '#/components/schemas/User'
         links:
           $ref: '#/components/schemas/PaginationLinks'
+    UserUpdateRequest:
+      type: object
+      description: Request body for updating a user
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - id
+          - type
+          - attributes
+          properties:
+            id:
+              type: string
+              description: User ID
+            type:
+              type: string
+              const: user
+            attributes:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated user name
+                email:
+                  type: string
+                  format: email
+                  description: Updated email address
+                profile:
+                  type: string
+                  description: Updated profile bio
+                state:
+                  type: string
+                  enum:
+                  - ACTIVE
+                  - DELETED
+                  - SUSPENDED
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     User:
       type: object
       description: A user in the Learning Manager system
@@ -334,63 +388,6 @@ components:
               $ref: '#/components/schemas/Relationship'
             account:
               $ref: '#/components/schemas/Relationship'
-    UserResponse:
-      type: object
-      description: Single user response
-      properties:
-        data:
-          $ref: '#/components/schemas/User'
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
-    UserUpdateRequest:
-      type: object
-      description: Request body for updating a user
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - id
-          - type
-          - attributes
-          properties:
-            id:
-              type: string
-              description: User ID
-            type:
-              type: string
-              const: user
-            attributes:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Updated user name
-                email:
-                  type: string
-                  format: email
-                  description: Updated email address
-                profile:
-                  type: string
-                  description: Updated profile bio
-                state:
-                  type: string
-                  enum:
-                  - ACTIVE
-                  - DELETED
-                  - SUSPENDED
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -413,22 +410,25 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    PaginationLinks:
+    UserResponse:
       type: object
-      description: Pagination links following JSON:API conventions
+      description: Single user response
       properties:
-        self:
+        data:
+          $ref: '#/components/schemas/User'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
           type: string
-          format: uri
-          description: URL for the current page
-        next:
+          description: Resource identifier
+        type:
           type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
+          description: Resource type name
     Relationship:
       type: object
       description: A JSON:API relationship object
@@ -461,13 +461,6 @@ components:
       description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
       schema:
         type: string
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
     pageOffset:
       name: page[offset]
       in: query
@@ -476,6 +469,13 @@ components:
         type: integer
         default: 0
         minimum: 0
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2

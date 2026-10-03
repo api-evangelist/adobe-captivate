@@ -290,57 +290,40 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EnrollmentListResponse:
+    EnrollmentCreateRequest:
       type: object
-      description: Paginated list of enrollments
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Enrollment'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    EnrollmentResponse:
-      type: object
-      description: Single enrollment response
-      properties:
-        data:
-          $ref: '#/components/schemas/Enrollment'
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
+      description: Request body for creating an enrollment
       required:
-      - id
-      - type
+      - data
       properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
+        data:
           type: object
+          required:
+          - type
+          - attributes
           properties:
-            info:
+            type:
               type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
+              const: enrollment
+            attributes:
+              type: object
+              properties:
+                loInstanceId:
+                  type: string
+                  description: ID of the learning object instance to enroll in
+            relationships:
+              type: object
+              properties:
+                loInstance:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
+                learner:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ResourceIdentifier'
     PaginationLinks:
       type: object
       description: Pagination links following JSON:API conventions
@@ -357,6 +340,12 @@ components:
           type: string
           format: uri
           description: URL for the previous page
+    EnrollmentResponse:
+      type: object
+      description: Single enrollment response
+      properties:
+        data:
+          $ref: '#/components/schemas/Enrollment'
     Enrollment:
       type: object
       description: A learner's enrollment in a learning object instance
@@ -412,6 +401,51 @@ components:
               $ref: '#/components/schemas/Relationship'
             loInstance:
               $ref: '#/components/schemas/Relationship'
+    ErrorResponse:
+      type: object
+      description: Error response following JSON:API error format
+      properties:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    EnrollmentListResponse:
+      type: object
+      description: Paginated list of enrollments
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     Relationship:
       type: object
       description: A JSON:API relationship object
@@ -429,41 +463,14 @@ components:
               type: string
               format: uri
               description: URL to fetch the related resource
-    EnrollmentCreateRequest:
-      type: object
-      description: Request body for creating an enrollment
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          required:
-          - type
-          - attributes
-          properties:
-            type:
-              type: string
-              const: enrollment
-            attributes:
-              type: object
-              properties:
-                loInstanceId:
-                  type: string
-                  description: ID of the learning object instance to enroll in
-            relationships:
-              type: object
-              properties:
-                loInstance:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/ResourceIdentifier'
-                learner:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/ResourceIdentifier'
   parameters:
+    enrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: The unique identifier of the enrollment
+      schema:
+        type: string
     pageLimit:
       name: page[limit]
       in: query
@@ -476,13 +483,6 @@ components:
       name: sort
       in: query
       description: 'Sort field and direction. Prefix with - for descending order. Example: -dateCreated, name, -dateUpdated'
-      schema:
-        type: string
-    enrollmentId:
-      name: enrollmentId
-      in: path
-      required: true
-      description: The unique identifier of the enrollment
       schema:
         type: string
     pageOffset:

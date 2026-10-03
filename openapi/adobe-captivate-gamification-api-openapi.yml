@@ -69,6 +69,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    GamificationPointsResponse:
+      type: object
+      description: User gamification points response
+      properties:
+        data:
+          $ref: '#/components/schemas/GamificationPoints'
     GamificationPoints:
       type: object
       description: Gamification points for a user
@@ -113,12 +119,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    GamificationPointsResponse:
-      type: object
-      description: User gamification points response
-      properties:
-        data:
-          $ref: '#/components/schemas/GamificationPoints'
   parameters:
     userId:
       name: userId

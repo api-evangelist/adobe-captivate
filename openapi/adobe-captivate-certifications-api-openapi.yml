@@ -81,37 +81,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   schemas:
-    ResourceIdentifier:
+    PaginationLinks:
       type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
+      description: Pagination links following JSON:API conventions
       properties:
-        id:
+        self:
           type: string
-          description: Resource identifier
-        type:
+          format: uri
+          description: URL for the current page
+        next:
           type: string
-          description: Resource type name
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     LearningObject:
       type: object
       description: A learning object representing a course, learning program, certification, or job aid in the Learning Manager system
@@ -236,22 +222,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
     LocalizedMetadata:
       type: object
       description: Metadata for a learning object in a specific locale
@@ -271,6 +241,19 @@ components:
         richTextOverview:
           type: string
           description: Rich text (HTML) overview content
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
     CertificationListResponse:
       type: object
       description: Paginated list of certifications
@@ -298,6 +281,23 @@ components:
               type: string
               format: uri
               description: URL to fetch the related resource
+  parameters:
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

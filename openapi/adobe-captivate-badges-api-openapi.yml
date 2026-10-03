@@ -188,13 +188,6 @@ components:
         type: integer
         default: 10
         maximum: 10
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
     pageOffset:
       name: page[offset]
       in: query
@@ -203,6 +196,13 @@ components:
         type: integer
         default: 0
         minimum: 0
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
   schemas:
     BadgeListResponse:
       type: object
@@ -214,12 +214,22 @@ components:
             $ref: '#/components/schemas/Badge'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    BadgeResponse:
+    PaginationLinks:
       type: object
-      description: Single badge response
+      description: Pagination links following JSON:API conventions
       properties:
-        data:
-          $ref: '#/components/schemas/Badge'
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     UserBadgeListResponse:
       type: object
       description: Paginated list of user badges
@@ -254,19 +264,6 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -289,22 +286,25 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    PaginationLinks:
+    BadgeResponse:
       type: object
-      description: Pagination links following JSON:API conventions
+      description: Single badge response
       properties:
-        self:
+        data:
+          $ref: '#/components/schemas/Badge'
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
           type: string
-          format: uri
-          description: URL for the current page
-        next:
+          description: Resource identifier
+        type:
           type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
+          description: Resource type name
     Badge:
       type: object
       description: A badge awarded to learners for achievements
