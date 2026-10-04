@@ -172,37 +172,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    badgeId:
-      name: badgeId
-      in: path
-      required: true
-      description: The unique identifier of the badge
-      schema:
-        type: string
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
   schemas:
     BadgeListResponse:
       type: object
@@ -214,22 +183,41 @@ components:
             $ref: '#/components/schemas/Badge'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    PaginationLinks:
+    ErrorResponse:
       type: object
-      description: Pagination links following JSON:API conventions
+      description: Error response following JSON:API error format
       properties:
-        self:
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
           type: string
-          format: uri
-          description: URL for the current page
-        next:
+          description: HTTP status code
+        title:
           type: string
-          format: uri
-          description: URL for the next page
-        prev:
+          description: Short error title
+        detail:
           type: string
-          format: uri
-          description: URL for the previous page
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
     UserBadgeListResponse:
       type: object
       description: Paginated list of user badges
@@ -264,47 +252,45 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
     BadgeResponse:
       type: object
       description: Single badge response
       properties:
         data:
           $ref: '#/components/schemas/Badge'
-    ResourceIdentifier:
+    PaginationLinks:
       type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
+      description: Pagination links following JSON:API conventions
       properties:
-        id:
+        self:
           type: string
-          description: Resource identifier
-        type:
+          format: uri
+          description: URL for the current page
+        next:
           type: string
-          description: Resource type name
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
     Badge:
       type: object
       description: A badge awarded to learners for achievements
@@ -331,23 +317,37 @@ components:
               enum:
               - Active
               - Retired
-    Relationship:
-      type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
+  parameters:
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
+    badgeId:
+      name: badgeId
+      in: path
+      required: true
+      description: The unique identifier of the badge
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

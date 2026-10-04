@@ -131,14 +131,13 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
+    catalogId:
+      name: catalogId
+      in: path
+      required: true
+      description: The unique identifier of the catalog
       schema:
-        type: integer
-        default: 0
-        minimum: 0
+        type: string
     pageLimit:
       name: page[limit]
       in: query
@@ -147,40 +146,15 @@ components:
         type: integer
         default: 10
         maximum: 10
-    catalogId:
-      name: catalogId
-      in: path
-      required: true
-      description: The unique identifier of the catalog
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
       schema:
-        type: string
+        type: integer
+        default: 0
+        minimum: 0
   schemas:
-    CatalogListResponse:
-      type: object
-      description: Paginated list of catalogs
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Catalog'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -260,12 +234,22 @@ components:
           properties:
             learningObjects:
               $ref: '#/components/schemas/Relationship'
-    CatalogResponse:
+    PaginationLinks:
       type: object
-      description: Single catalog response
+      description: Pagination links following JSON:API conventions
       properties:
-        data:
-          $ref: '#/components/schemas/Catalog'
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     Relationship:
       type: object
       description: A JSON:API relationship object
@@ -283,6 +267,22 @@ components:
               type: string
               format: uri
               description: URL to fetch the related resource
+    CatalogResponse:
+      type: object
+      description: Single catalog response
+      properties:
+        data:
+          $ref: '#/components/schemas/Catalog'
+    CatalogListResponse:
+      type: object
+      description: Paginated list of catalogs
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Catalog'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
   securitySchemes:
     oauth2:
       type: oauth2

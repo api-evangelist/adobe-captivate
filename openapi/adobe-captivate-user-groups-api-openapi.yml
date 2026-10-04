@@ -124,22 +124,16 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PaginationLinks:
+    UserGroupListResponse:
       type: object
-      description: Pagination links following JSON:API conventions
+      description: Paginated list of user groups
       properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     UserGroupResponse:
       type: object
       description: Single user group response
@@ -168,16 +162,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    UserGroupListResponse:
-      type: object
-      description: Paginated list of user groups
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     UserGroup:
       type: object
       description: A group of users for organizing and targeting content
@@ -210,6 +194,22 @@ components:
             userCount:
               type: integer
               description: Number of users in the group
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
   parameters:
     pageLimit:
       name: page[limit]

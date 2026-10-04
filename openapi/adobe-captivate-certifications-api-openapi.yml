@@ -82,22 +82,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
     LearningObject:
       type: object
       description: A learning object representing a course, learning program, certification, or job aid in the Learning Manager system
@@ -222,25 +206,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    LocalizedMetadata:
-      type: object
-      description: Metadata for a learning object in a specific locale
-      properties:
-        description:
-          type: string
-          description: Description in the specified locale
-        locale:
-          type: string
-          description: The locale code (e.g. en-US, fr-FR)
-        name:
-          type: string
-          description: Name in the specified locale
-        overview:
-          type: string
-          description: Overview or summary text
-        richTextOverview:
-          type: string
-          description: Rich text (HTML) overview content
     ResourceIdentifier:
       type: object
       description: JSON:API resource identifier
@@ -264,6 +229,22 @@ components:
             $ref: '#/components/schemas/LearningObject'
         links:
           $ref: '#/components/schemas/PaginationLinks'
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
     Relationship:
       type: object
       description: A JSON:API relationship object
@@ -281,6 +262,25 @@ components:
               type: string
               format: uri
               description: URL to fetch the related resource
+    LocalizedMetadata:
+      type: object
+      description: Metadata for a learning object in a specific locale
+      properties:
+        description:
+          type: string
+          description: Description in the specified locale
+        locale:
+          type: string
+          description: The locale code (e.g. en-US, fr-FR)
+        name:
+          type: string
+          description: Name in the specified locale
+        overview:
+          type: string
+          description: Overview or summary text
+        richTextOverview:
+          type: string
+          description: Rich text (HTML) overview content
   parameters:
     pageLimit:
       name: page[limit]

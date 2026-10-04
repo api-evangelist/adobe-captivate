@@ -192,54 +192,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PaginationLinks:
+    JobResponse:
       type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
-    ErrorResponse:
-      type: object
-      description: Error response following JSON:API error format
-      properties:
-        source:
-          type: object
-          properties:
-            info:
-              type: string
-              description: URL to the API documentation
-        status:
-          type: string
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Human-readable error description
-        code:
-          type: string
-          description: Machine-readable error code
-    JobListResponse:
-      type: object
-      description: Paginated list of jobs
+      description: Single job response
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+          $ref: '#/components/schemas/Job'
     JobCreateRequest:
       type: object
       description: Request body for creating a bulk job
@@ -270,12 +228,28 @@ components:
                 description:
                   type: string
                   description: Description for this job
-    JobResponse:
+    ErrorResponse:
       type: object
-      description: Single job response
+      description: Error response following JSON:API error format
       properties:
-        data:
-          $ref: '#/components/schemas/Job'
+        source:
+          type: object
+          properties:
+            info:
+              type: string
+              description: URL to the API documentation
+        status:
+          type: string
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Human-readable error description
+        code:
+          type: string
+          description: Machine-readable error code
     Job:
       type: object
       description: A bulk import/export job
@@ -319,7 +293,40 @@ components:
               - InProgress
               - Completed
               - Failed
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    JobListResponse:
+      type: object
+      description: Paginated list of jobs
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
   parameters:
+    jobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the job
+      schema:
+        type: string
     pageLimit:
       name: page[limit]
       in: query
@@ -328,13 +335,6 @@ components:
         type: integer
         default: 10
         maximum: 10
-    jobId:
-      name: jobId
-      in: path
-      required: true
-      description: The unique identifier of the job
-      schema:
-        type: string
     pageOffset:
       name: page[offset]
       in: query
