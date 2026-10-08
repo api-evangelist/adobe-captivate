@@ -473,6 +473,12 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: Plans
+    url: plans/adobe-captivate-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/adobe-captivate-rate-limits.yml
+  - type: FinOps
+    url: finops/adobe-captivate-finops.yml
   - type: CapabilityMap
     url: capabilities/adobe-captivate-capability-edges.yml
     name: Adobe Captivate Business Capability Map
