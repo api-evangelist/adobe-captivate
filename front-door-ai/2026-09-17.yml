@@ -12,11 +12,16 @@ front_door_ai:
   shares_host_with:
   - adobe-commerce
   - adobe-experience-manager
+  - magento
   - magento-2
+  - neolane
   - workfront
   inherited_from: null
+  alias_of: null
   verdict: unmeasured
   score: null
+  band: null
+  band_label: null
   host_score: null
   density: null
   words: null
