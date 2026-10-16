@@ -2,11 +2,11 @@
   "repo": "adobe-captivate",
   "feeds": [
     {
-      "source": "https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate",
-      "feed_url": "https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate",
+      "source": "https://elearning.adobe.com/",
+      "feed_url": "https://elearning.adobe.com/feed/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://elearning.adobe.com/feed/",
@@ -14,10 +14,17 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate",
+      "feed_url": "https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 58,
-  "fetched": "2026-10-03T12:30:02Z",
+  "post_count": 59,
+  "fetched": "2026-10-10T13:15:00Z",
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
