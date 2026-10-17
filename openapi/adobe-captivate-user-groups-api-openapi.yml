@@ -124,16 +124,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UserGroupListResponse:
-      type: object
-      description: Paginated list of user groups
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     UserGroupResponse:
       type: object
       description: Single user group response
@@ -194,6 +184,16 @@ components:
             userCount:
               type: integer
               description: Number of users in the group
+    UserGroupListResponse:
+      type: object
+      description: Paginated list of user groups
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     PaginationLinks:
       type: object
       description: Pagination links following JSON:API conventions
@@ -211,6 +211,14 @@ components:
           format: uri
           description: URL for the previous page
   parameters:
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
     pageLimit:
       name: page[limit]
       in: query
@@ -226,14 +234,6 @@ components:
       description: The unique identifier of the user group
       schema:
         type: string
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   securitySchemes:
     oauth2:
       type: oauth2

@@ -69,34 +69,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GamificationPoints:
-      type: object
-      description: Gamification points for a user
-      properties:
-        id:
-          type: string
-          description: Unique identifier
-        type:
-          type: string
-          const: gamification
-        attributes:
-          type: object
-          properties:
-            learnerPoints:
-              type: integer
-              description: Points earned through learning activities
-            managerPoints:
-              type: integer
-              description: Points earned as a manager
-            overallPoints:
-              type: integer
-              description: Total points across all categories
-    GamificationPointsResponse:
-      type: object
-      description: User gamification points response
-      properties:
-        data:
-          $ref: '#/components/schemas/GamificationPoints'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -119,6 +91,34 @@ components:
         code:
           type: string
           description: Machine-readable error code
+    GamificationPointsResponse:
+      type: object
+      description: User gamification points response
+      properties:
+        data:
+          $ref: '#/components/schemas/GamificationPoints'
+    GamificationPoints:
+      type: object
+      description: Gamification points for a user
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        type:
+          type: string
+          const: gamification
+        attributes:
+          type: object
+          properties:
+            learnerPoints:
+              type: integer
+              description: Points earned through learning activities
+            managerPoints:
+              type: integer
+              description: Points earned as a manager
+            overallPoints:
+              type: integer
+              description: Total points across all categories
   parameters:
     userId:
       name: userId

@@ -172,17 +172,38 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    badgeId:
+      name: badgeId
+      in: path
+      required: true
+      description: The unique identifier of the badge
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
   schemas:
-    BadgeListResponse:
-      type: object
-      description: Paginated list of badges
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Badge'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -205,19 +226,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
     UserBadgeListResponse:
       type: object
       description: Paginated list of user badges
@@ -252,28 +260,29 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    BadgeResponse:
+    BadgeListResponse:
       type: object
-      description: Single badge response
+      description: Paginated list of badges
       properties:
         data:
-          $ref: '#/components/schemas/Badge'
-    PaginationLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Badge'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ResourceIdentifier:
       type: object
-      description: Pagination links following JSON:API conventions
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
       properties:
-        self:
+        id:
           type: string
-          format: uri
-          description: URL for the current page
-        next:
+          description: Resource identifier
+        type:
           type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
+          description: Resource type name
     Relationship:
       type: object
       description: A JSON:API relationship object
@@ -317,37 +326,28 @@ components:
               enum:
               - Active
               - Retired
-  parameters:
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
-    badgeId:
-      name: badgeId
-      in: path
-      required: true
-      description: The unique identifier of the badge
-      schema:
-        type: string
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
+    BadgeResponse:
+      type: object
+      description: Single badge response
+      properties:
+        data:
+          $ref: '#/components/schemas/Badge'
   securitySchemes:
     oauth2:
       type: oauth2

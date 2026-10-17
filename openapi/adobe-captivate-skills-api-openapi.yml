@@ -195,23 +195,38 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: string
+    pageOffset:
+      name: page[offset]
+      in: query
+      description: The offset for pagination (number of records to skip)
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    skillId:
+      name: skillId
+      in: path
+      required: true
+      description: The unique identifier of the skill
+      schema:
+        type: string
+    pageLimit:
+      name: page[limit]
+      in: query
+      description: Maximum number of records to return per page (max 10)
+      schema:
+        type: integer
+        default: 10
+        maximum: 10
   schemas:
-    SkillResponse:
-      type: object
-      description: Single skill response
-      properties:
-        data:
-          $ref: '#/components/schemas/Skill'
-    SkillListResponse:
-      type: object
-      description: Paginated list of skills
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Skill'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     ErrorResponse:
       type: object
       description: Error response following JSON:API error format
@@ -234,19 +249,6 @@ components:
         code:
           type: string
           description: Machine-readable error code
-    ResourceIdentifier:
-      type: object
-      description: JSON:API resource identifier
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Resource identifier
-        type:
-          type: string
-          description: Resource type name
     UserSkillListResponse:
       type: object
       description: Paginated list of user skills
@@ -280,39 +282,6 @@ components:
                     $ref: '#/components/schemas/Relationship'
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    PaginationLinks:
-      type: object
-      description: Pagination links following JSON:API conventions
-      properties:
-        self:
-          type: string
-          format: uri
-          description: URL for the current page
-        next:
-          type: string
-          format: uri
-          description: URL for the next page
-        prev:
-          type: string
-          format: uri
-          description: URL for the previous page
-    Relationship:
-      type: object
-      description: A JSON:API relationship object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/ResourceIdentifier'
-          - type: array
-            items:
-              $ref: '#/components/schemas/ResourceIdentifier'
-        links:
-          type: object
-          properties:
-            related:
-              type: string
-              format: uri
-              description: URL to fetch the related resource
     Skill:
       type: object
       description: A skill competency defined in the Learning Manager system
@@ -345,37 +314,68 @@ components:
               $ref: '#/components/schemas/Relationship'
             learningObjects:
               $ref: '#/components/schemas/Relationship'
-  parameters:
-    skillId:
-      name: skillId
-      in: path
-      required: true
-      description: The unique identifier of the skill
-      schema:
-        type: string
-    pageLimit:
-      name: page[limit]
-      in: query
-      description: Maximum number of records to return per page (max 10)
-      schema:
-        type: integer
-        default: 10
-        maximum: 10
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the user
-      schema:
-        type: string
-    pageOffset:
-      name: page[offset]
-      in: query
-      description: The offset for pagination (number of records to skip)
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
+    SkillResponse:
+      type: object
+      description: Single skill response
+      properties:
+        data:
+          $ref: '#/components/schemas/Skill'
+    SkillListResponse:
+      type: object
+      description: Paginated list of skills
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    Relationship:
+      type: object
+      description: A JSON:API relationship object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/ResourceIdentifier'
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResourceIdentifier'
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              format: uri
+              description: URL to fetch the related resource
+    ResourceIdentifier:
+      type: object
+      description: JSON:API resource identifier
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        type:
+          type: string
+          description: Resource type name
+    PaginationLinks:
+      type: object
+      description: Pagination links following JSON:API conventions
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL for the current page
+        next:
+          type: string
+          format: uri
+          description: URL for the next page
+        prev:
+          type: string
+          format: uri
+          description: URL for the previous page
   securitySchemes:
     oauth2:
       type: oauth2
