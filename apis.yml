@@ -93,7 +93,7 @@ apis:
     https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html
   tags:
   - Event
-  - Learning Management
+  - LMS
   - Notification
   - Webhook
   tags_raw:
