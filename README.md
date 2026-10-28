@@ -1,4 +1,4 @@
-# Adobe Captivate (adobe-captivate)
+# Adobe Captivate
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,173 +66,306 @@
 
 Adobe Captivate is an eLearning authoring tool used to create responsive eLearning content, software demonstrations, and interactive training modules.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/adobe-captivate/refs/heads/main/apis.yml)
+**Areas:** Authoring · Education · E-Learning · LMS · SCORM · Training · xAPI
 
-## Scope
+## Adobe Captivate on APIs.io
 
-- **Type:** Index
+Everything profiled for Adobe Captivate is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/adobe-captivate/](https://apis.io/providers/adobe-captivate/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (16)
 
-- Authoring
-- Education
-- eLearning
-- LMS
-- SCORM
-- Training
-- xAPI
+- [Adobe Captivate SCORM API](https://apis.io/apis/adobe-captivate/adobe-captivate-scorm-api/) — API for SCORM-compliant content delivery and tracking.
+- [Adobe Captivate xAPI (Tin Can API)](https://apis.io/apis/adobe-captivate/adobe-captivate-xapi-tin-can-api/) — Experience API for tracking learning experiences.
+- [Adobe Captivate Review API](https://apis.io/apis/adobe-captivate/adobe-captivate-review-api/) — API for collaborative review and commenting on eLearning projects.
+- [Adobe Learning Manager Webhooks API](https://apis.io/apis/adobe-captivate/adobe-learning-manager-webhooks-api/) — Webhooks API for Adobe Learning Manager that enables real-time event notifications for learner activities, course completions, enrollments, and other…
+- [Adobe Captivate Account API](https://apis.io/apis/adobe-captivate/adobe-captivate-account-api/) — Retrieve and manage account-level settings
+- [Adobe Captivate Badges API](https://apis.io/apis/adobe-captivate/adobe-captivate-badges-api/) — Manage badges awarded to learners for achievements
+- [Adobe Captivate Catalogs API](https://apis.io/apis/adobe-captivate/adobe-captivate-catalogs-api/) — Manage content catalogs that organize learning objects
+- [Adobe Captivate Certifications API](https://apis.io/apis/adobe-captivate/adobe-captivate-certifications-api/) — Manage certification programs and compliance tracking
+- [Adobe Captivate Enrollments API](https://apis.io/apis/adobe-captivate/adobe-captivate-enrollments-api/) — Manage learner enrollments in courses and learning programs
+- [Adobe Captivate Gamification API](https://apis.io/apis/adobe-captivate/adobe-captivate-gamification-api/) — Manage gamification points and leaderboard features
+- [Adobe Captivate Jobs API](https://apis.io/apis/adobe-captivate/adobe-captivate-jobs-api/) — Manage bulk import/export jobs for data operations
+- [Adobe Captivate Learning Objects API](https://apis.io/apis/adobe-captivate/adobe-captivate-learning-objects-api/) — Manage learning objects including courses, learning programs, certifications, and job aids
+- [Adobe Captivate Notifications API](https://apis.io/apis/adobe-captivate/adobe-captivate-notifications-api/) — Manage user notifications and announcements
+- [Adobe Captivate Skills API](https://apis.io/apis/adobe-captivate/adobe-captivate-skills-api/) — Manage skills and skill levels associated with learning content
+- [Adobe Captivate User Groups API](https://apis.io/apis/adobe-captivate/adobe-captivate-user-groups-api/) — Manage groups of users for targeted content delivery
+- [Adobe Captivate Users API](https://apis.io/apis/adobe-captivate/adobe-captivate-users-api/) — Manage learner, manager, author, and admin user accounts
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-01-20
-- **Modified:** 2026-04-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (6)
 
-### Adobe Captivate Prime API
+Multi-step workflows that chain operations into a business task.
 
-Learning Management System API for managing courses, learners, and learning content.
+- [Adobe Learning Manager Activate and Enroll a User](https://apis.io/arazzos/adobe-captivate/adobe-captivate-activate-and-enroll-user-workflow/)
+- [Adobe Learning Manager Enroll a Learner in a Course](https://apis.io/arazzos/adobe-captivate/adobe-captivate-enroll-learner-in-course-workflow/)
+- [Adobe Learning Manager Learner Progress Report](https://apis.io/arazzos/adobe-captivate/adobe-captivate-learner-progress-report-workflow/)
+- [Adobe Learning Manager Run and Poll a Bulk Job](https://apis.io/arazzos/adobe-captivate/adobe-captivate-run-bulk-job-workflow/)
+- [Adobe Learning Manager Search and Enroll](https://apis.io/arazzos/adobe-captivate/adobe-captivate-search-and-enroll-workflow/)
+- [Adobe Learning Manager Unenroll a Learner from a Course](https://apis.io/arazzos/adobe-captivate/adobe-captivate-unenroll-learner-workflow/)
 
-- **Human URL:** [https://www.adobe.com/products/captivateprime.html](https://www.adobe.com/products/captivateprime.html)
-- **Base URL:** `https://learningmanager.adobe.com/primeapi/v2`
+#### AsyncAPI (1)
 
-#### Tags
+Event-driven and webhook contracts.
 
-- Courses
-- Learners
-- Learning Management
-- LMS
+- [Adobe Learning Manager Webhooks API](https://apis.io/asyncapis/adobe-captivate/adobe-captivate-learning-manager-webhooks-asyncapi/)
 
-#### Properties
+#### Event channels (13)
 
-- [Documentation](https://captivateprime.adobe.com/docs/primeapi/v2/)
-- [OpenAPI](https://learningmanager.adobe.com/primeapi/v2/swagger.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/adobe-captivate-prime-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/adobe-captivate-prime-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/adobe-captivate-prime-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://captivateprime.adobe.com/docs/primeapi/v2/#authentication)
-- [Postman  Collection](https://www.postman.com/adobe-captivate-prime)
-- [JSON Schema](json-schema/prime-api-account-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/prime-api-account-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/prime-api-badge-list-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/prime-api-account-response-structure.json)
-- [JSON Structure](json-structure/prime-api-account-structure.json)
-- [JSON Structure](json-structure/prime-api-badge-list-response-structure.json)
+Individual events and webhooks the provider emits.
 
-### Adobe Captivate SCORM API
+- [/badge-awarded](https://apis.io/channels/adobe-captivate/badge-awarded/)
+- [/certification-completed](https://apis.io/channels/adobe-captivate/certification-completed/)
+- [/course-created](https://apis.io/channels/adobe-captivate/course-created/)
+- [/course-updated](https://apis.io/channels/adobe-captivate/course-updated/)
+- [/job-completed](https://apis.io/channels/adobe-captivate/job-completed/)
+- [/learner-completion](https://apis.io/channels/adobe-captivate/learner-completion/)
+- [/learner-enrollment](https://apis.io/channels/adobe-captivate/learner-enrollment/)
+- [/learner-progress](https://apis.io/channels/adobe-captivate/learner-progress/)
+- [/learner-unenrollment](https://apis.io/channels/adobe-captivate/learner-unenrollment/)
+- [/skill-achieved](https://apis.io/channels/adobe-captivate/skill-achieved/)
+- [/user-created](https://apis.io/channels/adobe-captivate/user-created/)
+- [/user-deleted](https://apis.io/channels/adobe-captivate/user-deleted/)
+- [/user-updated](https://apis.io/channels/adobe-captivate/user-updated/)
 
-API for SCORM-compliant content delivery and tracking.
+#### Agentic access (1)
 
-- **Human URL:** [https://helpx.adobe.com/captivate/using/publish-projects-scorm-compliant-lms.html](https://helpx.adobe.com/captivate/using/publish-projects-scorm-compliant-lms.html)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Adobe Captivate Agentic Access](https://apis.io/agentic-access/adobe-captivate/adobe-captivate-agentic-access/)
 
-- Content Delivery
-- LMS Integration
-- SCORM
+#### JSON Schema (59)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://scorm.com/scorm-explained/technical-scorm/)
-- [Specification](https://adlnet.gov/projects/scorm/)
-- [Postman Collection](collections/adobe-captivate-prime-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/adobe-captivate-prime-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Adobe Learning Manager Learning Object](https://apis.io/schemas/adobe-captivate/adobe-captivate-learning-object/)
+- [BadgeAwardedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-badge-awarded-payload/)
+- [CertificationCompletedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-certification-completed-payload/)
+- [CourseCreatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-course-created-payload/)
+- [CourseUpdatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-course-updated-payload/)
+- [JobCompletedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-job-completed-payload/)
+- [LearnerCompletionPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-completion-payload/)
+- [LearnerEnrollmentPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-enrollment-payload/)
+- [LearnerProgressPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-progress-payload/)
+- [LearnerReference](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-reference/)
+- [LearnerUnenrollmentPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-unenrollment-payload/)
+- [LearningObjectReference](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learning-object-reference/)
+- [SkillAchievedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-skill-achieved-payload/)
+- [UserCreatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-user-created-payload/)
+- [UserDeletedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-user-deleted-payload/)
+- [UserUpdatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-user-updated-payload/)
+- [WebhookEventBase](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-webhook-event-base/)
+- [Account](https://apis.io/schemas/adobe-captivate/prime-api-account/)
+- [AccountResponse](https://apis.io/schemas/adobe-captivate/prime-api-account-response/)
+- [Badge](https://apis.io/schemas/adobe-captivate/prime-api-badge/)
+- [BadgeListResponse](https://apis.io/schemas/adobe-captivate/prime-api-badge-list-response/)
+- [BadgeResponse](https://apis.io/schemas/adobe-captivate/prime-api-badge-response/)
+- [Catalog](https://apis.io/schemas/adobe-captivate/prime-api-catalog/)
+- [CatalogListResponse](https://apis.io/schemas/adobe-captivate/prime-api-catalog-list-response/)
+- [CatalogResponse](https://apis.io/schemas/adobe-captivate/prime-api-catalog-response/)
+- …and 34 more published on APIs.io
 
-### Adobe Captivate xAPI (Tin Can API)
+#### JSON Structure (59)
 
-Experience API for tracking learning experiences.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://helpx.adobe.com/captivate/using/xapi-tin-can-support.html](https://helpx.adobe.com/captivate/using/xapi-tin-can-support.html)
+- [Adobe Captivate Learning Object Structure](https://apis.io/json-structure/adobe-captivate/adobe-captivate-learning-object-structure/)
+- [Learning Manager Webhooks Badge Awarded Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-badge-awarded-payload-structure/)
+- [Learning Manager Webhooks Certification Completed Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-certification-completed-payload-structure/)
+- [Learning Manager Webhooks Course Created Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-course-created-payload-structure/)
+- [Learning Manager Webhooks Course Updated Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-course-updated-payload-structure/)
+- [Learning Manager Webhooks Job Completed Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-job-completed-payload-structure/)
+- [Learning Manager Webhooks Learner Completion Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-learner-completion-payload-structure/)
+- [Learning Manager Webhooks Learner Enrollment Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-learner-enrollment-payload-structure/)
+- [Learning Manager Webhooks Learner Progress Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-learner-progress-payload-structure/)
+- [Learning Manager Webhooks Learner Reference Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-learner-reference-structure/)
+- [Learning Manager Webhooks Learner Unenrollment Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-learner-unenrollment-payload-structure/)
+- [Learning Manager Webhooks Learning Object Reference Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-learning-object-reference-structure/)
+- [Learning Manager Webhooks Skill Achieved Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-skill-achieved-payload-structure/)
+- [Learning Manager Webhooks User Created Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-user-created-payload-structure/)
+- [Learning Manager Webhooks User Deleted Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-user-deleted-payload-structure/)
+- [Learning Manager Webhooks User Updated Payload Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-user-updated-payload-structure/)
+- [Learning Manager Webhooks Webhook Event Base Structure](https://apis.io/json-structure/adobe-captivate/learning-manager-webhooks-webhook-event-base-structure/)
+- [Prime Api Account Response Structure](https://apis.io/json-structure/adobe-captivate/prime-api-account-response-structure/)
+- [Prime Api Account Structure](https://apis.io/json-structure/adobe-captivate/prime-api-account-structure/)
+- [Prime Api Badge List Response Structure](https://apis.io/json-structure/adobe-captivate/prime-api-badge-list-response-structure/)
+- [Prime Api Badge Response Structure](https://apis.io/json-structure/adobe-captivate/prime-api-badge-response-structure/)
+- [Prime Api Badge Structure](https://apis.io/json-structure/adobe-captivate/prime-api-badge-structure/)
+- [Prime Api Catalog List Response Structure](https://apis.io/json-structure/adobe-captivate/prime-api-catalog-list-response-structure/)
+- [Prime Api Catalog Response Structure](https://apis.io/json-structure/adobe-captivate/prime-api-catalog-response-structure/)
+- [Prime Api Catalog Structure](https://apis.io/json-structure/adobe-captivate/prime-api-catalog-structure/)
+- …and 34 more published on APIs.io
 
-#### Tags
+#### JSON-LD (3)
 
-- Learning Analytics
-- Tin Can
-- xAPI
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Adobe Captivate Context](https://apis.io/jsonld/adobe-captivate/adobe-captivate-context/)
+- [Adobe Captivate Learning Manager Webhooks Context](https://apis.io/jsonld/adobe-captivate/adobe-captivate-learning-manager-webhooks-context/)
+- [Adobe Captivate Prime Api Context](https://apis.io/jsonld/adobe-captivate/adobe-captivate-prime-api-context/)
 
-- [Documentation](https://xapi.com/overview/)
-- [Specification](https://github.com/adlnet/xAPI-Spec)
-- [Postman Collection](collections/adobe-captivate-prime-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/adobe-captivate-prime-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### Adobe Captivate Review API
+The provider's domain terms, defined.
 
-API for collaborative review and commenting on eLearning projects.
+- [Adobe Captivate Vocabulary](https://apis.io/vocabularies/adobe-captivate/adobe-captivate-vocabulary/)
 
-- **Human URL:** [https://helpx.adobe.com/captivate/using/shared-review.html](https://helpx.adobe.com/captivate/using/shared-review.html)
+#### Examples (46)
 
-#### Tags
+Example requests and responses.
 
-- Collaboration
-- Comments
-- Review
+- [Adobe Captivate Learning Object Example](https://apis.io/examples/adobe-captivate/adobe-captivate-learning-object-example/)
+- [Learning Manager Webhooks Learner Reference Example](https://apis.io/examples/adobe-captivate/learning-manager-webhooks-learner-reference-example/)
+- [Learning Manager Webhooks Learning Object Reference Example](https://apis.io/examples/adobe-captivate/learning-manager-webhooks-learning-object-reference-example/)
+- [Learning Manager Webhooks Webhook Event Base Example](https://apis.io/examples/adobe-captivate/learning-manager-webhooks-webhook-event-base-example/)
+- [Prime Api Account Example](https://apis.io/examples/adobe-captivate/prime-api-account-example/)
+- [Prime Api Account Response Example](https://apis.io/examples/adobe-captivate/prime-api-account-response-example/)
+- [Prime Api Badge Example](https://apis.io/examples/adobe-captivate/prime-api-badge-example/)
+- [Prime Api Badge List Response Example](https://apis.io/examples/adobe-captivate/prime-api-badge-list-response-example/)
+- [Prime Api Badge Response Example](https://apis.io/examples/adobe-captivate/prime-api-badge-response-example/)
+- [Prime Api Catalog Example](https://apis.io/examples/adobe-captivate/prime-api-catalog-example/)
+- [Prime Api Catalog List Response Example](https://apis.io/examples/adobe-captivate/prime-api-catalog-list-response-example/)
+- [Prime Api Catalog Response Example](https://apis.io/examples/adobe-captivate/prime-api-catalog-response-example/)
+- [Prime Api Certification List Response Example](https://apis.io/examples/adobe-captivate/prime-api-certification-list-response-example/)
+- [Prime Api Enrollment Create Request Example](https://apis.io/examples/adobe-captivate/prime-api-enrollment-create-request-example/)
+- [Prime Api Enrollment Example](https://apis.io/examples/adobe-captivate/prime-api-enrollment-example/)
+- [Prime Api Enrollment List Response Example](https://apis.io/examples/adobe-captivate/prime-api-enrollment-list-response-example/)
+- [Prime Api Enrollment Response Example](https://apis.io/examples/adobe-captivate/prime-api-enrollment-response-example/)
+- [Prime Api Gamification Points Example](https://apis.io/examples/adobe-captivate/prime-api-gamification-points-example/)
+- [Prime Api Gamification Points Response Example](https://apis.io/examples/adobe-captivate/prime-api-gamification-points-response-example/)
+- [Prime Api Job Create Request Example](https://apis.io/examples/adobe-captivate/prime-api-job-create-request-example/)
+- [Prime Api Job Example](https://apis.io/examples/adobe-captivate/prime-api-job-example/)
+- [Prime Api Job List Response Example](https://apis.io/examples/adobe-captivate/prime-api-job-list-response-example/)
+- [Prime Api Job Response Example](https://apis.io/examples/adobe-captivate/prime-api-job-response-example/)
+- [Prime Api Learning Object Example](https://apis.io/examples/adobe-captivate/prime-api-learning-object-example/)
+- [Prime Api Learning Object Instance Example](https://apis.io/examples/adobe-captivate/prime-api-learning-object-instance-example/)
+- …and 21 more published on APIs.io
 
-#### Properties
+#### Collections (14)
 
-- [Documentation](https://helpx.adobe.com/captivate/using/shared-review.html)
-- [Postman Collection](collections/adobe-captivate-prime-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/adobe-captivate-prime-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Adobe Learning Manager Webhooks API
+- [Adobe Captivate Prime API (Learning Manager) Account API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-account-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Badges API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-badges-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Catalogs API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-catalogs-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Certifications API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-certifications-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Enrollments API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-enrollments-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Gamification API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-gamification-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Jobs API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-jobs-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Learning Objects API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-learning-objects-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Notifications API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-notifications-api/)
+- [Adobe Captivate Prime API (Learning Manager)](https://apis.io/collections/adobe-captivate/open-adobe-captivate-prime-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Skills API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-skills-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account User Groups API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-user-groups-api/)
+- [Adobe Captivate Prime API (Learning Manager) Account Users API](https://apis.io/collections/adobe-captivate/open-adobe-captivate-users-api/)
+- [Adobe Captivate Prime API (Learning Manager)](https://apis.io/collections/adobe-captivate/postman-adobe-captivate-prime-api/)
 
-Webhooks API for Adobe Learning Manager that enables real-time event notifications for learner activities, course completions, enrollments, and other learning management events.
+#### Governance rules (3)
 
-- **Human URL:** [https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html](https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html)
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Adobe Captivate — asyncapi rules](https://apis.io/rules/adobe-captivate/adobe-captivate-asyncapi-spectral-rules/)
+- [Adobe Captivate — jsonschema rules](https://apis.io/rules/adobe-captivate/adobe-captivate-jsonschema-spectral-rules/)
+- [Adobe Captivate API Rules](https://apis.io/rules/adobe-captivate/adobe-captivate-spectral-rules/)
 
-- Events
-- Learning Management
-- Notifications
-- Webhooks
+#### Security (3)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://experienceleague.adobe.com/docs/learning-manager/using/integration/feature-summary/webhooks.html)
-- [AsyncAPI](asyncapi/adobe-captivate-learning-manager-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON Schema](json-schema/learning-manager-webhooks-badge-awarded-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/learning-manager-webhooks-certification-completed-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/learning-manager-webhooks-course-created-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/learning-manager-webhooks-badge-awarded-payload-structure.json)
-- [JSON Structure](json-structure/learning-manager-webhooks-certification-completed-payload-structure.json)
-- [JSON Structure](json-structure/learning-manager-webhooks-course-created-payload-structure.json)
-- [Postman Collection](collections/adobe-captivate-prime-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/adobe-captivate-prime-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Adobe Captivate Authentication](https://apis.io/security/adobe-captivate/adobe-captivate-authentication/)
+- [Adobe Captivate Domain Security](https://apis.io/security/adobe-captivate/adobe-captivate-domain-security/)
+- [Adobe Captivate Vulnerability Disclosure](https://apis.io/security/adobe-captivate/adobe-captivate-vulnerability-disclosure/)
 
-## Common Properties
+#### OAuth scopes (1)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [LinkedIn](https://www.linkedin.com/company/adobe-captivate)
-- [Support](https://helpx.adobe.com/support/captivate.html)
-- [Community](https://community.adobe.com/t5/adobe-captivate/ct-p/ct-captivate)
-- [Blog](https://elearning.adobe.com/)
-- [Status Page](https://status.adobe.com/)
-- [Terms of Service](https://www.adobe.com/legal/terms.html)
-- [Privacy Policy](https://www.adobe.com/privacy.html)
-- [Contact](https://www.adobe.com/products/captivate/contact.html)
-- [Portal](https://experienceleague.adobe.com/docs/learning-manager/using/introduction.html)
-- [Getting Started](https://experienceleague.adobe.com/docs/learning-manager/using/getting-started/getting-started.html)
-- [Documentation](https://experienceleague.adobe.com/docs/learning-manager/using/home.html)
-- [Console](https://developer.adobe.com/console/)
-- [Changelog](https://experienceleague.adobe.com/docs/learning-manager/using/whats-new.html)
+The permissions the API asks for.
+
+- [Adobe Captivate Scopes](https://apis.io/scopes/adobe-captivate/adobe-captivate-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Adobe Captivate Plans Pricing](https://apis.io/plans/adobe-captivate/adobe-captivate-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Adobe Captivate Rate Limits](https://apis.io/rate-limits/adobe-captivate/adobe-captivate-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Adobe Captivate Finops](https://apis.io/finops/adobe-captivate/adobe-captivate-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://business.adobe.com/products/learning-manager/adobe-learning-manager.html)
-- [Login](https://learningmanager.adobe.com/)
-- [YouTube](https://www.youtube.com/user/AdobeELearning)
-- [GitHub Organization](https://github.com/adobe)
-- [JSON Schema](json-schema/adobe-captivate-learning-object-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/adobe-captivate-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Spectral Rules](rules/adobe-captivate-spectral-rules.yml)
-- [Vocabulary](vocabulary/adobe-captivate-vocabulary.yaml)
-- [JSON-LD](json-ld/adobe-captivate-learning-manager-webhooks-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON-LD](json-ld/adobe-captivate-prime-api-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Documentation](https://experienceleague.adobe.com/docs/learning-manager/using/home.html)
+- [Getting started](https://experienceleague.adobe.com/docs/learning-manager/using/getting-started/getting-started.html)
+- [Support](https://helpx.adobe.com/support/captivate.html)
+- [Changelog](https://experienceleague.adobe.com/docs/learning-manager/using/whats-new.html)
+- [Blog](https://elearning.adobe.com/)
+- [Terms of service](https://www.adobe.com/legal/terms.html)
+- [Privacy policy](https://www.adobe.com/privacy.html)
+- [GitHub](https://github.com/adobe)
+- [Status](https://status.adobe.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 47.0** — developing · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 48.2 |
+| Contract quality | 74.5 |
+| Contract governance | 27.3 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 45.2 |
+| Access clarity | 32.9 |
+
+**Agent readiness 34.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 40.2** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/adobe-captivate/](https://apis.io/providers/adobe-captivate/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Adobe Captivate: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/adobe-captivate/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
