@@ -1,0 +1,102 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Adobe Captivate
+providerId: adobe-captivate
+created: '2026-05-04'
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+method: generated
+modified: '2026-05-05'
+reconciled: false
+tags:
+  - eLearning
+  - Authoring
+  - LMS
+  - Training
+  - Content Creation
+notes: >-
+  Adobe Captivate is a desktop eLearning authoring tool. It is sold as a
+  standalone subscription (perpetual licenses were discontinued in 2022).
+  Captivate does not expose a public REST API; integrations are file-based
+  via SCORM, xAPI, and HTML5 packages exported from the desktop app.
+  Pricing list values were not retrievable via WebFetch and are deferred
+  to adobe.com.
+description: >-
+  Adobe Captivate is sold as a per-seat subscription via adobe.com. The
+  product is the desktop authoring tool itself (Windows / macOS); there is
+  no separately metered API.
+sources:
+  - https://www.adobe.com/products/captivate.html
+  - https://elearning.adobe.com/captivate/
+plans:
+  - id: adobe-captivate-individual
+    name: Captivate Individual Subscription
+    type: subscription
+    description: >-
+      Per-seat monthly or annual subscription to the Captivate desktop
+      authoring tool.
+    entries:
+      - label: Captivate seat
+        name: captivate_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: see https://www.adobe.com/products/captivate.html
+        userMultiplied: true
+    elements:
+      - name: Captivate authoring app (Windows / macOS)
+      - name: Asset library
+      - name: SCORM / xAPI publishing
+      - name: HTML5 export
+  - id: adobe-captivate-teams
+    name: Captivate Teams / Education
+    type: subscription
+    description: >-
+      Volume-license edition for teams, enterprises, and education customers,
+      sold via the Adobe Admin Console.
+    entries:
+      - label: Captivate seat (Teams / Education)
+        name: captivate_seat_teams
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: see https://www.adobe.com/products/captivate.html
+        userMultiplied: true
+    elements:
+      - name: Adobe Admin Console seat assignment
+      - name: Volume licensing
+      - name: Education / Government discounts (where eligible)
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - seat
+  plans:
+  - name: Captivate Individual Subscription
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - seat
+    periods:
+    - month
+  - name: Captivate Teams / Education
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - seat
+    periods:
+    - month
