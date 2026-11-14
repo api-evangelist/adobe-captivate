@@ -32,6 +32,12 @@ artifacts:
   capabilities/adobe-captivate-capability-edges.yml:
     method: unknown
     evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   collections/adobe-captivate-account-api.opencollection.json:
     method: derived
     evidence: openapi/adobe-captivate-account-api
@@ -296,6 +302,12 @@ artifacts:
   heartbeat/2026-11-02.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-06.yml:
+    method: unknown
+    evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
+    method: unknown
+    evidence: no authorship recorded
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -311,7 +323,73 @@ artifacts:
   json-ld/adobe-captivate-prime-api-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/adobe-captivate-catalog-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-catalog-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-certification-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-enrollment-create-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-enrollment-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-enrollment-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-gamification-points-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-job-create-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-job-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-job-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-learning-object-instance-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-learning-object-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-learning-object-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/adobe-captivate-learning-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-notification-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-skill-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-skill-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-user-group-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-user-group-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-user-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-user-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-user-skill-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/adobe-captivate-user-update-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/learning-manager-webhooks-badge-awarded-payload-schema.json:
@@ -668,7 +746,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -735,6 +813,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-02T082323.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   openapi/_original/adobe-captivate-prime-api-openapi.yml:
