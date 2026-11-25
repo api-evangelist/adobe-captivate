@@ -136,36 +136,36 @@ Which operations an agent can call, which act, and which need a human in the loo
 
 - [Adobe Captivate Agentic Access](https://apis.io/agentic-access/adobe-captivate/adobe-captivate-agentic-access/)
 
-#### JSON Schema (59)
+#### JSON Schema (81)
 
 The data models the API reads and writes.
 
+- [CatalogListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-catalog-list-response/)
+- [CatalogResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-catalog-response/)
+- [CertificationListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-certification-list-response/)
+- [EnrollmentCreateRequest](https://apis.io/schemas/adobe-captivate/adobe-captivate-enrollment-create-request/)
+- [EnrollmentListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-enrollment-list-response/)
+- [EnrollmentResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-enrollment-response/)
+- [GamificationPointsResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-gamification-points-response/)
+- [JobCreateRequest](https://apis.io/schemas/adobe-captivate/adobe-captivate-job-create-request/)
+- [JobListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-job-list-response/)
+- [JobResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-job-response/)
 - [Adobe Learning Manager Learning Object](https://apis.io/schemas/adobe-captivate/adobe-captivate-learning-object/)
+- [LearningObjectInstanceListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-learning-object-instance-list-response/)
+- [LearningObjectListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-learning-object-list-response/)
+- [LearningObjectResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-learning-object-response/)
+- [NotificationListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-notification-list-response/)
+- [SkillListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-skill-list-response/)
+- [SkillResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-skill-response/)
+- [UserGroupListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-user-group-list-response/)
+- [UserGroupResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-user-group-response/)
+- [UserListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-user-list-response/)
+- [UserResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-user-response/)
+- [UserSkillListResponse](https://apis.io/schemas/adobe-captivate/adobe-captivate-user-skill-list-response/)
+- [UserUpdateRequest](https://apis.io/schemas/adobe-captivate/adobe-captivate-user-update-request/)
 - [BadgeAwardedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-badge-awarded-payload/)
 - [CertificationCompletedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-certification-completed-payload/)
-- [CourseCreatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-course-created-payload/)
-- [CourseUpdatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-course-updated-payload/)
-- [JobCompletedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-job-completed-payload/)
-- [LearnerCompletionPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-completion-payload/)
-- [LearnerEnrollmentPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-enrollment-payload/)
-- [LearnerProgressPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-progress-payload/)
-- [LearnerReference](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-reference/)
-- [LearnerUnenrollmentPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learner-unenrollment-payload/)
-- [LearningObjectReference](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-learning-object-reference/)
-- [SkillAchievedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-skill-achieved-payload/)
-- [UserCreatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-user-created-payload/)
-- [UserDeletedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-user-deleted-payload/)
-- [UserUpdatedPayload](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-user-updated-payload/)
-- [WebhookEventBase](https://apis.io/schemas/adobe-captivate/learning-manager-webhooks-webhook-event-base/)
-- [Account](https://apis.io/schemas/adobe-captivate/prime-api-account/)
-- [AccountResponse](https://apis.io/schemas/adobe-captivate/prime-api-account-response/)
-- [Badge](https://apis.io/schemas/adobe-captivate/prime-api-badge/)
-- [BadgeListResponse](https://apis.io/schemas/adobe-captivate/prime-api-badge-list-response/)
-- [BadgeResponse](https://apis.io/schemas/adobe-captivate/prime-api-badge-response/)
-- [Catalog](https://apis.io/schemas/adobe-captivate/prime-api-catalog/)
-- [CatalogListResponse](https://apis.io/schemas/adobe-captivate/prime-api-catalog-list-response/)
-- [CatalogResponse](https://apis.io/schemas/adobe-captivate/prime-api-catalog-response/)
-- …and 34 more published on APIs.io
+- …and 56 more published on APIs.io
 
 #### JSON Structure (59)
 
@@ -319,18 +319,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 48.3** — developing · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 48.6** — developing · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 48.2 |
 | Contract quality | 74.5 |
 | Contract governance | 27.3 |
-| Operational transparency | 26.3 |
-| Developer ergonomics | 45.2 |
-| Access clarity | 32.9 |
+| Operational transparency | 26.2 |
+| Developer ergonomics | 47.6 |
+| Access clarity | 31.9 |
 
-**Agent readiness 38.4** — agent-ready
+**Agent readiness 37.6** — agent-ready
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -355,6 +355,10 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | paginated |
 | Operation Distinctiveness | distinct |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
 **Regulatory alignment 40.2** — Education & Research
 
